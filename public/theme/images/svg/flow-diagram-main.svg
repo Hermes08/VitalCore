@@ -7,10 +7,10 @@
         fill="rgba(10,13,26,0.86)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
   <text x="26" y="20"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(239,240,240,0.35)" letter-spacing="1.4">DATA SOURCE</text>
+        font-size="11" fill="rgba(239,240,240,0.35)" letter-spacing="1.4">INPUT SOURCE</text>
   <text x="26" y="34"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="14" font-weight="600" fill="#EFF0F0">Network Traffic Scan</text>
+        font-size="14" font-weight="600" fill="#EFF0F0">Blood Panel Analysis</text>
   <circle cx="26" cy="43" r="3" fill="#37c6f4" opacity="0.75"/>
   <text x="34" y="46"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
@@ -20,27 +20,27 @@
         fill="rgba(10,13,26,0.86)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
   <text x="26" y="70"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(239,240,240,0.35)" letter-spacing="1.4">DATA SOURCE</text>
+        font-size="11" fill="rgba(239,240,240,0.35)" letter-spacing="1.4">INPUT SOURCE</text>
   <text x="26" y="84"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="14" font-weight="600" fill="#EFF0F0">Endpoint Telemetry</text>
+        font-size="14" font-weight="600" fill="#EFF0F0">Biomarker Tracking</text>
   <circle cx="26" cy="93" r="3" fill="#37c6f4" opacity="0.75"/>
   <text x="34" y="96"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(55,198,244,0.60)">Streaming · 3 agents</text>
+        font-size="11" fill="rgba(55,198,244,0.60)">Streaming · 3 panels</text>
 
   <rect x="14" y="107" width="270" height="44" rx="6"
         fill="rgba(10,13,26,0.86)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
   <text x="26" y="120"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(239,240,240,0.35)" letter-spacing="1.4">DATA SOURCE</text>
+        font-size="11" fill="rgba(239,240,240,0.35)" letter-spacing="1.4">INPUT SOURCE</text>
   <text x="26" y="134"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="14" font-weight="600" fill="#EFF0F0">Log Intelligence</text>
+        font-size="14" font-weight="600" fill="#EFF0F0">Diet &amp; Lifestyle Data</text>
   <circle cx="26" cy="143" r="3" fill="#37c6f4" opacity="0.75"/>
   <text x="34" y="146"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(55,198,244,0.60)">4 feeds · SIEM</text>
+        font-size="11" fill="rgba(55,198,244,0.60)">4 sources · Integrated</text>
 
   <!-- CENTER AI ENGINE -->
   <rect x="770" y="7" width="350" height="136" rx="8"
@@ -48,18 +48,18 @@
   <rect x="770" y="7" width="350" height="2" rx="1" fill="rgba(55,198,244,0.50)"/>
   <text x="945" y="36" text-anchor="middle"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(55,198,244,0.40)" letter-spacing="2.2">ANALYSIS ENGINE</text>
+        font-size="11" fill="rgba(55,198,244,0.40)" letter-spacing="2.2">FORMULATION ENGINE</text>
   <text x="945" y="65" text-anchor="middle"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
         font-size="28" font-weight="600" fill="#EFF0F0" letter-spacing="-0.5">AI Engine</text>
   <text x="945" y="83" text-anchor="middle"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="12" fill="rgba(55,198,244,0.45)">Threat Intelligence · Real-time</text>
+        font-size="12" fill="rgba(55,198,244,0.45)">Nutrient Intelligence · Real-time</text>
   <line x1="806" y1="101" x2="1084" y2="101" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
   <circle cx="818" cy="118" r="3" fill="#37c6f4" opacity="0.60"/>
   <text x="826" y="121"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(55,198,244,0.45)">Processing 3 streams</text>
+        font-size="11" fill="rgba(55,198,244,0.45)">Processing 3 profiles</text>
   <circle cx="900" cy="133" r="2.5" fill="rgba(55,198,244,0.55)"/>
   <circle cx="913" cy="133" r="2.5" fill="rgba(55,198,244,0.30)"/>
   <circle cx="926" cy="133" r="2.5" fill="rgba(55,198,244,0.65)"/>
@@ -77,11 +77,11 @@
         font-size="11" fill="rgba(239,240,240,0.35)" letter-spacing="1.4">OUTCOME</text>
   <text x="1617" y="34"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="14" font-weight="600" fill="#EFF0F0">Confirmed Threat</text>
+        font-size="14" font-weight="600" fill="#EFF0F0">Deficiency Found</text>
   <circle cx="1617" cy="43" r="3" fill="#f04545" opacity="0.85"/>
   <text x="1625" y="46"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(240,69,69,0.65)">1% · Isolate &amp; Block</text>
+        font-size="11" fill="rgba(240,69,69,0.65)">1% · Target &amp; Resolve</text>
 
   <rect x="1605" y="57" width="270" height="44" rx="6"
         fill="rgba(10,13,26,0.86)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
@@ -90,11 +90,11 @@
         font-size="11" fill="rgba(239,240,240,0.35)" letter-spacing="1.4">OUTCOME</text>
   <text x="1617" y="84"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="14" font-weight="600" fill="#EFF0F0">Vulnerability</text>
+        font-size="14" font-weight="600" fill="#EFF0F0">Low Absorption</text>
   <circle cx="1617" cy="93" r="3" fill="#ffb347" opacity="0.85"/>
   <text x="1625" y="96"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(255,179,71,0.65)">6% · Patch in SLA</text>
+        font-size="11" fill="rgba(255,179,71,0.65)">6% · Optimize Formula</text>
 
   <rect x="1605" y="107" width="270" height="44" rx="6"
         fill="rgba(10,13,26,0.86)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
@@ -103,10 +103,10 @@
         font-size="11" fill="rgba(239,240,240,0.35)" letter-spacing="1.4">OUTCOME</text>
   <text x="1617" y="134"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="14" font-weight="600" fill="#EFF0F0">No Threat Found</text>
+        font-size="14" font-weight="600" fill="#EFF0F0">Optimal Levels</text>
   <circle cx="1617" cy="143" r="3" fill="#37c6f4" opacity="0.75"/>
   <text x="1625" y="146"
         font-family="'HelveticaNeue','Helvetica Neue',Arial,sans-serif"
-        font-size="11" fill="rgba(55,198,244,0.55)">93% · Audit &amp; Log</text>
+        font-size="11" fill="rgba(55,198,244,0.55)">93% · Monitor &amp; Log</text>
 
 </svg>
