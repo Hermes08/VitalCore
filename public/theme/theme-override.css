@@ -690,6 +690,49 @@ canvas,
   background: var(--vc-soft-blue) !important;
 }
 
+/* ── TESTIMONIAL QUOTES ── */
+.c-tile-quote {
+  background: var(--vc-white) !important;
+  border: 1px solid rgba(2, 58, 89, 0.08) !important;
+  border-radius: 12px !important;
+}
+
+.c-tile-quote__copy {
+  color: var(--vc-text-mid) !important;
+  line-height: 1.7 !important;
+  font-style: italic !important;
+}
+
+.c-tile-quote__author-name {
+  color: var(--vc-navy) !important;
+  font-weight: 600 !important;
+}
+
+.c-tile-quote__author-role {
+  color: var(--vc-text-light) !important;
+}
+
+/* ── BADGES ── */
+.a-badge {
+  background: rgba(3, 120, 186, 0.10) !important;
+  color: var(--vc-blue) !important;
+  border-radius: 16px !important;
+}
+
+.a-badge--red {
+  background: rgba(59, 155, 111, 0.10) !important;
+  color: var(--vc-green) !important;
+}
+
+/* ── COOKIES BANNER ── */
+.s-cookies {
+  background: var(--vc-navy) !important;
+}
+
+.s-cookies__title {
+  color: #FFFFFF !important;
+}
+
 /* ── ENSURE GRAPH SECTION STANDS OUT ── */
 .module--graph {
   background: linear-gradient(180deg, var(--vc-soft-blue) 0%, var(--vc-white) 100%) !important;
