@@ -145,10 +145,18 @@ body {
 
 .m-welcome__text,
 .m-welcome__description,
-.m-welcome__subtitle,
+.module--welcome .m-welcome__subtitle,
+.module--welcome .m-welcome__subtitle.js-subtitle,
 .module--welcome p,
-.module--welcome h2 {
+.module--welcome h2:not(.m-welcome__title) {
   color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Button link color override */
+a.a-button--primary,
+a.a-button--primary:visited,
+a.a-button--primary:hover {
+  color: #FFFFFF !important;
 }
 
 /* ── CONTENT SECTIONS — Light backgrounds ── */
