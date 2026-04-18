@@ -12,11 +12,7 @@
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="shortcut icon" href="./favicon.svg">
 <link rel="apple-touch-icon" href="./favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./public/theme/styles.css?v=1.0.47">
-<link rel="stylesheet" href="./public/theme/theme-override.css?v=1.0.47">
+<link rel="stylesheet" href="./public/theme/styles.css?v=1.0.46">
 <style>/* Override vitalcore is-not-ready for cross-domain */
 body.is-not-ready .wrapper{opacity:1!important}body.is-not-ready .m-welcome{opacity:1!important}body.is-not-ready .s-header{translate:none!important}body.is-not-ready .s-header__nav-item{translate:none!important;opacity:1!important}body.is-not-ready .quick-access__link{display:block!important}
 /* ── vc-loaded: garantiza que el wrapper sea visible al revelar la página ── */
@@ -35,7 +31,7 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
   height: 100%;
   min-height: 100vh;
   min-height: 100dvh; /* cubre la barra de dirección en Safari móvil */
-  background: linear-gradient(135deg, #023A59 0%, #033D6B 50%, #0378BA 100%);
+  background: #13151A;
   z-index: 999999;
   display: flex;
   align-items: center;
@@ -53,7 +49,7 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
 .vc-loader__shield {
   width: 72px;
   height: 72px;
-  filter: drop-shadow(0 0 18px rgba(71,184,129,0.5));
+  filter: drop-shadow(0 0 18px rgba(0,231,160,0.5));
   animation: vc-breathe 2s ease-in-out infinite;
 }
 .vc-loader__name {
@@ -78,7 +74,7 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
   left: 0; top: 0;
   height: 100%;
   width: 45%;
-  background: linear-gradient(90deg, transparent 0%, #0378BA 40%, #47B881 70%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, #00B4D8 40%, #00D4AA 3x, transparent 100%);
   border-radius: 2px;
   animation: vc-slide 1.6s ease-in-out infinite;
 }
@@ -93,7 +89,7 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
 /* vc-confirming: barra se expande hasta llenar → "todo listo" */
 #vc-loader.vc-confirming .vc-loader__bar::after {
   animation: vc-confirm-fill 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards !important;
-  background: linear-gradient(90deg, #47B881 0%, #0378BA 50%, #9FDE33 100%) !important;
+  background: linear-gradient(90deg, #00E7A0 0%, #00B4D8 50%, #00D4AA 100%) !important;
   transform: none !important;
   left: 0 !important;
 }
@@ -165,8 +161,8 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
   <svg class="vc-loader__shield" viewBox="0 0 64 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <linearGradient id="psl-g1" x1="0" y1="0" x2="64" y2="72" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#0378BA"/>
-        <stop offset="100%" stop-color="#3B9B6F"/>
+        <stop offset="0%" stop-color="#00B4D8"/>
+        <stop offset="100%" stop-color="#00E7A0"/>
       </linearGradient>
     </defs>
     <path d="M32 2L4 14v22c0 15.9 12.1 30.7 28 34 15.9-3.3 28-18.1 28-34V14L32 2z" fill="url(#psl-g1)"/>
@@ -254,8 +250,8 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
   <div class="s-header__wrap wrap js-wrap">
     <a href="./index.html" class="s-header__logo is-active" data-ga="[&quot;click&quot;, &quot;header-logo&quot;, &quot;logo&quot;]">
       <svg class="svg-vc-logo" width="168" height="30" viewBox="0 0 168 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M12 3L4 7v7.5c0 5.2 3.3 9.8 8 12 4.7-2.2 8-6.8 8-12V7L12 3z" fill="none" stroke="#3B9B6F" stroke-width="1.5"/>
-  <path d="M9.5 14.5l2 2 4-4" stroke="#3B9B6F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 3L4 7v7.5c0 5.2 3.3 9.8 8 12 4.7-2.2 8-6.8 8-12V7L12 3z" fill="none" stroke="#00E7A0" stroke-width="1.5"/>
+  <path d="M9.5 14.5l2 2 4-4" stroke="#00E7A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="30" y="21" font-family="DM Sans,sans-serif" font-weight="600" font-size="15" fill="#EFF0F0" letter-spacing="0">VitalCore</text>
 </svg>
     </a>
@@ -351,8 +347,8 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
 </svg></div>
     <p class="c-alert__text">Limited Time: Get 25% Off Your First VitalCore Order - Free Shipping on Orders Over $75</p>
     <div class="c-alert__arrow">
-        <svg class="svg-icon-arrow" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 15.071L16.571 8 9.5.929M16 8H.5" stroke="#3B9B6F" stroke-linecap="square" stroke-linejoin="bevel"></path></svg>
-        <svg class="svg-icon-arrow" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 15.071L16.571 8 9.5.929M16 8H.5" stroke="#3B9B6F" stroke-linecap="square" stroke-linejoin="bevel"></path></svg>
+        <svg class="svg-icon-arrow" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 15.071L16.571 8 9.5.929M16 8H.5" stroke="#00E7A0" stroke-linecap="square" stroke-linejoin="bevel"></path></svg>
+        <svg class="svg-icon-arrow" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 15.071L16.571 8 9.5.929M16 8H.5" stroke="#00E7A0" stroke-linecap="square" stroke-linejoin="bevel"></path></svg>
     </div>
 </a>
     
@@ -425,8 +421,8 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
                     <svg class="svg-ui-graph-published" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 336 189">
   <defs>
     <linearGradient id="linear-gradient" x1="17.94" y1="659" x2="320.26" y2="659" gradientTransform="translate(0 -578)" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0378BA"></stop>
-      <stop offset="1" stop-color="#3B9B6F"></stop>
+      <stop offset="0" stop-color="#00e7fb"></stop>
+      <stop offset="1" stop-color="#e628ff"></stop>
     </linearGradient>
   </defs>
   <line x1="2" y1="173.5" x2="334" y2="173.5" fill="none" isolation="isolate" opacity=".6" stroke="#83919b" stroke-dasharray="1.26 1.89"></line>
@@ -600,8 +596,8 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
          
             <div class="col-span-2 col-start-6 m-graph__logo">
                 <svg class="svg-vc-logo" width="168" height="30" viewBox="0 0 168 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M12 3L4 7v7.5c0 5.2 3.3 9.8 8 12 4.7-2.2 8-6.8 8-12V7L12 3z" fill="none" stroke="#3B9B6F" stroke-width="1.5"/>
-  <path d="M9.5 14.5l2 2 4-4" stroke="#3B9B6F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 3L4 7v7.5c0 5.2 3.3 9.8 8 12 4.7-2.2 8-6.8 8-12V7L12 3z" fill="none" stroke="#00E7A0" stroke-width="1.5"/>
+  <path d="M9.5 14.5l2 2 4-4" stroke="#00E7A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="30" y="21" font-family="DM Sans,sans-serif" font-weight="600" font-size="15" fill="#EFF0F0" letter-spacing="0">VitalCore</text>
 </svg>
             </div>
@@ -633,26 +629,26 @@ body.vc-loaded .c-tile-article{transition-delay:0ms!important}
     <!--?xml version="1.0" encoding="UTF-8"?-->
 <svg class="svg-flow-diagram-paths" id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="1204" height="535" version="1.1" viewBox="0 0 1204 535">
   <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
-  <path d="M1175,480.3c-155.4-1-159-26.5-326.1-26.5s-191.9,22.1-383.8,22.1-144.6-61.8-281.2-61.8" fill="none" stroke="#0378BA" stroke-miterlimit="10"></path>
-  <path d="M1175,465.2c-155.4-1-159,32.7-326.1,32.7s-191.9-45.1-383.8-45.1-144.6-61.8-281.2-61.8" fill="none" stroke="#0378BA" stroke-miterlimit="10"></path>
-  <path d="M1175,450.2c-155.4-1-159,17.7-326.1,17.7s-191.9,31.8-383.8,31.8-144.6-61.8-281.2-61.8" fill="none" stroke="#0378BA" stroke-miterlimit="10"></path>
-  <path d="M1175,146.2c-662.5,0-279.6-69.2-991-69.2" fill="none" stroke="#0378BA" stroke-miterlimit="10"></path>
-  <path d="M1175,302c-155.4-1-99,1.4-266.1,1.4s-211.9-174.9-403.8-174.9-184.6-.8-321.2-.8" fill="none" stroke="#0378BA" stroke-miterlimit="10"></path>
-  <path d="M1175,326c-155.4-1-89,1.4-256.1,1.4s-251.9-174.9-443.8-174.9-154.6-.8-291.2-.8" fill="none" stroke="#0378BA" stroke-miterlimit="10"></path>
-  <path d="M1175,509c-155.4-1-149-31.6-316.1-31.6s-191.9-45.9-383.8-45.9-154.6-63.8-291.2-63.8" fill="none" stroke="#0378BA" stroke-miterlimit="10"></path>
-  <path d="M1175,495c-155.4-1-169-53.6-336.1-53.6s-171.9-29.9-363.8-29.9-154.6-66.8-291.2-66.8" fill="none" stroke="#0378BA" stroke-miterlimit="10"></path>
+  <path d="M1175,480.3c-155.4-1-159-26.5-326.1-26.5s-191.9,22.1-383.8,22.1-144.6-61.8-281.2-61.8" fill="none" stroke="#37c6f4" stroke-miterlimit="10"></path>
+  <path d="M1175,465.2c-155.4-1-159,32.7-326.1,32.7s-191.9-45.1-383.8-45.1-144.6-61.8-281.2-61.8" fill="none" stroke="#37c6f4" stroke-miterlimit="10"></path>
+  <path d="M1175,450.2c-155.4-1-159,17.7-326.1,17.7s-191.9,31.8-383.8,31.8-144.6-61.8-281.2-61.8" fill="none" stroke="#37c6f4" stroke-miterlimit="10"></path>
+  <path d="M1175,146.2c-662.5,0-279.6-69.2-991-69.2" fill="none" stroke="#37c6f4" stroke-miterlimit="10"></path>
+  <path d="M1175,302c-155.4-1-99,1.4-266.1,1.4s-211.9-174.9-403.8-174.9-184.6-.8-321.2-.8" fill="none" stroke="#37c6f4" stroke-miterlimit="10"></path>
+  <path d="M1175,326c-155.4-1-89,1.4-256.1,1.4s-251.9-174.9-443.8-174.9-154.6-.8-291.2-.8" fill="none" stroke="#37c6f4" stroke-miterlimit="10"></path>
+  <path d="M1175,509c-155.4-1-149-31.6-316.1-31.6s-191.9-45.9-383.8-45.9-154.6-63.8-291.2-63.8" fill="none" stroke="#37c6f4" stroke-miterlimit="10"></path>
+  <path d="M1175,495c-155.4-1-169-53.6-336.1-53.6s-171.9-29.9-363.8-29.9-154.6-66.8-291.2-66.8" fill="none" stroke="#37c6f4" stroke-miterlimit="10"></path>
 </svg>
     <!--?xml version="1.0" encoding="UTF-8"?-->
 <svg class="svg-flow-diagram-paths-mobile" id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="345" height="653" version="1.1" viewBox="0 0 345 653">
   <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
-  <path d="M47.2,653c.7-98.6,17.7-100.8,17.7-206.8s-14.7-121.7-14.7-243.4S91.4,111.1,91.4,24.5" fill="none" stroke="#0378BA" stroke-miterlimit="10" stroke-width=".7"></path>
-  <path d="M57.3,653c.7-98.6-21.8-100.8-21.8-206.8s30.1-121.7,30.1-243.4S106.8,111.1,106.8,24.5" fill="none" stroke="#0378BA" stroke-miterlimit="10" stroke-width=".7"></path>
-  <path d="M67.3,653c.7-98.6-11.8-100.8-11.8-206.8s-21.2-121.7-21.2-243.4S75.4,111.1,75.4,24.5" fill="none" stroke="#0378BA" stroke-miterlimit="10" stroke-width=".7"></path>
-  <path d="M269.9,653c0-420.2,46.1-177.4,46.1-628.5" fill="none" stroke="#0378BA" stroke-miterlimit="10" stroke-width=".7"></path>
-  <path d="M166.1,653c.7-98.6-.9-62.8-.9-168.7s116.5-134.4,116.5-256.1.5-117.1.5-203.7" fill="none" stroke="#0378BA" stroke-miterlimit="10" stroke-width=".7"></path>
-  <path d="M150,653c.7-98.6-.9-56.4-.9-162.4s116.5-159.7,116.5-281.4.5-98,.5-184.7" fill="none" stroke="#0378BA" stroke-miterlimit="10" stroke-width=".7"></path>
-  <path d="M28.1,653c.7-98.6,21-94.5,21-200.4s30.6-121.7,30.6-243.4S122.2,111.1,122.2,24.5" fill="none" stroke="#0378BA" stroke-miterlimit="10" stroke-width=".7"></path>
-  <path d="M37.4,653c.7-98.6,35.7-107.2,35.7-213.1s19.9-109,19.9-230.7,44.5-98,44.5-184.7" fill="none" stroke="#0378BA" stroke-miterlimit="10" stroke-width=".7"></path>
+  <path d="M47.2,653c.7-98.6,17.7-100.8,17.7-206.8s-14.7-121.7-14.7-243.4S91.4,111.1,91.4,24.5" fill="none" stroke="#37c6f4" stroke-miterlimit="10" stroke-width=".7"></path>
+  <path d="M57.3,653c.7-98.6-21.8-100.8-21.8-206.8s30.1-121.7,30.1-243.4S106.8,111.1,106.8,24.5" fill="none" stroke="#37c6f4" stroke-miterlimit="10" stroke-width=".7"></path>
+  <path d="M67.3,653c.7-98.6-11.8-100.8-11.8-206.8s-21.2-121.7-21.2-243.4S75.4,111.1,75.4,24.5" fill="none" stroke="#37c6f4" stroke-miterlimit="10" stroke-width=".7"></path>
+  <path d="M269.9,653c0-420.2,46.1-177.4,46.1-628.5" fill="none" stroke="#37c6f4" stroke-miterlimit="10" stroke-width=".7"></path>
+  <path d="M166.1,653c.7-98.6-.9-62.8-.9-168.7s116.5-134.4,116.5-256.1.5-117.1.5-203.7" fill="none" stroke="#37c6f4" stroke-miterlimit="10" stroke-width=".7"></path>
+  <path d="M150,653c.7-98.6-.9-56.4-.9-162.4s116.5-159.7,116.5-281.4.5-98,.5-184.7" fill="none" stroke="#37c6f4" stroke-miterlimit="10" stroke-width=".7"></path>
+  <path d="M28.1,653c.7-98.6,21-94.5,21-200.4s30.6-121.7,30.6-243.4S122.2,111.1,122.2,24.5" fill="none" stroke="#37c6f4" stroke-miterlimit="10" stroke-width=".7"></path>
+  <path d="M37.4,653c.7-98.6,35.7-107.2,35.7-213.1s19.9-109,19.9-230.7,44.5-98,44.5-184.7" fill="none" stroke="#37c6f4" stroke-miterlimit="10" stroke-width=".7"></path>
 </svg>
 
 
@@ -1040,7 +1036,7 @@ not just one-time fixes</h2>
             <div class="m-slider__wrapper swiper-wrapper" data-observe="children">
                                     <div class="m-slider__slide swiper-slide">
                                                     <div class="c-tile-quote">
-    <div class="c-tile-quote__copy">What sets VitalCore apart is how personalized it feels. We’re a small wellness brand — we don’t have an in-house nutrition scientist. They gave us clear guidance, helped us pick the right formulations, and supported us through every step. That’s exactly what we needed.</div>
+    <div class="c-tile-quote__copy">What sets VitalCore apart is that they speak our language. We’re a 50-person company — we don’t have a CISO. They gave us a clear roadmap, helped us prioritize, and stayed with us through remediation. That’s exactly what we needed.</div>
 
     <div class="c-tile-quote__author">
         <div class="a-dotted-plus
