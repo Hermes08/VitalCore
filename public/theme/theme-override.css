@@ -1,0 +1,693 @@
+/* =============================================
+   VITALCORE — CLEAN WELLNESS THEME OVERRIDE
+   Inspired by LifeSeasons.com
+   ============================================= */
+
+/* ── COLOR SYSTEM ── */
+:root {
+  /* Primary palette */
+  --vc-navy: #023A59;
+  --vc-navy-light: #033D6B;
+  --vc-blue: #0378BA;
+  --vc-blue-light: #4DA3D4;
+  --vc-green: #3B9B6F;
+  --vc-green-bright: #47B881;
+  --vc-green-lime: #9FDE33;
+
+  /* Backgrounds */
+  --vc-white: #FFFFFF;
+  --vc-off-white: #F9FCFF;
+  --vc-soft-blue: #EBF2F9;
+  --vc-soft-gray: #F4F6FA;
+
+  /* Text */
+  --vc-text-dark: #1A2B3D;
+  --vc-text-mid: #3D5167;
+  --vc-text-light: #6B7F94;
+  --vc-text-muted: #8F9FB0;
+
+  /* Overrides for existing CSS vars */
+  --color-bg: #FFFFFF !important;
+  --color-text: #1A2B3D !important;
+}
+
+/* ── GLOBAL OVERRIDES ── */
+html {
+  background-color: var(--vc-white) !important;
+}
+
+body {
+  background-color: var(--vc-white) !important;
+  color: var(--vc-text-dark) !important;
+  font-family: 'Inter', 'Sofia Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* ── PRELOADER — keep dark with blue tones ── */
+#vc-loader {
+  background: linear-gradient(135deg, #023A59 0%, #033D6B 50%, #0378BA 100%) !important;
+}
+.vc-loader__bar::after {
+  background: linear-gradient(90deg, transparent 0%, #47B881 40%, #9FDE33 70%, transparent 100%) !important;
+}
+#vc-loader.vc-confirming .vc-loader__bar::after {
+  background: linear-gradient(90deg, #47B881 0%, #3B9B6F 50%, #9FDE33 100%) !important;
+}
+
+/* ── HEADER / NAVIGATION ── */
+.s-header {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(2, 58, 89, 0.08) !important;
+}
+
+.s-header__bg {
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+.s-header .wrap,
+.s-header__wrap {
+  background: transparent !important;
+}
+
+/* Nav links */
+.s-header__nav-item,
+.s-header__nav-link,
+.s-header a,
+.nav-link,
+.s-header__nav-item a {
+  color: var(--vc-navy) !important;
+  font-weight: 500 !important;
+}
+
+.s-header__nav-item:hover a,
+.s-header__nav-link:hover {
+  color: var(--vc-blue) !important;
+}
+
+/* Logo text */
+.s-header__logo,
+.s-header__logo a,
+.s-header .logo,
+.logo-text {
+  color: var(--vc-navy) !important;
+}
+
+/* Quick access / CTA buttons in header */
+.quick-access__link,
+.s-header .btn,
+.c-cta {
+  background: var(--vc-green) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 6px !important;
+}
+
+.quick-access__link:hover,
+.s-header .btn:hover {
+  background: var(--vc-green-bright) !important;
+}
+
+/* ── HERO / WELCOME SECTION — keep dark with blue gradient overlay ── */
+.module--welcome {
+  position: relative;
+}
+
+.module--welcome::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(2, 58, 89, 0.85) 0%,
+    rgba(3, 61, 107, 0.70) 40%,
+    rgba(3, 120, 186, 0.50) 100%
+  ) !important;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.module--welcome .m-welcome,
+.module--welcome .m-welcome__content {
+  position: relative;
+  z-index: 2;
+}
+
+.m-welcome__title,
+.m-welcome__heading,
+.module--welcome h1,
+.module--welcome h2 {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.m-welcome__text,
+.m-welcome__description,
+.module--welcome p {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ── CONTENT SECTIONS — Light backgrounds ── */
+.module--story,
+.module--graph,
+.module--articles,
+.module--slider {
+  background-color: var(--vc-white) !important;
+}
+
+/* Alternating sections */
+.module--story:nth-of-type(even) {
+  background-color: var(--vc-soft-blue) !important;
+}
+
+/* All section headings */
+.module--story h2,
+.module--story h3,
+.module--graph h2,
+.module--graph h3,
+.module--articles h2,
+.module--slider h2,
+.module h2,
+.module h3,
+.m-story__title,
+.m-graph__title,
+.c-article__title,
+.section-title {
+  color: var(--vc-navy) !important;
+  font-weight: 700 !important;
+}
+
+/* All section body text */
+.module--story p,
+.module--graph p,
+.module--articles p,
+.module--slider p,
+.module p,
+.m-story__text,
+.m-graph__text,
+.m-story__description {
+  color: var(--vc-text-mid) !important;
+  line-height: 1.7 !important;
+}
+
+/* Section subtitles / labels */
+.m-story__label,
+.m-graph__label,
+.module__label,
+.section-label {
+  color: var(--vc-blue) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+/* ── STORY CARDS / FEATURE BLOCKS ── */
+.m-story__item,
+.c-feature,
+.c-card,
+[class*="story__item"],
+[class*="feature-card"] {
+  background: var(--vc-white) !important;
+  border: 1px solid rgba(2, 58, 89, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 12px rgba(2, 58, 89, 0.06) !important;
+}
+
+.m-story__item:hover,
+.c-feature:hover,
+.c-card:hover {
+  box-shadow: 0 8px 30px rgba(2, 58, 89, 0.12) !important;
+  border-color: rgba(3, 120, 186, 0.15) !important;
+}
+
+/* Card titles */
+.m-story__item h3,
+.m-story__item h4,
+.c-feature__title,
+.c-card__title {
+  color: var(--vc-navy) !important;
+}
+
+/* Card text */
+.m-story__item p,
+.c-feature__text,
+.c-card__text {
+  color: var(--vc-text-mid) !important;
+}
+
+/* ── GRAPH / STATS SECTION ── */
+.module--graph {
+  background: var(--vc-soft-blue) !important;
+}
+
+.m-graph__bar,
+.c-graph__bar {
+  background: var(--vc-blue) !important;
+}
+
+.m-graph__value,
+.c-graph__value {
+  color: var(--vc-navy) !important;
+  font-weight: 700 !important;
+}
+
+/* ── BUTTONS ── */
+.c-btn,
+.btn,
+.button,
+a.c-btn,
+.m-story__btn,
+[class*="btn--primary"] {
+  background: var(--vc-green) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+.c-btn:hover,
+.btn:hover,
+.button:hover,
+a.c-btn:hover,
+[class*="btn--primary"]:hover {
+  background: var(--vc-green-bright) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 16px rgba(59, 155, 111, 0.3) !important;
+}
+
+/* Secondary / outline buttons */
+[class*="btn--secondary"],
+[class*="btn--outline"],
+.c-btn--secondary {
+  background: transparent !important;
+  color: var(--vc-blue) !important;
+  border: 2px solid var(--vc-blue) !important;
+}
+
+[class*="btn--secondary"]:hover,
+[class*="btn--outline"]:hover,
+.c-btn--secondary:hover {
+  background: var(--vc-blue) !important;
+  color: #FFFFFF !important;
+}
+
+/* ── CTA SECTION — Blue gradient ── */
+.module--cta {
+  background: linear-gradient(135deg, #023A59 0%, #033D6B 40%, #0378BA 100%) !important;
+}
+
+.module--cta h2,
+.module--cta h3,
+.module--cta .m-cta__title {
+  color: #FFFFFF !important;
+}
+
+.module--cta p,
+.module--cta .m-cta__text {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.module--cta .c-btn,
+.module--cta .btn {
+  background: var(--vc-green-lime) !important;
+  color: var(--vc-navy) !important;
+  font-weight: 700 !important;
+}
+
+.module--cta .c-btn:hover,
+.module--cta .btn:hover {
+  background: #B8EB55 !important;
+}
+
+/* ── SLIDER / TESTIMONIALS ── */
+.module--slider {
+  background: var(--vc-off-white) !important;
+}
+
+.c-slider__item,
+.c-testimonial {
+  background: var(--vc-white) !important;
+  border: 1px solid rgba(2, 58, 89, 0.06) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(2, 58, 89, 0.04) !important;
+}
+
+/* ── ARTICLES / BLOG TILES ── */
+.module--articles {
+  background: var(--vc-soft-gray) !important;
+}
+
+.c-tile-article,
+.c-article,
+[class*="tile-article"] {
+  background: var(--vc-white) !important;
+  border: 1px solid rgba(2, 58, 89, 0.06) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 10px rgba(2, 58, 89, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.c-tile-article:hover,
+.c-article:hover {
+  box-shadow: 0 8px 28px rgba(2, 58, 89, 0.12) !important;
+  transform: translateY(-3px) !important;
+}
+
+.c-tile-article__title,
+.c-article__title,
+[class*="tile-article__title"] {
+  color: var(--vc-navy) !important;
+  font-weight: 600 !important;
+}
+
+.c-tile-article__tag,
+.c-article__tag,
+[class*="tile-article__tag"] {
+  color: var(--vc-blue) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+.c-tile-article__text,
+.c-article__text {
+  color: var(--vc-text-mid) !important;
+}
+
+/* ── FOOTER ── */
+.s-footer,
+footer {
+  background: var(--vc-navy) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.s-footer a,
+footer a {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.s-footer a:hover,
+footer a:hover {
+  color: var(--vc-green-lime) !important;
+}
+
+.s-footer h3,
+.s-footer h4,
+footer h3,
+footer h4,
+.s-footer__title {
+  color: #FFFFFF !important;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vc-soft-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vc-blue-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vc-blue);
+}
+
+/* ── LINKS ── */
+a {
+  color: var(--vc-blue) !important;
+}
+
+a:hover {
+  color: var(--vc-navy) !important;
+}
+
+/* Don't override links inside hero, CTA, or footer */
+.module--welcome a,
+.module--cta a,
+.s-footer a,
+footer a {
+  color: inherit !important;
+}
+
+/* ── ACCENT LINES / DECORATIONS ── */
+.c-line,
+.accent-line,
+[class*="accent"],
+.m-story__line {
+  background: var(--vc-green) !important;
+}
+
+/* ── FLOW DIAGRAM / SVG SECTION ── */
+.module--graph .c-graph,
+.m-graph {
+  background: var(--vc-soft-blue) !important;
+}
+
+/* ── ICON COLORS ── */
+.c-icon,
+[class*="icon"] svg {
+  color: var(--vc-blue) !important;
+}
+
+/* ── TAGS / BADGES ── */
+.tag,
+.badge,
+.c-tag {
+  background: rgba(3, 120, 186, 0.08) !important;
+  color: var(--vc-blue) !important;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+}
+
+/* ── NUMBER / STAT HIGHLIGHTS ── */
+.c-stat__number,
+.m-story__number,
+[class*="stat__value"],
+[class*="counter"] {
+  color: var(--vc-blue) !important;
+  font-weight: 800 !important;
+}
+
+.c-stat__label,
+.m-story__stat-label {
+  color: var(--vc-text-light) !important;
+}
+
+/* ── SELECTION COLOR ── */
+::selection {
+  background: rgba(3, 120, 186, 0.2);
+  color: var(--vc-navy);
+}
+
+/* ── RESPONSIVE TWEAKS ── */
+@media (max-width: 768px) {
+  .s-header {
+    background: rgba(255, 255, 255, 0.98) !important;
+  }
+
+  .module--welcome::before {
+    background: linear-gradient(
+      180deg,
+      rgba(2, 58, 89, 0.90) 0%,
+      rgba(3, 61, 107, 0.75) 100%
+    ) !important;
+  }
+}
+
+/* ── GENERAL DARK BACKGROUND OVERRIDES ── */
+/* Catch any remaining dark backgrounds */
+[style*="background-color: rgb(15, 21, 35)"],
+[style*="background-color: rgb(10, 13, 26)"],
+[style*="background:#0F1523"],
+[style*="background:#0A0D1A"],
+[style*="background: #0F1523"],
+[style*="background: #0A0D1A"] {
+  background-color: var(--vc-white) !important;
+}
+
+/* ── WRAPPER & CONTENT ── */
+.wrapper,
+#wrapper,
+.content,
+#content,
+main {
+  background: transparent !important;
+}
+
+/* ── SMOOTH TRANSITIONS ── */
+* {
+  transition-property: background-color, color, border-color, box-shadow, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+/* Don't transition everything - exclude animations */
+canvas,
+.s-gfx,
+[class*="particle"],
+[class*="three"],
+[class*="webgl"] {
+  transition: none !important;
+}
+
+/* ── UI BOXES (stat cards in story sections) ── */
+.c-ui-box {
+  background: var(--vc-white) !important;
+  border: 1px solid rgba(2, 58, 89, 0.10) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 6px rgba(2, 58, 89, 0.05) !important;
+}
+
+.c-ui-box__number {
+  color: var(--vc-blue) !important;
+  font-weight: 800 !important;
+}
+
+.c-ui-box__text {
+  color: var(--vc-text-mid) !important;
+}
+
+.c-ui-box__overlay-year {
+  color: var(--vc-text-light) !important;
+}
+
+.c-ui-box__overlay-number {
+  color: var(--vc-navy) !important;
+  font-weight: 700 !important;
+}
+
+.c-ui-box__overlay-label {
+  color: var(--vc-text-muted) !important;
+}
+
+/* ── PROGRESS SIDEBAR ── */
+.s-progress__number {
+  color: var(--vc-blue) !important;
+  font-weight: 700 !important;
+}
+
+.s-progress__dot {
+  background: var(--vc-green) !important;
+}
+
+.s-progress__line {
+  border-color: rgba(2, 58, 89, 0.12) !important;
+}
+
+.dotted-line {
+  border-color: rgba(2, 58, 89, 0.10) !important;
+}
+
+/* ── GRAPH SECTION STEPS ── */
+.m-graph__step-number {
+  color: var(--vc-blue) !important;
+  font-weight: 800 !important;
+}
+
+.m-graph__step-text {
+  color: var(--vc-text-mid) !important;
+}
+
+/* ── STREAM / FLOW DIAGRAM ── */
+.c-stream__popup {
+  background: var(--vc-white) !important;
+  border: 1px solid rgba(2, 58, 89, 0.10) !important;
+  color: var(--vc-text-dark) !important;
+  box-shadow: 0 4px 20px rgba(2, 58, 89, 0.12) !important;
+}
+
+.c-stream__hotspot .svg-circle circle {
+  stroke: var(--vc-blue) !important;
+}
+
+/* ── BUTTON / PRIMARY ACCENT DOTS ── */
+.a-button--primary .a-button__dot {
+  background: var(--vc-green) !important;
+}
+
+.a-button--primary .a-button__text {
+  color: #FFFFFF !important;
+}
+
+.a-button--primary {
+  background: var(--vc-green) !important;
+  border-radius: 8px !important;
+}
+
+.a-button--primary:hover {
+  background: var(--vc-green-bright) !important;
+}
+
+/* ── SLIDER ARROWS / CONTROLS ── */
+.c-slider__arrow,
+.swiper-button-prev,
+.swiper-button-next {
+  background: var(--vc-white) !important;
+  color: var(--vc-navy) !important;
+  border: 1px solid rgba(2, 58, 89, 0.10) !important;
+  border-radius: 50% !important;
+}
+
+/* ── GRAPH LOGO TEXT (in dark section keep white, override for light) ── */
+.m-graph__logo text,
+.svg-vc-logo text {
+  fill: var(--vc-navy) !important;
+}
+
+/* ── KEEP 3D CANVAS AREA DARK ── */
+.s-gfx {
+  background: transparent !important;
+}
+
+/* Canvas renders on body bg, so ensure the section behind hero stays dark */
+.module--welcome {
+  background: #0A1628 !important;
+}
+
+/* But sections AFTER hero should be light */
+.module--story,
+.module--graph,
+.module--articles,
+.module--slider {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── MOBILE NAV ── */
+.s-header__menu-button,
+.s-header__burger {
+  color: var(--vc-navy) !important;
+}
+
+.s-header__nav {
+  background: var(--vc-white) !important;
+}
+
+/* ── SCROLL DOWN INDICATOR ── */
+.m-welcome__scroll {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* ── PARTNER / LOGO SECTION ── */
+.module--partners,
+.c-partners {
+  background: var(--vc-soft-blue) !important;
+}
+
+/* ── ENSURE GRAPH SECTION STANDS OUT ── */
+.module--graph {
+  background: linear-gradient(180deg, var(--vc-soft-blue) 0%, var(--vc-white) 100%) !important;
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+}
