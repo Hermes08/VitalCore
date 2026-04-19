@@ -65,17 +65,19 @@
   .card{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
   @media(max-width:560px){.grid{grid-template-columns:1fr}}
 
-  .card{background:var(--bg);padding:26px 24px 24px;min-height:340px;position:relative;cursor:pointer;display:flex;flex-direction:column;gap:12px;transition:background .35s;overflow:hidden;margin-right:-1px;margin-bottom:-1px}
+  .card{background:var(--bg);padding:18px 18px 16px;min-height:220px;position:relative;cursor:pointer;display:flex;flex-direction:column;gap:8px;transition:background .35s;overflow:hidden;margin-right:-1px;margin-bottom:-1px}
+  @media(max-width:560px){.card{min-height:200px;padding:14px 14px 12px;gap:6px}}
   .card:hover{background:var(--bg-deep)}
   .card .topline{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
   .card .idx{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
   .card .tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--bg);background:var(--accent);padding:3px 8px;text-transform:uppercase;border-radius:2px}
   .card .tag.sage{background:var(--sage)}
   .card .tag.ochre{background:var(--ochre)}
-  .card .orb-wrap{position:relative;flex:1;min-height:180px;display:flex;align-items:center;justify-content:center;margin:16px 0;perspective:600px}
-  .card .orb{width:180px;height:180px;border-radius:50%;filter:blur(28px);opacity:.55;transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .5s;position:absolute;mix-blend-mode:multiply}
-  .card:hover .orb{transform:scale(1.3);opacity:.8}
-  .card .halo-ring{position:absolute;width:150px;height:150px;border-radius:50%;border:1px solid var(--c2);opacity:.12;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+  .card .orb-wrap{position:relative;flex:1;min-height:88px;display:flex;align-items:center;justify-content:center;margin:4px 0;perspective:600px}
+  @media(max-width:560px){.card .orb-wrap{min-height:78px;margin:2px 0}}
+  .card .orb{width:90px;height:90px;border-radius:50%;filter:blur(18px);opacity:.45;transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .5s;position:absolute;mix-blend-mode:multiply}
+  .card:hover .orb{transform:scale(1.25);opacity:.7}
+  .card .halo-ring{position:absolute;width:76px;height:76px;border-radius:50%;border:1px solid var(--c2);opacity:.12;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
   .card:hover .halo-ring{transform:scale(1.15) rotate(12deg);opacity:.22}
   .card .pill{position:relative;z-index:2;width:64px;height:148px;border-radius:999px;display:flex;overflow:hidden;transform:rotate(12deg);transition:transform .6s cubic-bezier(.2,.7,.2,1);
     box-shadow:
@@ -132,6 +134,151 @@
   .modal .vis .big-seam{position:absolute;z-index:3;left:50%;top:50%;width:148px;height:1px;background:rgba(0,0,0,.3);transform:translate(-50%,-50%) rotate(14deg)}
   .modal .vis .vis-label{position:absolute;bottom:14px;left:16px;font-family:var(--mono);font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);z-index:4}
   .modal .vis .vis-label-r{position:absolute;top:14px;right:16px;font-family:var(--mono);font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);z-index:4}
+  /* ————— FORM-SPECIFIC SHAPES ————— */
+  /* Sizes: card ≈ 150px tall, big ≈ 300px tall */
+
+  /* CAPSULE (pill) */
+  .shape-pill{position:relative;z-index:2;border-radius:999px;display:flex;overflow:hidden;transform:rotate(12deg);transition:transform .6s cubic-bezier(.2,.7,.2,1);
+    box-shadow:0 10px 24px rgba(42,31,22,.22),0 3px 8px rgba(42,31,22,.14),inset 0 0 0 1px rgba(255,255,255,.15)}
+  .shape-pill.sm{width:30px;height:72px}
+  @media(max-width:560px){.shape-pill.sm{width:26px;height:64px}}
+  .shape-pill.lg{width:140px;height:300px;box-shadow:0 30px 70px rgba(42,31,22,.3),0 8px 20px rgba(42,31,22,.18),inset 0 0 0 1px rgba(255,255,255,.18)}
+  .shape-pill .half{flex:1;position:relative;overflow:hidden}
+  .shape-pill .half:first-child{background:radial-gradient(circle at 35% 30%,var(--c1) 0%,var(--c2) 55%,var(--c3) 100%)}
+  .shape-pill .half:last-child{background:radial-gradient(circle at 65% 70%,var(--c4,var(--c1)) 0%,var(--c2) 50%,var(--c3) 100%)}
+  .shape-pill .half::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,0) 45%,rgba(0,0,0,.15) 100%)}
+  .shape-pill .half::after{content:"";position:absolute;top:8%;left:18%;width:22%;height:28%;background:radial-gradient(ellipse,rgba(255,255,255,.6) 0%,rgba(255,255,255,0) 70%);filter:blur(2px)}
+  .shape-pill .seam{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:100%;height:1px;background:rgba(0,0,0,.28);z-index:3}
+
+  /* SOFTGEL — glossy amber teardrop */
+  .shape-softgel{position:relative;z-index:2;transform:rotate(-10deg);transition:transform .6s cubic-bezier(.2,.7,.2,1);
+    background:radial-gradient(ellipse at 30% 25%,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 28%),
+      radial-gradient(ellipse at 65% 65%, var(--c1) 0%, var(--c2) 45%, var(--c3) 90%);
+    border-radius:50% 50% 50% 50% / 58% 58% 42% 42%;
+    box-shadow:inset -10px -18px 26px rgba(0,0,0,.35),inset 6px 10px 20px rgba(255,255,255,.25),0 18px 40px rgba(42,31,22,.3),0 0 0 1px rgba(255,255,255,.18)}
+  .shape-softgel.sm{width:54px;height:74px}
+  @media(max-width:560px){.shape-softgel.sm{width:48px;height:66px}}
+  .shape-softgel.lg{width:200px;height:280px;box-shadow:inset -20px -36px 50px rgba(0,0,0,.4),inset 12px 20px 40px rgba(255,255,255,.3),0 34px 70px rgba(42,31,22,.32),0 0 0 1px rgba(255,255,255,.2)}
+  .shape-softgel::after{content:"";position:absolute;top:12%;left:22%;width:26%;height:30%;background:radial-gradient(ellipse,rgba(255,255,255,.8) 0%,rgba(255,255,255,0) 65%);filter:blur(3px);border-radius:50%}
+
+  /* TABLET — flat disc with score line */
+  .shape-tablet{position:relative;z-index:2;transform:rotate(-6deg) perspective(400px) rotateX(12deg);transition:transform .6s cubic-bezier(.2,.7,.2,1);
+    background:radial-gradient(circle at 35% 30%, var(--c1) 0%, var(--c2) 60%, var(--c3) 100%);
+    border-radius:50%;
+    box-shadow:inset -6px -10px 18px rgba(0,0,0,.22),inset 4px 6px 10px rgba(255,255,255,.3),0 18px 34px rgba(42,31,22,.28),0 0 0 1px rgba(255,255,255,.15)}
+  .shape-tablet.sm{width:68px;height:68px}
+  @media(max-width:560px){.shape-tablet.sm{width:60px;height:60px}}
+  .shape-tablet.lg{width:260px;height:260px;box-shadow:inset -12px -20px 36px rgba(0,0,0,.26),inset 10px 14px 24px rgba(255,255,255,.35),0 34px 60px rgba(42,31,22,.3),0 0 0 1px rgba(255,255,255,.18)}
+  .shape-tablet.thin.sm{width:72px;height:48px;border-radius:40%}
+  @media(max-width:560px){.shape-tablet.thin.sm{width:64px;height:42px}}
+  .shape-tablet.thin.lg{width:260px;height:180px;border-radius:40%}
+  .shape-tablet .score{position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(0,0,0,.18);transform:translateX(-50%)}
+  .shape-tablet::after{content:"";position:absolute;top:12%;left:18%;width:28%;height:22%;background:radial-gradient(ellipse,rgba(255,255,255,.65) 0%,rgba(255,255,255,0) 70%);filter:blur(3px);border-radius:50%}
+
+  /* GUMMY — three chewy shapes on a tiny pile */
+  .shape-gummy{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:center;gap:6px;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:rotate(-4deg)}
+  .shape-gummy.sm{width:88px;height:70px}
+  @media(max-width:560px){.shape-gummy.sm{width:78px;height:62px}}
+  .shape-gummy.lg{width:320px;height:260px;gap:14px}
+  .shape-gummy .g{position:relative;border-radius:30% 30% 40% 40% / 40% 40% 30% 30%;
+    box-shadow:inset -4px -6px 10px rgba(0,0,0,.25),inset 3px 4px 8px rgba(255,255,255,.45),0 10px 22px rgba(42,31,22,.28)}
+  .shape-gummy.sm .g{width:24px;height:24px}
+  @media(max-width:560px){.shape-gummy.sm .g{width:22px;height:22px}}
+  .shape-gummy.lg .g{width:94px;height:94px}
+  .shape-gummy .g::after{content:"";position:absolute;top:14%;left:18%;width:40%;height:36%;background:radial-gradient(ellipse,rgba(255,255,255,.75) 0%,rgba(255,255,255,0) 70%);filter:blur(2px);border-radius:50%}
+  .shape-gummy .g1{background:radial-gradient(circle at 30% 25%,var(--c1) 0%,var(--c2) 70%);transform:rotate(-8deg)}
+  .shape-gummy .g2{background:radial-gradient(circle at 30% 25%,var(--c2) 0%,var(--c3) 70%);transform:translateY(-10px) rotate(4deg);border-radius:40% 30% 30% 40% / 30% 40% 40% 30%}
+  .shape-gummy.lg .g2{transform:translateY(-28px) rotate(4deg)}
+  .shape-gummy.lg .g2{transform:translateY(-28px) rotate(4deg)}
+  .shape-gummy .g3{background:radial-gradient(circle at 30% 25%,var(--c4,var(--c1)) 0%,var(--c3) 70%);transform:rotate(10deg);border-radius:35% 45% 40% 30% / 45% 35% 40% 30%}
+
+  /* POWDER — scoop with heap of powder */
+  .shape-powder{position:relative;z-index:2;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:rotate(-4deg)}
+  .shape-powder.sm{width:88px;height:72px}
+  @media(max-width:560px){.shape-powder.sm{width:78px;height:64px}}
+  .shape-powder.lg{width:320px;height:280px}
+  .shape-powder .scoop{position:absolute;bottom:24%;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0)),radial-gradient(ellipse,var(--c2) 0%,var(--c3) 80%);
+    border-radius:50% 50% 12% 12% / 28% 28% 12% 12%;box-shadow:inset -8px -6px 14px rgba(0,0,0,.25),inset 6px 4px 10px rgba(255,255,255,.25),0 14px 28px rgba(42,31,22,.28)}
+  .shape-powder.sm .scoop{width:56px;height:26px}
+  @media(max-width:560px){.shape-powder.sm .scoop{width:48px;height:22px}}
+  .shape-powder.lg .scoop{width:200px;height:96px}
+  .shape-powder.sm .scoop::after{content:"";position:absolute;top:2px;right:-4px;width:3px;height:18px;background:linear-gradient(var(--c2),var(--c3));border-radius:2px;transform:rotate(-30deg);box-shadow:0 4px 8px rgba(0,0,0,.2)}
+  .shape-powder.lg .scoop::after{height:48px;width:5px}
+  .shape-powder .mound{position:absolute;bottom:42%;left:50%;transform:translateX(-50%);
+    background:radial-gradient(ellipse at 50% 30%,var(--c1) 0%,var(--c2) 50%,var(--c3) 100%);
+    border-radius:50% 50% 20% 20% / 65% 65% 20% 20%;box-shadow:inset -4px -4px 8px rgba(0,0,0,.15),inset 4px 4px 10px rgba(255,255,255,.3)}
+  .shape-powder.sm .mound{width:42px;height:14px}
+  @media(max-width:560px){.shape-powder.sm .mound{width:36px;height:12px}}
+  .shape-powder.lg .mound{width:160px;height:54px}
+  .shape-powder .mound::before{content:"";position:absolute;top:-3px;left:20%;width:15%;height:15%;background:radial-gradient(circle,rgba(255,255,255,.7),transparent);border-radius:50%}
+
+  /* PACKET — sachet with foil sheen */
+  .shape-packet{position:relative;z-index:2;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:rotate(-6deg);display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 50%,var(--c3) 100%);
+    box-shadow:inset 0 -4px 8px rgba(0,0,0,.22),inset 0 4px 8px rgba(255,255,255,.2),0 18px 38px rgba(42,31,22,.3),0 0 0 1px rgba(255,255,255,.12);
+    border-radius:4px}
+  .shape-packet.sm{width:58px;height:74px}
+  @media(max-width:560px){.shape-packet.sm{width:52px;height:66px}}
+  .shape-packet.lg{width:220px;height:280px}
+  .shape-packet::before{content:"";position:absolute;inset:0;background:
+    linear-gradient(120deg,transparent 20%,rgba(255,255,255,.35) 40%,transparent 60%),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.03) 0 2px,transparent 2px 6px);
+    border-radius:inherit;mix-blend-mode:overlay}
+  .shape-packet .seal{position:absolute;top:0;left:0;right:0;height:16%;background:
+    repeating-linear-gradient(90deg,rgba(0,0,0,.25) 0 2px,transparent 2px 5px);
+    border-bottom:1px dashed rgba(0,0,0,.25)}
+  .shape-packet .notch{position:absolute;top:6%;right:-1px;width:10px;height:10px;background:var(--bg);clip-path:polygon(0 0,100% 0,100% 100%);border-radius:0 0 0 2px}
+  .shape-packet .logo{font-family:var(--mono);font-size:7px;letter-spacing:.22em;color:rgba(255,255,255,.8);text-shadow:0 1px 2px rgba(0,0,0,.3);z-index:2;font-weight:600}
+  .shape-packet.lg .logo{font-size:16px;letter-spacing:.32em}
+
+  /* TINCTURE — dropper bottle */
+  .shape-tincture{position:relative;z-index:2;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:rotate(-6deg);display:flex;flex-direction:column;align-items:center}
+  .shape-tincture.sm{width:52px;height:84px}
+  @media(max-width:560px){.shape-tincture.sm{width:46px;height:74px}}
+  .shape-tincture.lg{width:200px;height:320px}
+  .shape-tincture .dropper{position:relative;background:linear-gradient(180deg,#3a2a1c 0%,#24170d 100%);border-radius:2px 2px 4px 4px;box-shadow:inset 0 -2px 4px rgba(0,0,0,.4),0 2px 4px rgba(0,0,0,.2);z-index:3}
+  .shape-tincture.sm .dropper{width:13px;height:6px}
+  .shape-tincture.lg .dropper{width:48px;height:20px}
+  .shape-tincture .dropper::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);width:50%;height:20%;background:linear-gradient(180deg,#24170d 0%,#0e0804 100%);border-radius:0 0 2px 2px}
+  .shape-tincture .bottle{flex:1;width:100%;position:relative;margin-top:-2px;background:
+    linear-gradient(90deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.25) 15%,rgba(255,255,255,0) 40%,rgba(0,0,0,.18) 90%),
+    linear-gradient(180deg,var(--c1) 0%,var(--c2) 55%,var(--c3) 100%);
+    border-radius:6px 6px 12px 12px;overflow:hidden;
+    box-shadow:inset -6px -6px 14px rgba(0,0,0,.3),inset 4px 4px 10px rgba(255,255,255,.18),0 18px 36px rgba(42,31,22,.3),0 0 0 1px rgba(255,255,255,.15)}
+  .shape-tincture .bottle .fill{position:absolute;bottom:0;left:0;right:0;height:68%;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.15));border-top:1px solid rgba(255,255,255,.18)}
+  .shape-tincture .bottle .label{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);background:var(--bg);color:var(--ink);font-family:var(--mono);padding:3px 0;text-align:center;letter-spacing:.2em;font-weight:600;width:68%;border-radius:1px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .shape-tincture.sm .bottle .label{font-size:6px;padding:1px 0;letter-spacing:.1em}
+  .shape-tincture.lg .bottle .label{font-size:14px;padding:5px 0;letter-spacing:.3em}
+
+  /* Hover micro-anim applied to ANY shape */
+  .card:hover .shape-pill,.card:hover .shape-softgel,.card:hover .shape-tablet,
+  .card:hover .shape-gummy,.card:hover .shape-powder,.card:hover .shape-packet,.card:hover .shape-tincture{
+    transform:rotate(-4deg) scale(1.05)
+  }
+
+  /* Floating animation — per-form */
+  @keyframes floatA{0%,100%{transform:translateY(0) rotate(12deg)}50%{transform:translateY(-6px) rotate(14deg)}}
+  @keyframes floatSoftgel{0%,100%{transform:translateY(0) rotate(-10deg)}50%{transform:translateY(-5px) rotate(-8deg)}}
+  @keyframes floatTablet{0%,100%{transform:translateY(0) rotate(-6deg) perspective(400px) rotateX(12deg)}50%{transform:translateY(-5px) rotate(-4deg) perspective(400px) rotateX(14deg)}}
+  @keyframes floatGummy{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-4px) rotate(-2deg)}}
+  @keyframes floatPacket{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-6px) rotate(-4deg)}}
+  @keyframes floatTincture{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-5px) rotate(-4deg)}}
+  .card .shape-pill{animation:floatA 5s ease-in-out infinite;animation-delay:var(--d,0s)}
+  .card .shape-softgel{animation:floatSoftgel 5.5s ease-in-out infinite;animation-delay:var(--d,0s)}
+  .card .shape-tablet{animation:floatTablet 5.5s ease-in-out infinite;animation-delay:var(--d,0s)}
+  .card .shape-gummy{animation:floatGummy 4.5s ease-in-out infinite;animation-delay:var(--d,0s)}
+  .card .shape-powder{animation:floatGummy 6s ease-in-out infinite;animation-delay:var(--d,0s)}
+  .card .shape-packet{animation:floatPacket 5.5s ease-in-out infinite;animation-delay:var(--d,0s)}
+  .card .shape-tincture{animation:floatTincture 5s ease-in-out infinite;animation-delay:var(--d,0s)}
+
+  /* Big modal — slow gentle rotate */
+  @keyframes modalSpinGentle{0%{transform:rotateY(0deg) rotate(10deg)}100%{transform:rotateY(360deg) rotate(10deg)}}
+  @keyframes modalFloatBig{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-10px) rotate(-4deg)}}
+  .modal .vis .shape-pill.lg{animation:modalSpinGentle 18s linear infinite;transform-style:preserve-3d}
+  .modal .vis .shape-softgel.lg,.modal .vis .shape-tincture.lg,.modal .vis .shape-packet.lg{animation:modalFloatBig 5s ease-in-out infinite}
+  .modal .vis .shape-tablet.lg{animation:modalSpinGentle 22s linear infinite}
+  .modal .vis .shape-gummy.lg,.modal .vis .shape-powder.lg{animation:modalFloatBig 5s ease-in-out infinite}
+
   /* Capsule floating animation — subtle, always on */
   @keyframes capFloat{
     0%,100%{transform:translateY(0) rotate(12deg)}
@@ -231,7 +378,33 @@
 
   footer{background:var(--ink);color:var(--bg);padding:60px 36px;margin-top:80px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(233,223,208,.5)}
   footer a{color:rgba(233,223,208,.7);text-decoration:none}
-</style>
+
+  /* ===== Mobile nav (injected v2) ===== */
+  nav.top .menu-btn{display:none;background:transparent;border:1px solid var(--line,rgba(42,31,22,.18));padding:8px 10px;color:var(--ink,#2a1f16);font-size:18px;line-height:1;cursor:pointer;border-radius:2px}
+  nav.top .m-buy{display:none;background:var(--accent,#c9613b);color:#fff;padding:9px 14px;text-decoration:none;font-family:var(--mono,'JetBrains Mono',monospace);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;border-radius:2px;align-items:center;gap:4px;white-space:nowrap}
+  nav.top .m-buy:hover{opacity:.92}
+  @media(max-width:900px){
+    nav.top{grid-template-columns:auto 1fr auto auto !important;padding:11px 14px !important;gap:8px}
+    nav.top .links{display:none !important}
+    nav.top .cart{display:none !important}
+    nav.top button.cart{display:none !important}
+    nav.top .acct{display:none !important}
+    nav.top > .btn-nav:not(.m-buy){display:none !important}
+    nav.top .m-buy{display:inline-flex}
+    nav.top .menu-btn{display:inline-flex;align-items:center}
+    nav.top .brand{font-size:19px}
+  }
+  .m-drawer{position:fixed;inset:0;z-index:300;background:#2a1f16;color:#e9dfd0;padding:28px 24px 28px;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;pointer-events:none;opacity:0}
+  .m-drawer.open{transform:translateX(0);pointer-events:auto;opacity:1}
+  .m-drawer .m-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .m-drawer .m-brand{font-family:var(--serif,'Cormorant Garamond','Fraunces',Georgia,serif);font-size:24px;font-style:italic}
+  .m-drawer .m-close{background:none;border:1px solid rgba(233,223,208,.3);color:#e9dfd0;padding:7px 11px;font-family:var(--mono,'JetBrains Mono',monospace);font-size:10.5px;letter-spacing:.15em;cursor:pointer;text-transform:uppercase}
+  .m-drawer nav.m-links{display:flex;flex-direction:column;gap:0}
+  .m-drawer nav.m-links a{color:#e9dfd0;text-decoration:none;font-family:var(--serif,'Cormorant Garamond','Fraunces',Georgia,serif);font-size:26px;padding:13px 0;border-bottom:1px solid rgba(233,223,208,.1);display:flex;justify-content:space-between;align-items:center;font-style:italic}
+  .m-drawer nav.m-links a span.num{font-family:var(--mono,'JetBrains Mono',monospace);font-size:9.5px;letter-spacing:.2em;opacity:.45;font-style:normal}
+  .m-drawer .m-foot{margin-top:auto;padding-top:20px;display:flex;flex-direction:column;gap:8px;font-family:var(--mono,'JetBrains Mono',monospace);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;opacity:.55}
+  .m-drawer .m-cta{margin-top:20px;display:inline-flex;justify-content:space-between;align-items:center;background:#c9613b;color:#e9dfd0;padding:15px 18px;text-decoration:none;font-family:var(--mono,'JetBrains Mono',monospace);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+  </style>
 </head>
 <body>
 
@@ -244,6 +417,9 @@
     <a href="Vesper.html#founders">Journal</a>
   </div>
   <button class="cart" id="openCart"><span class="dot"></span><span>Cart — <span id="cartCount">0</span></span></button>
+
+  <a class="m-buy" href="Shop.html" style="grid-column:3">Buy →</a>
+  <button class="menu-btn" aria-label="Open menu" style="grid-column:4;justify-self:end">☰</button>
 </nav>
 
 <header class="hero">
@@ -296,8 +472,43 @@
   <span>NOT INTENDED TO DIAGNOSE, TREAT OR CURE</span>
 </footer>
 
-<script src="catalog-data.js"></script>
-<script src="catalog-app.js"></script>
+<script src="catalog-data.js?v=2"></script>
+<script src="catalog-app.js?v=2"></script>
+
+
+<aside class="m-drawer" id="mDrawer" aria-hidden="true">
+  <div class="m-top">
+    <div class="m-brand">Vesper<sup style="font-family:var(--mono);font-size:10px;opacity:.5;letter-spacing:.2em;margin-left:4px">/01</sup></div>
+    <button class="m-close" id="mDrawerClose" aria-label="Close menu">Close ✕</button>
+  </div>
+  <nav class="m-links">
+    <a href="Vesper.html"><span>Home</span><span class="num">01</span></a>
+    <a href="Shop.html"><span>Shop</span><span class="num">02</span></a>
+    <a href="Catalog.html"><span>Apothecary</span><span class="num">03</span></a>
+    <a href="Quiz.html"><span>Quiz</span><span class="num">04</span></a>
+    <a href="Bundles.html"><span>Bundles</span><span class="num">05</span></a>
+    <a href="Inside.html"><span>Inside</span><span class="num">06</span></a>
+    <a href="Founder.html"><span>Journal</span><span class="num">07</span></a>
+    <a href="Hub.html"><span>All pages</span><span class="num">20</span></a>
+  </nav>
+  <a class="m-cta" href="Shop.html">Shop Vesper N°01<span>→</span></a>
+  <div class="m-foot">
+    <span>Free shipping · 30-day guarantee</span>
+    <span>© Vesper Apothecary 2026</span>
+  </div>
+</aside>
+
+<script>
+(function(){
+  var btn=document.querySelector('.menu-btn')||document.getElementById('mMenuBtn');
+  var drawer=document.getElementById('mDrawer');
+  var close=document.getElementById('mDrawerClose');
+  if(!drawer) return;
+  if(btn) btn.addEventListener('click',function(e){e.preventDefault();drawer.classList.add('open');drawer.setAttribute('aria-hidden','false')});
+  if(close) close.addEventListener('click',function(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true')});
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){drawer.classList.remove('open')})});
+})();
+</script>
 
 </body>
 </html>

@@ -4,12 +4,15 @@ A premium supplement apothecary — conversion-focused home with a 20-page apoth
 
 **Landing:** `index.html` / `Vesper.html` — conversion-first home featuring Daily N° 01. Sticky buy bar, mobile-first layout, WCAG AA contrast, no build step.
 
+**Alt shop:** `Shop.html` — sibling conversion page with product-grid layout (available at `/shop`).
+
 **Mobile preview:** `Mobile-Preview.html` — renders the home inside iPhone 14 and Pixel 7 frames side by side (iframe-based). Also available at `/mobile`.
 
 **Archive:** `Vesper-v1.html` — the original 3D Three.js scroll-driven landing (available at `/v1`).
 
 ## Pages
-- **Apothecary** — `Catalog.html` (full product catalog)
+- **Shop** — `Shop.html` (conversion-focused product shop)
+- **Apothecary** — `Catalog.html` (full product catalog with form-specific visuals: capsule, softgel, tablet, gummy, powder, packet, tincture)
 - **Quiz** — `Quiz.html`
 - **Rituals / Bundles** — `Bundles.html`
 - **Sourcing** — `Sourcing.html`

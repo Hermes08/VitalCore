@@ -73,9 +73,48 @@
     return `<div style="padding:120px 36px;text-align:center;font-family:var(--serif);font-style:italic;font-size:28px;color:var(--muted)">No formulas match — try a different word.</div>`;
   }
 
+  // Form-specific visuals — each supplement form renders differently
+  function formVisual(form, size){
+    const s = size || 'sm'; // 'sm' | 'lg'
+    switch(form){
+      case 'capsule':
+        return `<div class="shape-pill ${s}"><div class="half"></div><div class="half"></div><div class="seam"></div></div>`;
+      case 'softgel':
+        return `<div class="shape-softgel ${s}"></div>`;
+      case 'tablet':
+        return `<div class="shape-tablet ${s}"><div class="score"></div></div>`;
+      case 'sublingual':
+        return `<div class="shape-tablet ${s} thin"><div class="score"></div></div>`;
+      case 'gummy':
+        return `<div class="shape-gummy ${s}">
+          <div class="g g1"></div><div class="g g2"></div><div class="g g3"></div>
+        </div>`;
+      case 'powder':
+        return `<div class="shape-powder ${s}">
+          <div class="scoop"></div>
+          <div class="mound"></div>
+        </div>`;
+      case 'packet':
+        return `<div class="shape-packet ${s}">
+          <div class="seal"></div>
+          <div class="notch"></div>
+          <div class="logo">VSPR</div>
+        </div>`;
+      case 'tincture':
+      case 'liquid':
+        return `<div class="shape-tincture ${s}">
+          <div class="dropper"></div>
+          <div class="bottle"><div class="fill"></div><div class="label">VSPR</div></div>
+        </div>`;
+      default:
+        return `<div class="shape-pill ${s}"><div class="half"></div><div class="half"></div><div class="seam"></div></div>`;
+    }
+  }
+
   function cardEl(p, i){
     const d = document.createElement('div');
     d.className = 'card';
+    d.dataset.form = p.form;
     d.style.setProperty('--c1', p.c1); d.style.setProperty('--c2', p.c2);
     d.style.setProperty('--c3', p.c3); d.style.setProperty('--c4', p.c4);
     d.style.setProperty('--d', (i * 0.17 % 5) + 's');
@@ -93,8 +132,7 @@
       <div class="orb-wrap">
         <div class="orb" style="background:radial-gradient(circle at 40% 40%,${p.c1} 0%,${p.c2} 45%,transparent 75%)"></div>
         <div class="halo-ring"></div>
-        <div class="pill"><div class="half"></div><div class="half"></div></div>
-        <div class="pill-seam"></div>
+        ${formVisual(p.form, 'sm')}
       </div>
       <div>
         <div class="latin">${p.dose}</div>
@@ -130,8 +168,7 @@
         <div class="big-orb" style="background:radial-gradient(circle at 40% 40%,${p.c1} 0%,${p.c2} 45%,transparent 75%)"></div>
         <div class="ring-2"></div>
         <div class="ring-1"></div>
-        <div class="big-pill"><div class="half"></div><div class="half"></div></div>
-        <div class="big-seam"></div>
+        ${formVisual(p.form, 'lg')}
       </div>
       <div class="body">
         <p class="desc">${p.blurb}</p>

@@ -64,7 +64,33 @@
   .where-we-lose h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.1;letter-spacing:-.01em;margin-bottom:16px}
   .where-we-lose p{font-family:var(--serif);font-size:17px;line-height:1.6;color:rgba(233,223,208,.85);max-width:58ch;margin-bottom:14px}
   .where-we-lose .sig{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(233,223,208,.4);text-transform:uppercase;margin-top:20px}
-</style>
+
+  /* ===== Mobile nav (injected v2) ===== */
+  nav.top .menu-btn{display:none;background:transparent;border:1px solid var(--line,rgba(42,31,22,.18));padding:8px 10px;color:var(--ink,#2a1f16);font-size:18px;line-height:1;cursor:pointer;border-radius:2px}
+  nav.top .m-buy{display:none;background:var(--accent,#c9613b);color:#fff;padding:9px 14px;text-decoration:none;font-family:var(--mono,'JetBrains Mono',monospace);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;border-radius:2px;align-items:center;gap:4px;white-space:nowrap}
+  nav.top .m-buy:hover{opacity:.92}
+  @media(max-width:900px){
+    nav.top{grid-template-columns:auto 1fr auto auto !important;padding:11px 14px !important;gap:8px}
+    nav.top .links{display:none !important}
+    nav.top .cart{display:none !important}
+    nav.top button.cart{display:none !important}
+    nav.top .acct{display:none !important}
+    nav.top > .btn-nav:not(.m-buy){display:none !important}
+    nav.top .m-buy{display:inline-flex}
+    nav.top .menu-btn{display:inline-flex;align-items:center}
+    nav.top .brand{font-size:19px}
+  }
+  .m-drawer{position:fixed;inset:0;z-index:300;background:#2a1f16;color:#e9dfd0;padding:28px 24px 28px;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;pointer-events:none;opacity:0}
+  .m-drawer.open{transform:translateX(0);pointer-events:auto;opacity:1}
+  .m-drawer .m-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .m-drawer .m-brand{font-family:var(--serif,'Cormorant Garamond','Fraunces',Georgia,serif);font-size:24px;font-style:italic}
+  .m-drawer .m-close{background:none;border:1px solid rgba(233,223,208,.3);color:#e9dfd0;padding:7px 11px;font-family:var(--mono,'JetBrains Mono',monospace);font-size:10.5px;letter-spacing:.15em;cursor:pointer;text-transform:uppercase}
+  .m-drawer nav.m-links{display:flex;flex-direction:column;gap:0}
+  .m-drawer nav.m-links a{color:#e9dfd0;text-decoration:none;font-family:var(--serif,'Cormorant Garamond','Fraunces',Georgia,serif);font-size:26px;padding:13px 0;border-bottom:1px solid rgba(233,223,208,.1);display:flex;justify-content:space-between;align-items:center;font-style:italic}
+  .m-drawer nav.m-links a span.num{font-family:var(--mono,'JetBrains Mono',monospace);font-size:9.5px;letter-spacing:.2em;opacity:.45;font-style:normal}
+  .m-drawer .m-foot{margin-top:auto;padding-top:20px;display:flex;flex-direction:column;gap:8px;font-family:var(--mono,'JetBrains Mono',monospace);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;opacity:.55}
+  .m-drawer .m-cta{margin-top:20px;display:inline-flex;justify-content:space-between;align-items:center;background:#c9613b;color:#e9dfd0;padding:15px 18px;text-decoration:none;font-family:var(--mono,'JetBrains Mono',monospace);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+  </style>
 </head><body>
 
 <nav class="top">
@@ -77,6 +103,9 @@
     <a href="Hub.html">All pages</a>
   </div>
   <a href="Catalog.html" class="cart"><span class="dot"></span><span>Apothecary →</span></a>
+
+  <a class="m-buy" href="Shop.html" style="grid-column:3">Buy →</a>
+  <button class="menu-btn" aria-label="Open menu" style="grid-column:4;justify-self:end">☰</button>
 </nav>
 
 <header class="page-head">
@@ -277,4 +306,39 @@
   <span><a href="Hub.html">All pages</a></span>
   <span>COMPARISON UPDATED QUARTERLY · SOURCE CoAs ON REQUEST</span>
 </footer>
+
+<aside class="m-drawer" id="mDrawer" aria-hidden="true">
+  <div class="m-top">
+    <div class="m-brand">Vesper<sup style="font-family:var(--mono);font-size:10px;opacity:.5;letter-spacing:.2em;margin-left:4px">/01</sup></div>
+    <button class="m-close" id="mDrawerClose" aria-label="Close menu">Close ✕</button>
+  </div>
+  <nav class="m-links">
+    <a href="Vesper.html"><span>Home</span><span class="num">01</span></a>
+    <a href="Shop.html"><span>Shop</span><span class="num">02</span></a>
+    <a href="Catalog.html"><span>Apothecary</span><span class="num">03</span></a>
+    <a href="Quiz.html"><span>Quiz</span><span class="num">04</span></a>
+    <a href="Bundles.html"><span>Bundles</span><span class="num">05</span></a>
+    <a href="Inside.html"><span>Inside</span><span class="num">06</span></a>
+    <a href="Founder.html"><span>Journal</span><span class="num">07</span></a>
+    <a href="Hub.html"><span>All pages</span><span class="num">20</span></a>
+  </nav>
+  <a class="m-cta" href="Shop.html">Shop Vesper N°01<span>→</span></a>
+  <div class="m-foot">
+    <span>Free shipping · 30-day guarantee</span>
+    <span>© Vesper Apothecary 2026</span>
+  </div>
+</aside>
+
+<script>
+(function(){
+  var btn=document.querySelector('.menu-btn')||document.getElementById('mMenuBtn');
+  var drawer=document.getElementById('mDrawer');
+  var close=document.getElementById('mDrawerClose');
+  if(!drawer) return;
+  if(btn) btn.addEventListener('click',function(e){e.preventDefault();drawer.classList.add('open');drawer.setAttribute('aria-hidden','false')});
+  if(close) close.addEventListener('click',function(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true')});
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){drawer.classList.remove('open')})});
+})();
+</script>
+
 </body></html>
