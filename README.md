@@ -1,23 +1,26 @@
 # Vesper
 
-A premium supplement apothecary — 20 interconnected pages built with HTML, CSS, and Three.js.
+A premium supplement apothecary — conversion-focused home with a 20-page apothecary site, built in static HTML/CSS/JS.
 
-**Landing:** `index.html` (alias of `Vesper.html`) — the full scroll-driven 3D capsule experience.
+**Landing:** `index.html` / `Vesper.html` — conversion-first home featuring Daily N° 01. Sticky buy bar, mobile-first layout, WCAG AA contrast, no build step.
 
-## Sections
-- **Apothecary** — `Catalog.html` (product catalog)
+**Mobile preview:** `Mobile-Preview.html` — renders the home inside iPhone 14 and Pixel 7 frames side by side (iframe-based). Also available at `/mobile`.
+
+**Archive:** `Vesper-v1.html` — the original 3D Three.js scroll-driven landing (available at `/v1`).
+
+## Pages
+- **Apothecary** — `Catalog.html` (full product catalog)
 - **Quiz** — `Quiz.html`
-- **Rituals** — `Bundles.html`
-- **The Day** — (see Ritual references)
+- **Rituals / Bundles** — `Bundles.html`
 - **Sourcing** — `Sourcing.html`
-- **Inside** — `Inside.html`
-- **Science** — `Lab.html`, `Report.html`
+- **Inside / Science / Lab / Report** — `Inside.html`, `Lab.html`, `Report.html`
 - **Compare / Versus** — `Compare.html`, `Versus.html`
 - **Subscription / Account** — `Subscription.html`, `Account.html`
 - **Founder / Press / Timeline** — supporting pages
-- **Needs / Calculator / Before / Waitlist / Hub** — onboarding & utility pages
+- **Needs / Calculator / Before / Waitlist / Hub** — onboarding & utility
 
 ## Stack
 - Static HTML/CSS/JS (no build step)
-- Three.js r160 from unpkg (loaded in `index.html`)
-- Custom GLSL liquid shader, scroll-driven camera animation with smootherstep easing
+- Google Fonts: Fraunces + JetBrains Mono
+- `Vesper-v1.html` uses Three.js r160 from unpkg for the 3D capsule
+- Palette: cream `#efe6d7`, ink `#1a120b`, terracotta `#b4501e`, ochre `#b48232`, sage `#5d7050`

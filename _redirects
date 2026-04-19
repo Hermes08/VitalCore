@@ -22,3 +22,6 @@
 /before        /Before.html             200
 /waitlist      /Waitlist.html           200
 /hub           /Hub.html                200
+/mobile        /Mobile-Preview.html     200
+/preview       /Mobile-Preview.html     200
+/v1            /Vesper-v1.html          200

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — Mobile preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#1a120b;color:#efe6d7;font-family:"Fraunces",Georgia,serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1400px;margin:0 auto;padding:48px 32px 80px}
+  header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;flex-wrap:wrap;gap:16px}
+  header h1{font-style:italic;font-weight:300;font-size:44px;letter-spacing:-.02em}
+  header h1 em{color:#b48232}
+  header .sub{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.25em;color:rgba(239,230,215,.55);text-transform:uppercase}
+  header a{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;color:#b48232;text-transform:uppercase;text-decoration:none;border:1px solid rgba(180,130,50,.4);padding:10px 16px}
+  header a:hover{background:rgba(180,130,50,.1)}
+  .tip{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.15em;color:rgba(239,230,215,.5);text-transform:uppercase;margin-bottom:42px;padding-bottom:18px;border-bottom:1px solid rgba(239,230,215,.12)}
+  .tip em{color:#b48232;font-style:normal}
+
+  .row{display:flex;gap:48px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .phone{display:flex;flex-direction:column;gap:16px;align-items:center}
+  .phone .label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.3em;color:rgba(239,230,215,.6);text-transform:uppercase}
+  .phone .label em{color:#b48232;font-style:normal}
+
+  /* iOS bezel */
+  .ios{
+    width:390px;height:844px;border-radius:52px;
+    background:#000;position:relative;overflow:hidden;
+    box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 4px #1a1a1a,0 0 0 6px #333;
+    padding:10px;
+  }
+  .ios .island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:120px;height:34px;background:#000;border-radius:22px;z-index:10}
+  .ios .screen{width:100%;height:100%;border-radius:44px;overflow:hidden;background:#efe6d7}
+  .ios iframe{width:100%;height:100%;border:0;display:block}
+  .ios .indicator{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:rgba(255,255,255,.85);border-radius:3px;z-index:10}
+
+  /* Android bezel */
+  .android{
+    width:390px;height:844px;border-radius:42px;
+    background:#111;position:relative;overflow:hidden;
+    box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 3px #1a1a1a;
+    padding:14px;
+  }
+  .android .cam{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:12px;height:12px;background:#000;border-radius:50%;z-index:10;box-shadow:inset 0 0 0 1px #222}
+  .android .screen{width:100%;height:100%;border-radius:28px;overflow:hidden;background:#efe6d7}
+  .android iframe{width:100%;height:100%;border:0;display:block}
+  .android .pill{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:110px;height:4px;background:rgba(255,255,255,.7);border-radius:2px;z-index:10}
+
+  /* Scrub controls */
+  .controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+  .controls button{
+    background:transparent;border:1px solid rgba(239,230,215,.25);color:#efe6d7;
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    padding:8px 12px;cursor:pointer;transition:all .2s;
+  }
+  .controls button:hover{border-color:#b48232;color:#b48232}
+  .controls button.active{background:#b48232;color:#1a120b;border-color:#b48232}
+
+  @media(max-width:900px){
+    .wrap{padding:24px 12px 60px}
+    header h1{font-size:30px}
+    .row{gap:32px}
+    .ios,.android{transform:scale(.78);transform-origin:top center;margin-bottom:-180px}
+  }
+  @media(max-width:480px){
+    .ios,.android{transform:scale(.62);margin-bottom:-300px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Vesper <em>·</em> mobile preview</h1>
+      <div class="sub">The real Vesper.html rendered inside phone frames</div>
+    </div>
+    <a href="Vesper.html">Open full page →</a>
+  </header>
+  <div class="tip">◉ Scroll inside the phones · <em>Tap</em> the sections to jump to hero, price, reviews, FAQ</div>
+
+  <div class="row">
+    <div class="phone">
+      <span class="label">iPhone 14 Pro · <em>390 × 844</em></span>
+      <div class="ios">
+        <div class="island"></div>
+        <div class="screen">
+          <iframe id="ios-frame" src="Vesper.html" title="Vesper on iOS"></iframe>
+        </div>
+        <div class="indicator"></div>
+      </div>
+      <div class="controls">
+        <button data-frame="ios-frame" data-hash="#buy">Hero</button>
+        <button data-frame="ios-frame" data-hash=".values" class="anchor">Values</button>
+        <button data-frame="ios-frame" data-hash=".deep" class="anchor">Inside</button>
+        <button data-frame="ios-frame" data-hash=".testi" class="anchor">Reviews</button>
+        <button data-frame="ios-frame" data-hash=".faq" class="anchor">FAQ</button>
+        <button data-frame="ios-frame" data-hash=".closing" class="anchor">Close</button>
+      </div>
+    </div>
+
+    <div class="phone">
+      <span class="label">Pixel 7 · <em>390 × 844</em></span>
+      <div class="android">
+        <div class="cam"></div>
+        <div class="screen">
+          <iframe id="and-frame" src="Vesper.html" title="Vesper on Android"></iframe>
+        </div>
+        <div class="pill"></div>
+      </div>
+      <div class="controls">
+        <button data-frame="and-frame" data-hash="#buy">Hero</button>
+        <button data-frame="and-frame" data-hash=".values" class="anchor">Values</button>
+        <button data-frame="and-frame" data-hash=".deep" class="anchor">Inside</button>
+        <button data-frame="and-frame" data-hash=".testi" class="anchor">Reviews</button>
+        <button data-frame="and-frame" data-hash=".faq" class="anchor">FAQ</button>
+        <button data-frame="and-frame" data-hash=".closing" class="anchor">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.controls button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const frame = document.getElementById(btn.dataset.frame);
+      const hash = btn.dataset.hash;
+      try {
+        const doc = frame.contentDocument;
+        if(hash.startsWith('#')){
+          const el = doc.querySelector(hash);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        } else {
+          const el = doc.querySelector(hash);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      } catch(e) { console.log(e); }
+      btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
