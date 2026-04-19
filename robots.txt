@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://phantomshield-cyber.netlify.app/sitemap.xml

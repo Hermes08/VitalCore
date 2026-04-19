@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — 1, 7, 30, 90 days</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vesper-shared.css">
+<style>
+  .tl-stage{padding:40px 36px 80px;border-top:1px solid var(--line)}
+
+  /* Top scrubber */
+  .scrubber{background:var(--bg-deep);padding:36px 40px;border:1px solid var(--line);margin-bottom:40px;display:flex;flex-direction:column;gap:28px}
+  .scrub-head{display:flex;justify-content:space-between;align-items:baseline}
+  .scrub-head .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+  .scrub-head .day{font-family:var(--serif);font-style:italic;font-weight:300;font-size:72px;line-height:.9;letter-spacing:-.02em;color:var(--ink)}
+  .scrub-head .day em{color:var(--accent)}
+  .scrub-head .day .u{font-family:var(--mono);font-style:normal;font-size:13px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;vertical-align:top;margin-left:6px}
+  .scrub-head .pct{text-align:right}
+  .scrub-head .pct .n{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;color:var(--accent);line-height:1}
+  .scrub-head .pct .l2{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:4px}
+
+  .track-wrap{position:relative;padding:20px 0 40px}
+  .track{position:relative;height:1px;background:var(--line)}
+  .fill{position:absolute;left:0;top:0;height:100%;background:var(--accent);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+  .checkpoints{position:absolute;inset:-12px 0 auto 0;display:flex;justify-content:space-between}
+  .cp{width:24px;height:24px;border-radius:50%;background:var(--bg-deep);border:1px solid var(--ink);cursor:pointer;position:relative;transition:all .3s;display:flex;align-items:center;justify-content:center}
+  .cp::after{content:attr(data-d);position:absolute;top:32px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);white-space:nowrap;text-transform:uppercase}
+  .cp.reached{background:var(--accent);border-color:var(--accent)}
+  .cp.reached::after{color:var(--ink)}
+  .cp.active{transform:scale(1.4);background:var(--ink);border-color:var(--ink)}
+  .cp.active::after{color:var(--accent)}
+
+  input[type=range].scrub{width:100%;-webkit-appearance:none;background:transparent;margin:0;position:absolute;top:18px;left:0;height:24px;cursor:grab;z-index:3}
+  input[type=range].scrub::-webkit-slider-runnable-track{height:24px;background:transparent}
+  input[type=range].scrub::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--ink);cursor:grab;border:2px solid var(--bg);box-shadow:0 4px 12px rgba(42,31,22,.3)}
+  input[type=range].scrub::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--ink);cursor:grab;border:2px solid var(--bg)}
+
+  /* Two-panel before/after */
+  .panels{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin-bottom:40px;min-height:520px}
+  @media(max-width:800px){.panels{grid-template-columns:1fr}}
+  .panel{padding:44px;display:flex;flex-direction:column;gap:24px;position:relative}
+  .panel.before{background:var(--bg);border-right:1px solid var(--line)}
+  .panel.after{background:var(--ink);color:var(--bg)}
+  .panel .tag{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+  .panel.after .tag{color:var(--accent)}
+  .panel .tag::before{content:"";width:24px;height:1px;background:currentColor}
+  .panel h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:42px;line-height:1.02;letter-spacing:-.01em}
+  .panel p{font-family:var(--serif);font-size:17px;line-height:1.55;color:var(--ink-2);max-width:40ch}
+  .panel.after p{color:rgba(233,223,208,.8)}
+
+  .metrics{margin-top:auto;display:flex;flex-direction:column;gap:14px}
+  .metric{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:12px;padding-top:14px;border-top:1px solid var(--line)}
+  .panel.after .metric{border-top-color:rgba(233,223,208,.15)}
+  .metric .k{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+  .panel.after .metric .k{color:rgba(233,223,208,.55)}
+  .metric .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:26px;line-height:1}
+  .panel.after .metric .v{color:var(--accent)}
+  .metric .bar{grid-column:1/-1;height:2px;background:rgba(42,31,22,.08);position:relative;margin-top:8px}
+  .panel.after .metric .bar{background:rgba(233,223,208,.12)}
+  .metric .bar .f{position:absolute;left:0;top:0;height:100%;background:var(--ink);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+  .panel.after .metric .bar .f{background:var(--accent)}
+
+  /* Transition cards — what's happening internally at this moment */
+  .whats-happening{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .wh{padding:24px;border:1px solid var(--line);background:var(--bg);display:flex;flex-direction:column;gap:10px;min-height:180px}
+  .wh .sys{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between}
+  .wh .sys strong{color:var(--accent);font-family:var(--serif);font-style:italic;font-weight:400;font-size:13px;text-transform:none;letter-spacing:-.01em}
+  .wh h4{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;line-height:1.1;letter-spacing:-.01em}
+  .wh p{font-family:var(--serif);font-size:14px;line-height:1.5;color:var(--ink-2);margin-top:auto}
+
+  /* Testimonial per checkpoint */
+  .testi{margin-top:50px;padding:40px;background:var(--bg-deep);border:1px solid var(--line);border-left:3px solid var(--accent);display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+  @media(max-width:700px){.testi{grid-template-columns:1fr}}
+  .testi .who{display:flex;flex-direction:column;gap:4px;min-width:180px}
+  .testi .who .av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--ochre));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;color:var(--bg);margin-bottom:10px}
+  .testi .who .n{font-family:var(--serif);font-style:italic;font-size:17px}
+  .testi .who .m{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  .testi blockquote{font-family:var(--serif);font-style:italic;font-weight:300;font-size:24px;line-height:1.3;letter-spacing:-.01em;color:var(--ink);max-width:60ch}
+  .testi blockquote::before{content:"\201C ";color:var(--accent);font-size:32px;vertical-align:top}
+
+  .disclaimer{margin-top:40px;padding:24px;background:var(--bg-deep);border:1px solid var(--line);font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.5;color:var(--muted);text-align:center}
+</style>
+</head><body>
+
+<nav class="top">
+  <div class="brand"><a href="Vesper.html">Vesper<sup>/01</sup></a></div>
+  <div class="links">
+    <a href="Vesper.html">Home</a>
+    <a href="Catalog.html">Apothecary</a>
+    <a href="Timeline.html" class="active">Day-by-day</a>
+    <a href="Inside.html">Inside</a>
+    <a href="Hub.html">All pages</a>
+  </div>
+  <a href="Catalog.html" class="cart"><span class="dot"></span><span>Apothecary →</span></a>
+</nav>
+
+<header class="page-head">
+  <div class="eyebrow"><span class="tick"></span><span>WHAT HAPPENS · DAY 1 · DAY 7 · DAY 30 · DAY 90</span></div>
+  <h1>Slow is a <em>feature.</em></h1>
+  <p class="lead">Real supplements take weeks. Drag the scrubber — we'll tell you exactly what's happening in your body at every stage, using the clinical trial data that informed the formula.</p>
+</header>
+
+<section class="tl-stage">
+  <div class="scrubber">
+    <div class="scrub-head">
+      <div>
+        <div class="l">You are on</div>
+        <div class="day"><em id="dayNum">01</em><span class="u" id="dayUnit">Day</span></div>
+      </div>
+      <div class="pct">
+        <div class="n" id="progN">~8%</div>
+        <div class="l2">Of total protocol</div>
+      </div>
+    </div>
+
+    <div class="track-wrap">
+      <div class="track"><div class="fill" id="fill" style="width:0%"></div></div>
+      <div class="checkpoints" id="cps"></div>
+      <input type="range" class="scrub" id="scrub" min="0" max="90" value="1" step="1"/>
+    </div>
+  </div>
+
+  <!-- Before / After -->
+  <div class="panels">
+    <div class="panel before">
+      <div class="tag">Before — Day 0</div>
+      <h3 id="beforeTitle">You, without Vesper</h3>
+      <p id="beforeP">Magnesium: deficient (68% of adults are). Omega-3 index below 4% (cardiologists want 8%). Vitamin D serum level: 22 ng/ml in winter, half of optimal. You feel "fine." Fine is a symptom.</p>
+      <div class="metrics" id="beforeMetrics"></div>
+    </div>
+    <div class="panel after">
+      <div class="tag">At this point — <span id="afterDay">Day 1</span></div>
+      <h3 id="afterTitle">The first absorption window</h3>
+      <p id="afterP">Within 45 minutes of your first capsule, methyl-B₁₂ is already in circulation. Magnesium is beginning to rebuild intracellular stores. You don't feel anything yet — and that's correct.</p>
+      <div class="metrics" id="afterMetrics"></div>
+    </div>
+  </div>
+
+  <!-- What's happening systems -->
+  <h3 style="font-family:var(--serif);font-style:italic;font-weight:300;font-size:32px;margin-bottom:20px;letter-spacing:-.01em">What's happening, inside.</h3>
+  <div class="whats-happening" id="whats"></div>
+
+  <!-- Testimonial -->
+  <div class="testi" id="testi"></div>
+
+  <div class="disclaimer">
+    Individual response varies. Data drawn from independent clinical trials of the primary actives; Vesper has not conducted its own outcome trials. We are a formulation, not a cure.
+  </div>
+</section>
+
+<footer class="f">
+  <span>© MMXXVI VESPER HOUSE</span>
+  <span><a href="Hub.html">All pages</a></span>
+  <span>FREE WORLDWIDE SHIPPING · PAUSE ANY TIME</span>
+</footer>
+
+<script>
+const STAGES = [
+  {
+    at: 1, label: 'Day 1',
+    afterTitle: 'The first absorption window',
+    afterP: 'Within 45 minutes of your first capsule, methyl-B₁₂ is already in circulation. Magnesium begins restoring intracellular stores. You don\'t feel anything yet — that\'s correct.',
+    metrics: {energy:12, sleep:8, focus:10, mood:6, inflam:10, skin:4},
+    systems: [
+      {sys:'Bloodstream', at:'45 min', h:'Active forms at work', p:'Methyl-B₁₂, L-methylfolate, and chelated magnesium bypass conversion. No waiting on your liver.'},
+      {sys:'Gut', at:'2 hours', h:'Probiotic colonies arrive', p:'Chr. Hansen strains begin adhering to the small intestine wall. Displacement starts; the colonization takes 14 days.'},
+      {sys:'Cells', at:'6 hours', h:'Mitochondrial signalling', p:'CoQ10 and B-complex reach mitochondrial membranes. ATP production pathways open to capacity they haven\'t seen in months.'},
+      {sys:'Brain', at:'24 hours', h:'Neurotransmitter synthesis', p:'B-vitamin pathway engages serotonin and dopamine production. You may notice a subtle steadiness by tomorrow morning.'}
+    ],
+    quote: {name:'Marcos, 34', meta:'Copenhagen — Architect — Week 1', text:'The only thing I can say on day one is that I haven\'t had the 3pm crash. That\'s not nothing.'}
+  },
+  {
+    at: 7, label: 'Day 7',
+    afterTitle: 'The first perceptible shift',
+    afterP: 'The afternoon crash is gone for 74% of people. Sleep onset shortens by an average of 19 minutes. You stop checking your phone at 2am. Inflammation markers (hsCRP) drop measurably.',
+    metrics: {energy:32, sleep:38, focus:28, mood:24, inflam:30, skin:10},
+    systems: [
+      {sys:'Sleep', at:'Nightly', h:'Magnesium does its work', p:'Nervous-system magnesium rises. NMDA receptors settle. Sleep architecture — specifically deep sleep — lengthens.'},
+      {sys:'Gut', at:'7 days', h:'Colonization complete', p:'Probiotic strains are fully established. Bowel regularity normalizes. Bloating reduces measurably in most.'},
+      {sys:'Inflammation', at:'Baseline shift', h:'Omega-3 index climbing', p:'Red blood cell omega-3 saturation rises from 4% toward target 8%. Curcumin + piperine downregulate inflammatory cytokines.'},
+      {sys:'Energy', at:'Consistency', h:'Even keel, not a spike', p:'B-complex supports steady afternoon clarity. You are not more energetic — you are less depleted. There is a difference.'}
+    ],
+    quote: {name:'Aisha, 41', meta:'London — Founder — Week 1', text:'I wake up before my alarm now. That hasn\'t happened since I was 22.'}
+  },
+  {
+    at: 30, label: 'Day 30',
+    afterTitle: 'Your body, recalibrated',
+    afterP: 'Serum 25-OH-D above 40 ng/ml. Magnesium RBC above 5.0. Omega-3 index approaching 8%. Cortisol curve steepens — mornings higher, evenings lower. Ashwagandha fully active. This is a different body.',
+    metrics: {energy:58, sleep:64, focus:52, mood:54, inflam:60, skin:40},
+    systems: [
+      {sys:'Endocrine', at:'30 days', h:'Cortisol curve steepens', p:'Ashwagandha\'s full effect on the HPA axis is now present. Morning cortisol rises sharply, evening cortisol falls — the curve healthy adults should have.'},
+      {sys:'Skin', at:'28 days', h:'Full turnover cycle', p:'Epidermis completes one full renewal cycle with fatty acids, selenium, and zinc as building blocks. Skin barrier function measurably improves.'},
+      {sys:'Brain', at:'30 days', h:'NGF upregulation', p:'Lion\'s mane hericenones have had time to stimulate nerve growth factor. Mental clarity now feels like a baseline state, not an event.'},
+      {sys:'Cardio', at:'30 days', h:'Omega-3 index in range', p:'Red blood cell membrane omega-3 content at or near the 8% target associated with lowest all-cause mortality in population studies.'}
+    ],
+    quote: {name:'Priya, 38', meta:'Brooklyn — Physician — Week 4', text:'I had my labs pulled at thirty days. Vitamin D doubled, ferritin up, hsCRP below 0.5. My patients get this story on Mondays.'}
+  },
+  {
+    at: 90, label: 'Day 90',
+    afterTitle: 'The long game, arrived',
+    afterP: 'Three months is the accepted clinical endpoint. Bone density markers begin to shift. Testosterone +14% in men over 35 (ashwagandha). Hair diameter thickens. The body you have today is the one you\'ll keep.',
+    metrics: {energy:78, sleep:84, focus:76, mood:74, inflam:82, skin:78},
+    systems: [
+      {sys:'Bone + joint', at:'90 days', h:'Density shifts', p:'Vitamin D + K₂ + magnesium + collagen peptides have directed calcium to bone matrices for a full quarter. DEXA-visible change begins.'},
+      {sys:'Hormonal', at:'90 days', h:'Testosterone + thyroid', p:'Ashwagandha (men +14% T on average, peer-reviewed). Selenomethionine fully supports thyroid hormone conversion. You are not "enhanced" — you are adequate.'},
+      {sys:'Hair + nails', at:'90 days', h:'Visible change', p:'Biotin, collagen, silica, and omega-3s have had three full growth cycles to incorporate. Nails split less. Hair diameter up.'},
+      {sys:'Mitochondria', at:'90 days', h:'Network density', p:'Mitochondrial biogenesis — driven by CoQ10, PQQ, and B-complex — means more mitochondria per cell. You\'re producing more energy with the same cells.'}
+    ],
+    quote: {name:'Elena, 52', meta:'Madrid — Teacher — Month 3', text:'I stopped thinking about Vesper. That\'s the highest compliment I can give a supplement. It became invisible, and I just became better.'}
+  }
+];
+
+const BEFORE_M = {energy:0, sleep:0, focus:0, mood:0, inflam:0, skin:0};
+const METRIC_LABELS = {energy:'Afternoon energy', sleep:'Deep sleep min.', focus:'Sustained focus', mood:'Mood stability', inflam:'Inflammation ↓', skin:'Skin barrier'};
+
+// build checkpoints
+const cpsEl = document.getElementById('cps');
+STAGES.forEach(s => {
+  const cp = document.createElement('div');
+  cp.className = 'cp';
+  cp.dataset.d = 'Day ' + s.at;
+  cp.style.position = 'absolute';
+  cp.style.left = (s.at / 90 * 100) + '%';
+  cp.style.transform = 'translateX(-50%)';
+  cp.onclick = () => setDay(s.at);
+  cpsEl.appendChild(cp);
+});
+
+// Before metrics (fixed baseline)
+const beforeEl = document.getElementById('beforeMetrics');
+Object.keys(METRIC_LABELS).slice(0,3).forEach(k => {
+  beforeEl.insertAdjacentHTML('beforeend', `
+    <div class="metric">
+      <span class="k">${METRIC_LABELS[k]}</span>
+      <span class="v">baseline</span>
+      <div class="bar"><div class="f" style="width:15%"></div></div>
+    </div>`);
+});
+
+const afterEl = document.getElementById('afterMetrics');
+const whatsEl = document.getElementById('whats');
+const testiEl = document.getElementById('testi');
+
+function currentStage(day){
+  let s = STAGES[0];
+  for(const st of STAGES){ if(day >= st.at) s = st; }
+  return s;
+}
+
+function setDay(day){
+  const scrub = document.getElementById('scrub');
+  scrub.value = day;
+  document.getElementById('dayNum').textContent = String(day).padStart(2,'0');
+  document.getElementById('dayUnit').textContent = day === 1 ? 'Day' : 'Days';
+  document.getElementById('progN').textContent = Math.round(day / 90 * 100) + '%';
+  document.getElementById('fill').style.width = (day / 90 * 100) + '%';
+
+  const s = currentStage(day);
+  document.getElementById('afterDay').textContent = s.label;
+  document.getElementById('afterTitle').textContent = s.afterTitle;
+  document.getElementById('afterP').textContent = s.afterP;
+
+  // after metrics
+  afterEl.innerHTML = '';
+  Object.keys(METRIC_LABELS).slice(0,3).forEach(k => {
+    const v = s.metrics[k];
+    afterEl.insertAdjacentHTML('beforeend', `
+      <div class="metric">
+        <span class="k">${METRIC_LABELS[k]}</span>
+        <span class="v">+${v}%</span>
+        <div class="bar"><div class="f" style="width:${Math.min(100, v)}%"></div></div>
+      </div>`);
+  });
+
+  // what's happening
+  whatsEl.innerHTML = s.systems.map(w => `
+    <div class="wh">
+      <div class="sys"><span>${w.sys}</span><strong>${w.at}</strong></div>
+      <h4>${w.h}</h4>
+      <p>${w.p}</p>
+    </div>`).join('');
+
+  // testimonial
+  testiEl.innerHTML = `
+    <div class="who">
+      <div class="av">${s.quote.name[0]}</div>
+      <div class="n">${s.quote.name}</div>
+      <div class="m">${s.quote.meta}</div>
+    </div>
+    <blockquote>${s.quote.text}</blockquote>`;
+
+  // checkpoint states
+  document.querySelectorAll('.cp').forEach((cp, i) => {
+    cp.classList.toggle('reached', STAGES[i].at <= day);
+    cp.classList.toggle('active', STAGES[i].at === s.at);
+  });
+}
+
+document.getElementById('scrub').addEventListener('input', e => setDay(parseInt(e.target.value)));
+setDay(1);
+
+// subtle auto-advance on first load
+let auto = 1;
+const interval = setInterval(() => {
+  if(auto >= 90){ clearInterval(interval); return; }
+  auto += 1;
+  setDay(auto);
+  if([7,30,90].includes(auto)){ /* pause naturally */ }
+}, 60);
+document.getElementById('scrub').addEventListener('mousedown', () => clearInterval(interval));
+document.getElementById('scrub').addEventListener('touchstart', () => clearInterval(interval));
+</script>
+</body></html>

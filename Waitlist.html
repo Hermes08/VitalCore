@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — The next batch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vesper-shared.css">
+<style>
+  .wl{padding:0;border-top:1px solid var(--line);display:grid;grid-template-columns:1.1fr 1fr}
+  @media(max-width:1000px){.wl{grid-template-columns:1fr}}
+
+  /* Left: form + counter */
+  .wl-lt{padding:60px 44px;background:var(--ink);color:var(--bg);position:relative;min-height:720px;display:flex;flex-direction:column;gap:28px}
+  .wl-lt .meta{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;display:flex;justify-content:space-between;align-items:baseline}
+  .wl-lt .meta span.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:10px;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .wl-lt h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(58px,9vw,120px);line-height:.88;letter-spacing:-.03em}
+  .wl-lt h1 em{color:var(--accent)}
+  .wl-lt h1 sup{font-size:.28em;font-family:var(--mono);font-style:normal;letter-spacing:.2em;vertical-align:top;color:rgba(233,223,208,.5);margin-left:6px;font-weight:400}
+  .wl-lt .sub{font-family:var(--serif);font-size:18px;line-height:1.55;color:rgba(233,223,208,.8);max-width:44ch;font-style:italic}
+
+  .counter-big{border-top:1px solid rgba(233,223,208,.18);border-bottom:1px solid rgba(233,223,208,.18);padding:28px 0;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+  .counter-big .k{font-family:var(--mono);font-size:9px;letter-spacing:.3em;color:rgba(233,223,208,.5);text-transform:uppercase;margin-bottom:6px}
+  .counter-big .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:64px;line-height:.9;letter-spacing:-.02em}
+  .counter-big .v em{color:var(--accent)}
+  .counter-big .n{font-family:var(--serif);font-style:italic;font-size:13px;color:rgba(233,223,208,.6);margin-top:4px;line-height:1.45}
+
+  /* form */
+  form.wl-form{display:flex;flex-direction:column;gap:18px}
+  .wl-form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:500px){.wl-form .row{grid-template-columns:1fr}}
+  .wl-form .f{display:flex;flex-direction:column;gap:6px}
+  .wl-form label{font-family:var(--mono);font-size:9px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase}
+  .wl-form input,.wl-form select{background:transparent;border:none;border-bottom:1px solid rgba(233,223,208,.25);color:var(--bg);font-family:var(--serif);font-style:italic;font-size:20px;padding:12px 0;outline:none;transition:border .2s}
+  .wl-form input:focus,.wl-form select:focus{border-bottom-color:var(--accent)}
+  .wl-form input::placeholder{color:rgba(233,223,208,.3)}
+  .wl-form select{appearance:none;background-image:linear-gradient(45deg,transparent 48%,var(--accent) 48%,var(--accent) 52%,transparent 52%),linear-gradient(-45deg,transparent 48%,var(--accent) 48%,var(--accent) 52%,transparent 52%);background-size:6px 6px;background-position:right 4px top 24px,right 0 top 24px;background-repeat:no-repeat}
+  .wl-form button{margin-top:8px;padding:22px;background:var(--accent);color:var(--bg);border:none;font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;transition:background .3s;display:flex;justify-content:space-between;align-items:center}
+  .wl-form button:hover{background:var(--bg);color:var(--ink)}
+  .wl-form button .q{font-family:var(--serif);font-style:italic;font-size:16px;letter-spacing:0;text-transform:none;font-weight:400}
+  .wl-form .terms{font-family:var(--serif);font-size:13px;color:rgba(233,223,208,.55);font-style:italic;line-height:1.5;margin-top:4px}
+  .wl-form .terms a{color:var(--accent);text-decoration:none}
+
+  .success{padding:40px;background:rgba(196,98,45,.1);border:1px solid var(--accent);text-align:center;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.4;color:var(--bg)}
+  .success em{color:var(--accent);display:block;font-size:44px;margin:8px 0 12px;font-weight:300}
+
+  /* Right: social proof ticker + recent signups */
+  .wl-rt{background:var(--bg);display:flex;flex-direction:column;min-height:720px;border-left:1px solid var(--line)}
+
+  .proof-head{padding:32px 34px 20px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line)}
+  .proof-head .t{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase}
+  .proof-head h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:30px;line-height:1;letter-spacing:-.01em;margin-top:4px}
+  .proof-head .live{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--sage);text-transform:uppercase;display:flex;align-items:center;gap:6px}
+  .proof-head .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sage);animation:pulse 2s infinite}
+
+  /* Scrolling signup list */
+  .feed{flex:1;overflow:hidden;position:relative;min-height:380px}
+  .feed-inner{position:absolute;left:0;right:0;animation:scroll 40s linear infinite}
+  .feed-inner:hover{animation-play-state:paused}
+  @keyframes scroll { 0% { transform:translateY(0) } 100% { transform:translateY(-50%) } }
+  .sig{display:grid;grid-template-columns:48px 1fr auto;gap:16px;padding:14px 34px;border-bottom:1px solid var(--line);align-items:center}
+  .sig .av{width:36px;height:36px;border-radius:50%;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink);font-weight:500}
+  .sig .av.a{background:var(--accent);color:var(--bg)}
+  .sig .av.s{background:var(--sage);color:var(--bg)}
+  .sig .av.o{background:var(--ochre);color:var(--ink)}
+  .sig .n{font-family:var(--serif);font-style:italic;font-size:17px;letter-spacing:-.01em;line-height:1.2}
+  .sig .m{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);margin-top:2px}
+  .sig .t{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+  .sig.new{background:rgba(196,98,45,.08);border-left:3px solid var(--accent)}
+  .sig.new .t{color:var(--accent)}
+
+  /* Country map bar */
+  .countries{padding:24px 34px;border-top:1px solid var(--line);background:var(--bg-deep)}
+  .countries h4{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+  .c-row{display:grid;grid-template-columns:90px 1fr 50px;gap:12px;align-items:center;font-family:var(--mono);font-size:11px;padding:4px 0}
+  .c-row .c{color:var(--ink-2);text-transform:uppercase;letter-spacing:.1em}
+  .c-row .b{height:4px;background:var(--cream-deep);position:relative;overflow:hidden}
+  .c-row .b > span{position:absolute;inset:0 auto 0 0;background:var(--accent);animation:grow 1.5s ease-out}
+  @keyframes grow{from{width:0!important}}
+  .c-row .v{color:var(--muted);text-align:right}
+
+  /* bottom press row */
+  .press-strip{padding:28px 34px;border-top:1px solid var(--line);display:flex;gap:28px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  .press-strip .t{font-family:var(--mono);font-size:9px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+  .press-strip .logos{display:flex;gap:28px;flex-wrap:wrap}
+  .press-strip .logos span{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink-2);letter-spacing:-.01em;opacity:.75}
+
+  /* timeline of past batches */
+  .batches{padding:50px 36px;border-top:1px solid var(--line)}
+  .batches h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:44px;letter-spacing:-.02em;margin-bottom:8px}
+  .batches h2 em{color:var(--accent)}
+  .batches .lead{font-family:var(--mono);font-size:11px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:30px}
+  .batch-list{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:900px){.batch-list{grid-template-columns:1fr 1fr}}
+  @media(max-width:500px){.batch-list{grid-template-columns:1fr}}
+  .batch{background:var(--bg);padding:24px;display:flex;flex-direction:column;gap:8px;min-height:170px;position:relative}
+  .batch.now{background:var(--ink);color:var(--bg)}
+  .batch .tag{font-family:var(--mono);font-size:9px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+  .batch.now .tag{color:var(--accent)}
+  .batch .n{font-family:var(--serif);font-style:italic;font-weight:300;font-size:40px;line-height:.9;letter-spacing:-.01em}
+  .batch.now .n em{color:var(--accent)}
+  .batch .t{font-family:var(--serif);font-size:14px;color:var(--ink-2);line-height:1.4;font-style:italic}
+  .batch.now .t{color:rgba(233,223,208,.75)}
+  .batch .st{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:flex;justify-content:space-between}
+  .batch.now .st{border-top-color:rgba(233,223,208,.2);color:var(--accent)}
+  .batch.shipped .st{color:var(--sage)}
+</style>
+</head><body>
+
+<nav class="top">
+  <div class="brand"><a href="Vesper.html">Vesper<sup>/01</sup></a></div>
+  <div class="links">
+    <a href="Vesper.html">Home</a>
+    <a href="Catalog.html">Apothecary</a>
+    <a href="Waitlist.html" class="active">Waitlist</a>
+    <a href="Founder.html">Letter</a>
+    <a href="Hub.html">All pages</a>
+  </div>
+  <a href="Catalog.html" class="cart"><span class="dot"></span><span>Apothecary →</span></a>
+</nav>
+
+<section class="wl">
+
+  <div class="wl-lt">
+    <div class="meta">
+      <span><span class="dot"></span>Batch N° 031 · closing Jun 14</span>
+      <span>LIMITED · 2,400 BOTTLES</span>
+    </div>
+
+    <h1>The next<br/><em>batch<sup>/031</sup></em></h1>
+
+    <p class="sub">We don't oversell. Every batch is made once, then made again. This is how you join the one after next — Daily N° 01, shipped the first week of July.</p>
+
+    <div class="counter-big">
+      <div>
+        <div class="k">On the waitlist</div>
+        <div class="v"><em id="wlNum">2,847</em></div>
+        <div class="n">+ <span id="wlToday">23</span> today · + <span id="wlHour">4</span> this hour</div>
+      </div>
+      <div>
+        <div class="k">Bottles reserved</div>
+        <div class="v">1,912<span style="font-family:var(--mono);font-size:18px;letter-spacing:.15em;color:rgba(233,223,208,.5);margin-left:10px">/ 2,400</span></div>
+        <div class="n">79.7% filled · <em style="color:var(--accent);font-style:normal">488</em> bottles left</div>
+      </div>
+    </div>
+
+    <form class="wl-form" id="wlForm" onsubmit="event.preventDefault(); onSubmit();">
+      <div class="row">
+        <div class="f"><label>First name</label><input id="fn" placeholder="Your name" required></div>
+        <div class="f"><label>Country</label><input id="co" placeholder="e.g. Denmark" required></div>
+      </div>
+      <div class="f"><label>Email</label><input id="em" type="email" placeholder="you@somewhere.com" required></div>
+      <div class="f"><label>What brought you here?</label>
+        <select id="src">
+          <option>A friend's recommendation</option>
+          <option>Monocle · issue 171</option>
+          <option>The New York Times</option>
+          <option>Kinfolk magazine</option>
+          <option>Substack · someone I read</option>
+          <option>Found the brand by accident</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <button id="wlBtn">
+        <span>Hold my bottle →</span>
+        <span class="q">reserves for 72 hours</span>
+      </button>
+      <p class="terms">No charge until the batch opens. We email once to confirm, once to tell you the batch is ready, <a href="#">once more at ninety days to ask how you're feeling</a>. Unsubscribe with a reply.</p>
+    </form>
+  </div>
+
+  <div class="wl-rt">
+    <div class="proof-head">
+      <div>
+        <span class="t">Joining right now</span>
+        <h2 id="feedCounter">Last <em>40</em> signups</h2>
+      </div>
+      <span class="live">Live · updating</span>
+    </div>
+
+    <div class="feed"><div class="feed-inner" id="feed"></div></div>
+
+    <div class="countries">
+      <h4>◉ Top signup countries · last 7 days</h4>
+      <div class="c-row"><span class="c">Denmark</span><div class="b"><span style="width:28%"></span></div><span class="v">312</span></div>
+      <div class="c-row"><span class="c">UK</span><div class="b"><span style="width:24%"></span></div><span class="v">268</span></div>
+      <div class="c-row"><span class="c">Germany</span><div class="b"><span style="width:19%"></span></div><span class="v">211</span></div>
+      <div class="c-row"><span class="c">USA</span><div class="b"><span style="width:16%"></span></div><span class="v">178</span></div>
+      <div class="c-row"><span class="c">Sweden</span><div class="b"><span style="width:11%"></span></div><span class="v">124</span></div>
+      <div class="c-row"><span class="c">Japan</span><div class="b"><span style="width:8%"></span></div><span class="v">89</span></div>
+      <div class="c-row"><span class="c">41 others</span><div class="b"><span style="width:22%"></span></div><span class="v">245</span></div>
+    </div>
+
+    <div class="press-strip">
+      <span class="t">As covered by</span>
+      <div class="logos">
+        <span>Monocle</span>
+        <span>Kinfolk</span>
+        <span>The Times</span>
+        <span>Vogue Biz</span>
+        <span>FT Weekend</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section class="batches">
+  <div class="lead">◉ Every batch we've ever made</div>
+  <h2>Four years, <em>31 batches.</em></h2>
+
+  <div class="batch-list">
+    <div class="batch shipped">
+      <span class="tag">N° 028</span>
+      <span class="n">2,100</span>
+      <span class="t">Winter · early 2026 · all Rotterdam-filled</span>
+      <span class="st"><span>Shipped</span><span>Jan 2026</span></span>
+    </div>
+    <div class="batch shipped">
+      <span class="tag">N° 029</span>
+      <span class="n">2,200</span>
+      <span class="t">Spring · Madhya Pradesh harvest · new lot</span>
+      <span class="st"><span>Shipped</span><span>Feb 2026</span></span>
+    </div>
+    <div class="batch shipped">
+      <span class="tag">N° 030</span>
+      <span class="n">2,400</span>
+      <span class="t">Recalled Aug 2025 · read the post-mortem</span>
+      <span class="st"><span>Recalled · Mar</span><span style="color:var(--accent)">Post-mortem →</span></span>
+    </div>
+    <div class="batch now">
+      <span class="tag">N° 031 · live</span>
+      <span class="n"><em>2,400</em></span>
+      <span class="t">Open now · 488 bottles remaining · ships first week of July</span>
+      <span class="st"><span>Open</span><span>Jul 2026</span></span>
+    </div>
+  </div>
+</section>
+
+<footer class="f">
+  <span>© MMXXVI VESPER HOUSE</span>
+  <span><a href="Hub.html">All pages</a></span>
+  <span>MADE IN BATCHES · NEVER IN BULK</span>
+</footer>
+
+<script>
+  // live counter with believable wobble
+  let n = 2847;
+  const elN = document.getElementById('wlNum');
+  const elToday = document.getElementById('wlToday');
+  const elHour = document.getElementById('wlHour');
+  let today = 23, hour = 4;
+
+  setInterval(()=>{
+    if(Math.random() > .55){
+      n++; today++; hour++;
+      elN.textContent = n.toLocaleString();
+      elToday.textContent = today;
+      elHour.textContent = hour;
+      // flash
+      elN.style.color = 'var(--bg)';
+      elN.animate([{transform:'scale(1.04)'},{transform:'scale(1)'}],{duration:300});
+      addFreshSignup();
+    }
+  }, 4500);
+
+  // Feed of recent signups
+  const NAMES = [
+    ['Ingrid L.','Copenhagen','DK'], ['Mateo G.','Madrid','ES'], ['Harriet W.','London','UK'],
+    ['Akira T.','Tokyo','JP'], ['Chloé M.','Paris','FR'], ['Finn O.','Oslo','NO'],
+    ['Sofia B.','Milan','IT'], ['Mads H.','Aarhus','DK'], ['Rosa T.','Berlin','DE'],
+    ['Hugo P.','Lisbon','PT'], ['Elif K.','Istanbul','TR'], ['Noah S.','Zurich','CH'],
+    ['Astrid N.','Stockholm','SE'], ['Isaac R.','New York','US'], ['Camille B.','Brussels','BE'],
+    ['Oskar V.','Helsinki','FI'], ['Lena W.','Munich','DE'], ['Jules C.','Lyon','FR'],
+    ['Mira P.','Amsterdam','NL'], ['Theo A.','Dublin','IE'],
+  ];
+  const PRODUCTS = ['Daily N° 01','Daily N° 01','Daily N° 01','Evening Tincture','Magnesium Gly.','Daily N° 01 × 2','L-Theanine','Daily N° 01'];
+  const AVCLS = ['','a','s','o'];
+  const TIMES = ['just now','1m ago','3m ago','4m ago','7m ago','11m ago','14m ago','22m ago','31m ago','48m ago','1h ago','1h ago','2h ago','3h ago','5h ago','yesterday'];
+
+  const feed = document.getElementById('feed');
+  function makeSig(n,c,cc,prod,t,fresh){
+    const initials = n.split(' ').map(s=>s[0]).join('');
+    const cls = AVCLS[Math.floor(Math.random()*AVCLS.length)];
+    return `<div class="sig ${fresh?'new':''}">
+      <div class="av ${cls}">${initials}</div>
+      <div><div class="n">${n} <span style="color:var(--muted);font-size:13px">· ${c}</span></div><div class="m">${prod} · ${cc}</div></div>
+      <div class="t">${t}</div>
+    </div>`;
+  }
+  function build(){
+    const rows = [];
+    for(let i=0;i<40;i++){
+      const [n,c,cc] = NAMES[i%NAMES.length];
+      const prod = PRODUCTS[i%PRODUCTS.length];
+      const t = TIMES[Math.min(i, TIMES.length-1)];
+      rows.push(makeSig(n,c,cc,prod,t, i<2));
+    }
+    // Duplicate for infinite scroll illusion
+    feed.innerHTML = rows.join('') + rows.join('');
+  }
+  build();
+
+  function addFreshSignup(){
+    const [n,c,cc] = NAMES[Math.floor(Math.random()*NAMES.length)];
+    const prod = PRODUCTS[Math.floor(Math.random()*PRODUCTS.length)];
+    const html = makeSig(n,c,cc,prod,'just now',true);
+    feed.insertAdjacentHTML('afterbegin', html);
+    feed.insertAdjacentHTML('afterbegin', html); // mirror row
+    // drop tail
+    while(feed.children.length > 82) feed.removeChild(feed.lastChild);
+  }
+
+  function onSubmit(){
+    const fn = document.getElementById('fn').value;
+    const co = document.getElementById('co').value;
+    const form = document.getElementById('wlForm');
+    form.innerHTML = `<div class="success">
+      Thank you, <em>${fn || 'friend'}</em>
+      Your bottle from Batch N° 031 is reserved. We'll email ${document.getElementById('em').value || 'you'} within 72 hours from ${co || 'Rotterdam'}.
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);margin-top:22px;text-transform:uppercase">Reservation ID · VSP-${(Math.random()*900000|0)+100000}</div>
+    </div>`;
+    n++;
+    elN.textContent = n.toLocaleString();
+    addFreshSignup();
+  }
+</script>
+</body></html>

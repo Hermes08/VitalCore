@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — Honest Comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vesper-shared.css">
+<style>
+  .vs-stage{padding:40px 36px 80px;border-top:1px solid var(--line)}
+
+  .intro-note{padding:32px 36px;background:var(--ink);color:var(--bg);margin-bottom:60px;display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center}
+  @media(max-width:800px){.intro-note{grid-template-columns:1fr}}
+  .intro-note .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase}
+  .intro-note p{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;line-height:1.35;max-width:62ch}
+  .intro-note p em{color:var(--accent)}
+  .intro-note .sig{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(233,223,208,.5);text-transform:uppercase;text-align:right;line-height:1.6}
+
+  /* Table */
+  .t-head{display:grid;grid-template-columns:240px repeat(4,1fr);gap:0;border:1px solid var(--ink);background:var(--ink);color:var(--bg)}
+  @media(max-width:900px){.t-head{grid-template-columns:140px repeat(4,1fr)}}
+  .t-head > div{padding:24px 16px;border-right:1px solid rgba(233,223,208,.15);text-align:center;display:flex;flex-direction:column;gap:4px;justify-content:flex-end}
+  .t-head > div:last-child{border-right:none}
+  .t-head > div:first-child{text-align:left;justify-content:flex-end}
+  .t-head .tier{font-family:var(--mono);font-size:9px;letter-spacing:.25em;color:rgba(233,223,208,.5);text-transform:uppercase}
+  .t-head .name{font-family:var(--serif);font-style:italic;font-weight:300;font-size:26px;line-height:1;letter-spacing:-.01em}
+  .t-head .us .name{color:var(--accent)}
+  .t-head .price{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:rgba(233,223,208,.6);text-transform:uppercase;margin-top:8px;border-top:1px solid rgba(233,223,208,.15);padding-top:8px}
+  .t-head .us .price{color:var(--accent)}
+
+  .row{display:grid;grid-template-columns:240px repeat(4,1fr);gap:0;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  @media(max-width:900px){.row{grid-template-columns:140px repeat(4,1fr)}}
+  .row > div{padding:18px 16px;border-right:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink-2);text-align:center;min-height:70px}
+  .row > div:last-child{border-right:none}
+  .row > div:first-child{justify-content:flex-start;text-align:left;font-family:var(--serif);font-style:italic;font-weight:300;font-size:17px;color:var(--ink);letter-spacing:-.01em}
+  .row:nth-child(even){background:var(--bg-deep)}
+  .row > .us{background:var(--bg);border-left:2px solid var(--accent);border-right:2px solid var(--accent);color:var(--ink);font-family:var(--serif);font-style:italic;font-weight:400;font-size:15px}
+  .row:nth-child(even) > .us{background:var(--bg-deep)}
+  .row .good{color:var(--sage);font-weight:500}
+  .row .bad{color:var(--accent);opacity:.85}
+  .row .neutral{color:var(--muted)}
+  .row-cat{display:grid;grid-template-columns:240px repeat(4,1fr);gap:0;border-left:1px solid var(--line);border-right:1px solid var(--line);background:var(--ink);color:var(--accent)}
+  @media(max-width:900px){.row-cat{grid-template-columns:140px repeat(4,1fr)}}
+  .row-cat > div{padding:16px;font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;border-right:1px solid rgba(233,223,208,.1)}
+  .row-cat > div:first-child{color:var(--bg)}
+  .row-cat > div:not(:first-child){color:rgba(233,223,208,.3)}
+
+  .sym{font-family:var(--mono);font-size:18px;font-weight:500}
+  .sym.y{color:var(--sage)}
+  .sym.n{color:var(--accent)}
+
+  .bottom-line{margin-top:60px;padding:50px 40px;background:var(--bg-deep);border:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  @media(max-width:800px){.bottom-line{grid-template-columns:1fr}}
+  .bottom-line .col h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:-.01em;margin-bottom:20px}
+  .bottom-line .col h3 em{color:var(--accent)}
+  .bottom-line .col p{font-family:var(--serif);font-size:17px;line-height:1.55;color:var(--ink-2);margin-bottom:16px}
+  .bottom-line .col ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:16px}
+  .bottom-line .col li{font-family:var(--serif);font-size:16px;line-height:1.4;padding-left:24px;position:relative;color:var(--ink-2)}
+  .bottom-line .col li::before{content:"—";position:absolute;left:0;color:var(--accent);font-weight:500}
+
+  .where-we-lose{margin-top:40px;padding:40px;background:var(--ink);color:var(--bg);display:grid;grid-template-columns:auto 1fr;gap:32px}
+  @media(max-width:700px){.where-we-lose{grid-template-columns:1fr}}
+  .where-we-lose .num{font-family:var(--serif);font-style:italic;font-weight:300;font-size:120px;line-height:.85;color:var(--accent);letter-spacing:-.04em}
+  .where-we-lose h4{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+  .where-we-lose h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.1;letter-spacing:-.01em;margin-bottom:16px}
+  .where-we-lose p{font-family:var(--serif);font-size:17px;line-height:1.6;color:rgba(233,223,208,.85);max-width:58ch;margin-bottom:14px}
+  .where-we-lose .sig{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(233,223,208,.4);text-transform:uppercase;margin-top:20px}
+</style>
+</head><body>
+
+<nav class="top">
+  <div class="brand"><a href="Vesper.html">Vesper<sup>/01</sup></a></div>
+  <div class="links">
+    <a href="Vesper.html">Home</a>
+    <a href="Catalog.html">Apothecary</a>
+    <a href="Versus.html" class="active">Vs. others</a>
+    <a href="Founder.html">Our letter</a>
+    <a href="Hub.html">All pages</a>
+  </div>
+  <a href="Catalog.html" class="cart"><span class="dot"></span><span>Apothecary →</span></a>
+</nav>
+
+<header class="page-head">
+  <div class="eyebrow"><span class="tick"></span><span>A FAIR COMPARISON · NAMED COMPETITORS · NO SMALL PRINT</span></div>
+  <h1>We are <em>not</em> always<br/>the best choice.</h1>
+  <p class="lead">Most comparison pages are ads pretending to be objective. This isn't. We tell you where we win, where we tie, and the two categories where we flatly lose. Choose accordingly.</p>
+</header>
+
+<section class="vs-stage">
+  <div class="intro-note">
+    <div class="l">A note before you read</div>
+    <p>We buy our competitors' bottles with company cards, send them to <em>the same independent lab</em> we use, and publish the CoAs. No editorial inference — only what the chromatograph found.</p>
+    <div class="sig">Verified Q1 2026<br/>Eurofins Labs, Lancaster PA</div>
+  </div>
+
+  <!-- Headers -->
+  <div class="t-head">
+    <div><span class="tier">Category</span><span class="name" style="font-size:18px">Metric</span></div>
+    <div class="us"><span class="tier">Us</span><span class="name">Vesper N° 01</span><span class="price">$68 / month</span></div>
+    <div><span class="tier">Category leader</span><span class="name">Athletic Greens</span><span class="price">$99 / month</span></div>
+    <div><span class="tier">Pharmacy aisle</span><span class="name">Centrum Silver</span><span class="price">$14 / month</span></div>
+    <div><span class="tier">Boutique rival</span><span class="name">Ritual Essential</span><span class="price">$33 / month</span></div>
+  </div>
+
+  <!-- Formulation -->
+  <div class="row-cat"><div>Formulation</div><div></div><div></div><div></div><div></div></div>
+
+  <div class="row">
+    <div>Number of actives</div>
+    <div class="us">12 dosed</div>
+    <div>75 ingredients</div>
+    <div>23 ingredients</div>
+    <div>10 dosed</div>
+  </div>
+  <div class="row">
+    <div>Active form of B₁₂</div>
+    <div class="us">Methylcobalamin</div>
+    <div class="neutral">Cyanocobalamin</div>
+    <div class="neutral">Cyanocobalamin</div>
+    <div class="good">Methylcobalamin</div>
+  </div>
+  <div class="row">
+    <div>Magnesium form</div>
+    <div class="us">Bisglycinate (chelated)</div>
+    <div class="neutral">Citrate blend</div>
+    <div class="bad">Oxide (4% absorbed)</div>
+    <div class="good">Bisglycinate</div>
+  </div>
+  <div class="row">
+    <div>Folate form</div>
+    <div class="us">L-methylfolate (6S)</div>
+    <div class="good">L-methylfolate</div>
+    <div class="bad">Folic acid (synthetic)</div>
+    <div class="good">L-methylfolate</div>
+  </div>
+  <div class="row">
+    <div>Proprietary blends</div>
+    <div class="us"><span class="sym y">—</span> Never</div>
+    <div class="bad">Yes — 4 blends</div>
+    <div class="good">No blends</div>
+    <div class="good">No blends</div>
+  </div>
+  <div class="row">
+    <div>Every dose disclosed</div>
+    <div class="us"><span class="sym y">✓</span></div>
+    <div class="bad"><span class="sym n">✗</span></div>
+    <div class="good"><span class="sym y">✓</span></div>
+    <div class="good"><span class="sym y">✓</span></div>
+  </div>
+
+  <!-- Quality -->
+  <div class="row-cat"><div>Quality + testing</div><div></div><div></div><div></div><div></div></div>
+
+  <div class="row">
+    <div>Third-party tested</div>
+    <div class="us">Eurofins · per batch</div>
+    <div class="neutral">NSF · per batch</div>
+    <div class="neutral">Own lab only</div>
+    <div class="good">USP verified</div>
+  </div>
+  <div class="row">
+    <div>CoA public on site</div>
+    <div class="us"><span class="sym y">✓ every batch</span></div>
+    <div class="bad"><span class="sym n">✗</span></div>
+    <div class="bad"><span class="sym n">✗</span></div>
+    <div class="good"><span class="sym y">✓</span></div>
+  </div>
+  <div class="row">
+    <div>Heavy-metal testing</div>
+    <div class="us">Below Prop 65 × 10</div>
+    <div class="neutral">Below Prop 65</div>
+    <div class="neutral">Below Prop 65</div>
+    <div class="neutral">Below Prop 65</div>
+  </div>
+  <div class="row">
+    <div>Clinical studies</div>
+    <div class="us">On inputs, not product</div>
+    <div class="bad">None on final blend</div>
+    <div class="bad">None on final blend</div>
+    <div class="good">One on final blend</div>
+  </div>
+
+  <!-- Sourcing -->
+  <div class="row-cat"><div>Sourcing</div><div></div><div></div><div></div><div></div></div>
+
+  <div class="row">
+    <div>Countries of origin disclosed</div>
+    <div class="us">12 named suppliers</div>
+    <div class="bad">"Worldwide"</div>
+    <div class="bad">Not disclosed</div>
+    <div class="neutral">7 disclosed</div>
+  </div>
+  <div class="row">
+    <div>Fish-oil IFOS rating</div>
+    <div class="us">5-star (Norway)</div>
+    <div class="neutral">n/a — algal only</div>
+    <div class="neutral">3-star</div>
+    <div class="good">5-star (algal)</div>
+  </div>
+  <div class="row">
+    <div>GMOs, synthetic colors</div>
+    <div class="us"><span class="sym n">None</span></div>
+    <div class="good">None</div>
+    <div class="bad">FD&C Red 40, Blue 2</div>
+    <div class="good">None</div>
+  </div>
+
+  <!-- Business -->
+  <div class="row-cat"><div>Buying experience</div><div></div><div></div><div></div><div></div></div>
+
+  <div class="row">
+    <div>Price per active mg</div>
+    <div class="us">$0.019 per mg</div>
+    <div class="bad">$0.142 per mg</div>
+    <div class="good">$0.004 per mg</div>
+    <div class="neutral">$0.023 per mg</div>
+  </div>
+  <div class="row">
+    <div>Pause subscription</div>
+    <div class="us">Any time, in 1 tap</div>
+    <div class="neutral">Via support chat</div>
+    <div class="neutral">N/A — retail</div>
+    <div class="good">1-tap</div>
+  </div>
+  <div class="row">
+    <div>Return window</div>
+    <div class="us">90 days, any reason</div>
+    <div class="neutral">60 days</div>
+    <div class="good">Retailer terms</div>
+    <div class="neutral">30 days</div>
+  </div>
+  <div class="row">
+    <div>Free worldwide shipping</div>
+    <div class="us"><span class="sym y">✓</span></div>
+    <div class="bad">US / CA / UK only</div>
+    <div class="neutral">Retail</div>
+    <div class="bad">US only</div>
+  </div>
+
+  <!-- Bottom line -->
+  <div class="bottom-line">
+    <div class="col">
+      <h3>Where we <em>beat</em> the market</h3>
+      <p>On the metrics that change outcomes — active forms, disclosed sourcing, per-batch CoAs, zero blends — we are unambiguously ahead. A mechanically better product at the same or lower cost per active mg than our boutique rival.</p>
+      <ul>
+        <li>Every active form is the bioavailable one</li>
+        <li>Every gram is sourced from a named supplier</li>
+        <li>Every batch is publicly tested, without NDAs</li>
+        <li>Free shipping and pause-any-time, globally</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Where we <em>tie</em></h3>
+      <p>Ritual matches us on most formulation quality. If you want a women's-health-focused multi and don't need international shipping, it's an honest alternative — we won't pretend otherwise.</p>
+      <ul>
+        <li>Both use the methyl forms of B₁₂ + folate</li>
+        <li>Both disclose every dose and exclude blends</li>
+        <li>Both certify the final-product manufacturer</li>
+        <li>Ritual has one clinical trial on the finished blend — we do not (yet)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="where-we-lose">
+    <div class="num">02</div>
+    <div>
+      <h4>Where we lose — honestly</h4>
+      <h3>Centrum, on <em>price per milligram.</em></h3>
+      <p>At $14/month, pharmacy-aisle multivitamins are five times cheaper per mg than we are. If cost is your dominant constraint and you don't care about absorbable forms or blends, Centrum works, and we'd rather you take something than nothing.</p>
+      <p>And AG1 wins on <em>single-scoop convenience</em>: if the act of remembering capsules is your biggest barrier, a powder you drink once wins every time over a bottle we optimize twelve ways.</p>
+      <div class="sig">— The Vesper team · we'd rather be honest than universal</div>
+    </div>
+  </div>
+</section>
+
+<footer class="f">
+  <span>© MMXXVI VESPER HOUSE</span>
+  <span><a href="Hub.html">All pages</a></span>
+  <span>COMPARISON UPDATED QUARTERLY · SOURCE CoAs ON REQUEST</span>
+</footer>
+</body></html>

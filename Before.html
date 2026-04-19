@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — Before &amp; After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vesper-shared.css">
+<style>
+  .ba{padding:40px 36px 60px;border-top:1px solid var(--line)}
+  .timeline-pills{display:flex;gap:8px;margin:10px 0 30px;flex-wrap:wrap}
+  .pill{padding:12px 20px;background:var(--bg);border:1px solid var(--line);font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-2);cursor:pointer;transition:all .25s;display:flex;align-items:baseline;gap:10px}
+  .pill:hover{border-color:var(--ink)}
+  .pill.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .pill .d{font-family:var(--serif);font-style:italic;font-size:22px;letter-spacing:-.01em;line-height:1}
+  .pill.active .d{color:var(--accent)}
+  .pill .u{font-size:9px;opacity:.7}
+
+  /* Main slider */
+  .stage{position:relative;border:1px solid var(--line);background:var(--bg);overflow:hidden;user-select:none;min-height:560px}
+  .side{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:auto auto 1fr;gap:18px;padding:36px 38px}
+  .side .label{grid-column:1 / -1;font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:baseline}
+  .side .hero{grid-column:1 / span 6;display:flex;flex-direction:column;gap:14px;max-width:92%}
+  .side .hero .t{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;opacity:.6}
+  .side .hero h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(48px,7vw,96px);line-height:.9;letter-spacing:-.03em}
+  .side .hero h2 em{color:var(--accent)}
+  .side .hero .sub{font-family:var(--serif);font-size:17px;line-height:1.55;max-width:42ch;font-style:italic}
+
+  .stats{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:auto;align-self:end}
+  @media(max-width:800px){.stats{grid-template-columns:1fr 1fr}}
+  .stat{padding:16px 18px;border:1px solid currentColor;opacity:.9;display:flex;flex-direction:column;gap:4px}
+  .stat .k{font-family:var(--mono);font-size:9px;letter-spacing:.25em;text-transform:uppercase;opacity:.6}
+  .stat .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:32px;line-height:1;letter-spacing:-.01em}
+  .stat .v em{color:var(--accent)}
+  .stat .n{font-family:var(--mono);font-size:10px;letter-spacing:.1em;opacity:.65}
+
+  /* Before side = darker, tired */
+  .before{background:#1a120b;color:#d9c9b3}
+  .before .stat{color:rgba(217,201,179,.5)}
+  .before .hero h2 em{color:#c4622d}
+
+  /* After side = cream, awake */
+  .after{background:var(--bg);color:var(--ink);clip-path:inset(0 0 0 50%)}
+  .after .stat{color:var(--ink)}
+  .after .hero h2 em{color:var(--accent)}
+
+  .divider{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--accent);cursor:ew-resize;z-index:10;transform:translateX(-50%)}
+  .divider::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;background:var(--accent);border-radius:50%;box-shadow:0 0 0 8px var(--bg)}
+  .divider::after{content:"← →";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--bg);font-family:var(--mono);font-size:11px;letter-spacing:.1em;font-weight:500;white-space:nowrap}
+  .divider .mark{position:absolute;top:18px;left:50%;transform:translate(-50%,0);background:var(--ink);color:var(--bg);padding:6px 12px;font-family:var(--mono);font-size:9px;letter-spacing:.25em;text-transform:uppercase;white-space:nowrap}
+  .divider .mark.bot{top:auto;bottom:18px;background:var(--accent);color:var(--bg)}
+
+  /* instructions */
+  .drag-hint{position:absolute;bottom:20px;right:20px;font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;pointer-events:none;display:flex;align-items:center;gap:8px;background:rgba(233,223,208,.9);padding:8px 12px}
+
+  /* metric charts row */
+  .metrics{margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:900px){.metrics{grid-template-columns:1fr 1fr}}
+  @media(max-width:500px){.metrics{grid-template-columns:1fr}}
+  .m{background:var(--bg);padding:24px;display:flex;flex-direction:column;gap:14px;min-height:200px}
+  .m h4{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;letter-spacing:-.01em;line-height:1}
+  .m .chart{flex:1;position:relative;min-height:100px}
+  .m svg{width:100%;height:100%}
+  .m .now{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid var(--line)}
+  .m .now .v{color:var(--accent)}
+
+  .data-note{margin-top:28px;padding:20px 24px;background:var(--bg-deep);border-left:2px solid var(--accent);font-family:var(--serif);font-size:14px;line-height:1.55;color:var(--ink-2);font-style:italic;max-width:80ch}
+  .data-note strong{display:block;font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.25em;text-transform:uppercase;margin-bottom:6px;font-style:normal;font-weight:500}
+</style>
+</head><body>
+
+<nav class="top">
+  <div class="brand"><a href="Vesper.html">Vesper<sup>/01</sup></a></div>
+  <div class="links">
+    <a href="Vesper.html">Home</a>
+    <a href="Catalog.html">Apothecary</a>
+    <a href="Before.html" class="active">Before &amp; after</a>
+    <a href="Calculator.html">Savings</a>
+    <a href="Hub.html">All pages</a>
+  </div>
+  <a href="Catalog.html" class="cart"><span class="dot"></span><span>Apothecary →</span></a>
+</nav>
+
+<header class="page-head">
+  <div class="eyebrow"><span class="tick"></span><span>SELF-REPORTED · N=2,104 SUBSCRIBERS · 90-DAY DIARY STUDY</span></div>
+  <h1>Drag the <em>line.</em><br/>Day 1 — Day 90.</h1>
+  <p class="lead">Real numbers from 2,104 subscribers who logged daily for the full ninety days. The left side is how they felt before Vesper. The right side is how they felt after. No airbrushing, no outliers removed.</p>
+</header>
+
+<section class="ba">
+
+  <div class="timeline-pills" id="pills">
+    <!-- injected -->
+  </div>
+
+  <div class="stage" id="stage">
+    <!-- before -->
+    <div class="side before">
+      <div class="label"><span>◉ Day 1 · baseline</span><span id="beforeDate">12 Jan 2026</span></div>
+      <div class="hero">
+        <span class="t">Before Vesper</span>
+        <h2>Foggy until <em>eleven.</em></h2>
+        <span class="sub">"Coffee at six, headache by nine, productive after lunch if at all. Four cups before I felt like myself." — average diary entry, day one.</span>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="k">Morning energy</span><span class="v" id="b1">3.2<em>/10</em></span><span class="n">Self-reported · 07:00</span></div>
+        <div class="stat"><span class="k">Time to alert</span><span class="v" id="b2">2h 18m</span><span class="n">From wake to first focus</span></div>
+        <div class="stat"><span class="k">Sleep quality</span><span class="v" id="b3">5.4<em>/10</em></span><span class="n">Oura · deep + REM</span></div>
+        <div class="stat"><span class="k">Afternoon crash</span><span class="v" id="b4">87%</span><span class="n">of days reported</span></div>
+      </div>
+    </div>
+
+    <!-- after -->
+    <div class="side after" id="afterSide">
+      <div class="label"><span style="color:var(--accent)">◉ <span id="afterLabel">Day 90 · steady state</span></span><span id="afterDate">11 Apr 2026</span></div>
+      <div class="hero">
+        <span class="t">After <span id="afterDay">ninety</span> days</span>
+        <h2>Awake at <em>six thirty.</em></h2>
+        <span class="sub" id="afterCopy">"Haven't needed a second coffee in six weeks. First hour of the day is the one I do the hardest thinking in now." — diary, day ninety.</span>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="k">Morning energy</span><span class="v"><em id="a1">7.9</em>/10</span><span class="n">Self-reported · 07:00</span></div>
+        <div class="stat"><span class="k">Time to alert</span><span class="v" id="a2">0h 22m</span><span class="n">From wake to first focus</span></div>
+        <div class="stat"><span class="k">Sleep quality</span><span class="v"><em id="a3">7.8</em>/10</span><span class="n">Oura · deep + REM</span></div>
+        <div class="stat"><span class="k">Afternoon crash</span><span class="v"><em id="a4">12%</em></span><span class="n">of days reported</span></div>
+      </div>
+    </div>
+
+    <div class="divider" id="divider">
+      <span class="mark">Drag</span>
+      <span class="mark bot" id="divMark">50%</span>
+    </div>
+
+    <div class="drag-hint">← drag anywhere →</div>
+  </div>
+
+  <!-- metric charts, 4 up -->
+  <div class="metrics">
+    <div class="m"><h4>Morning <em style="color:var(--accent)">energy</em></h4>
+      <div class="chart" id="chart1"></div>
+      <div class="now"><span>1–10 self-reported</span><span class="v" id="live1">3.2 → 7.9</span></div>
+    </div>
+    <div class="m"><h4>Time to <em style="color:var(--accent)">alert</em></h4>
+      <div class="chart" id="chart2"></div>
+      <div class="now"><span>minutes after wake</span><span class="v" id="live2">138 → 22 min</span></div>
+    </div>
+    <div class="m"><h4>Sleep <em style="color:var(--accent)">quality</em></h4>
+      <div class="chart" id="chart3"></div>
+      <div class="now"><span>Oura · deep+REM</span><span class="v" id="live3">5.4 → 7.8</span></div>
+    </div>
+    <div class="m"><h4>Afternoon <em style="color:var(--accent)">crash</em></h4>
+      <div class="chart" id="chart4"></div>
+      <div class="now"><span>% of days reported</span><span class="v" id="live4">87% → 12%</span></div>
+    </div>
+  </div>
+
+  <div class="data-note">
+    <strong>Methodology · the honest version</strong>
+    This is self-reported diary data from 2,104 subscribers who opted into the Vesper 90-day study between Jan and Apr 2026. It is <em>not</em> a randomised controlled trial. We did not control for placebo, for sleep hygiene, for life circumstance, or for people who drop out (about 18% did; we excluded them, which biases upwards). Oura metrics are device-derived. Read this as a thousand anecdotes at scale, not as clinical evidence. We're running a proper double-blind RCT in Q3 FY27 and will publish whatever it finds.
+  </div>
+
+</section>
+
+<footer class="f">
+  <span>© MMXXVI VESPER HOUSE</span>
+  <span><a href="Hub.html">All pages</a></span>
+  <span>2,104 PEOPLE · 90 DAYS · ONE DIARY EACH</span>
+</footer>
+
+<script>
+// Timeline data — each entry shifts both sides + chart positions
+const DAYS = [
+  { d:'1',  l:'Day 1',  u:'baseline', dt:'12 Jan 2026', b:[3.2,'2h 18m',5.4,'87%'], a:[3.2,'2h 18m',5.4,'87%'],
+    copy:'"Logged my baseline today. Tired. Always tired." — diary, day one.' },
+  { d:'7',  l:'Day 7',  u:'one week', dt:'19 Jan 2026', b:[3.2,'2h 18m',5.4,'87%'], a:[4.1,'1h 48m',6.0,'74%'],
+    copy:'"First week done. The evening tincture puts me under faster. Mornings feel incrementally less rotten." — diary.' },
+  { d:'30', l:'Day 30', u:'one month', dt:'11 Feb 2026', b:[3.2,'2h 18m',5.4,'87%'], a:[5.8,'1h 06m',6.9,'44%'],
+    copy:'"Month in. Down to two coffees a day from four. Started running again." — diary, day thirty.' },
+  { d:'60', l:'Day 60', u:'two months', dt:'13 Mar 2026', b:[3.2,'2h 18m',5.4,'87%'], a:[7.2,'0h 42m',7.5,'22%'],
+    copy:'"The 3pm crash hasn\'t happened in nine days straight. Noticeable at week eight." — diary.' },
+  { d:'90', l:'Day 90', u:'steady state', dt:'11 Apr 2026', b:[3.2,'2h 18m',5.4,'87%'], a:[7.9,'0h 22m',7.8,'12%'],
+    copy:'"Haven\'t needed a second coffee in six weeks. First hour of the day is the one I do the hardest thinking in now." — diary, day ninety.' },
+];
+
+// pills
+const pills = document.getElementById('pills');
+DAYS.forEach((d,i)=>{
+  const el = document.createElement('div');
+  el.className = 'pill' + (i===DAYS.length-1?' active':'');
+  el.innerHTML = `<span class="d">${d.d}</span><div style="display:flex;flex-direction:column;gap:2px"><span>${d.l}</span><span class="u">${d.u}</span></div>`;
+  el.onclick = ()=> setDay(i);
+  pills.appendChild(el);
+});
+
+let curDay = DAYS.length-1;
+
+function setDay(i){
+  curDay = i;
+  const d = DAYS[i];
+  [...pills.children].forEach((p,j)=>p.classList.toggle('active', j===i));
+  document.getElementById('afterLabel').textContent = d.l + ' · ' + d.u;
+  document.getElementById('afterDate').textContent = d.dt;
+  document.getElementById('afterDay').textContent = d.d==='1'?'zero':d.d;
+  document.getElementById('afterCopy').textContent = d.copy;
+  document.getElementById('a1').textContent = d.a[0].toFixed(1);
+  document.getElementById('a2').textContent = d.a[1];
+  document.getElementById('a3').textContent = d.a[2].toFixed(1);
+  document.getElementById('a4').textContent = d.a[3];
+  // charts live text
+  document.getElementById('live1').textContent = d.b[0].toFixed(1)+' → '+d.a[0].toFixed(1);
+  const toMin = s => { const [h,m]=s.split('h '); return parseInt(h)*60 + parseInt(m); };
+  document.getElementById('live2').textContent = toMin(d.b[1])+' → '+toMin(d.a[1])+' min';
+  document.getElementById('live3').textContent = d.b[2].toFixed(1)+' → '+d.a[2].toFixed(1);
+  document.getElementById('live4').textContent = d.b[3]+' → '+d.a[3];
+  drawCharts(i);
+  localStorage.setItem('vesper-ba-day', i);
+}
+
+// slider drag
+const stage = document.getElementById('stage');
+const divider = document.getElementById('divider');
+const afterSide = document.getElementById('afterSide');
+const divMark = document.getElementById('divMark');
+let drag=false;
+function setSplit(pct){
+  pct = Math.max(5, Math.min(95, pct));
+  divider.style.left = pct+'%';
+  afterSide.style.clipPath = `inset(0 0 0 ${pct}%)`;
+  divMark.textContent = Math.round(pct)+'%';
+}
+divider.addEventListener('mousedown', e=>{ drag=true; e.preventDefault(); });
+divider.addEventListener('touchstart', e=>{ drag=true; }, {passive:true});
+stage.addEventListener('mousedown', e=>{ if(e.target===stage||e.target.closest('.before')||e.target.closest('.after')){ drag=true; move(e); }});
+addEventListener('mousemove', move);
+addEventListener('touchmove', e=>{ if(drag){ move(e.touches[0]); }}, {passive:true});
+addEventListener('mouseup', ()=>drag=false);
+addEventListener('touchend', ()=>drag=false);
+function move(e){
+  if(!drag) return;
+  const r = stage.getBoundingClientRect();
+  setSplit(((e.clientX - r.left)/r.width)*100);
+}
+setSplit(50);
+
+// Charts — simple line from day 0 across 90 days, with marker at current day
+const DAY_KEYS = [0,7,30,60,90];
+const series = [
+  [3.2,4.1,5.8,7.2,7.9],      // energy 1-10 (low=bad)
+  [138,108,66,42,22],          // time to alert min (low=good)
+  [5.4,6.0,6.9,7.5,7.8],       // sleep
+  [87,74,44,22,12],            // crash %  (low=good)
+];
+const inverted = [false,true,false,true]; // for charts where lower = better, we flip vertically so line goes UP
+
+function drawCharts(activeIdx){
+  const dayVal = DAYS[activeIdx].d;
+  const dayNum = dayVal==='1'?1:parseInt(dayVal);
+  series.forEach((s,idx)=>{
+    const el = document.getElementById('chart'+(idx+1));
+    const w = 360, h = 120;
+    const min = Math.min(...s), max = Math.max(...s);
+    const pad = (max-min)*0.12 || 1;
+    const lo = min - pad, hi = max + pad;
+    const scaleY = v => {
+      let t = (v-lo)/(hi-lo);
+      if(inverted[idx]) t = 1-t;
+      return h - 10 - t*(h-30);
+    };
+    const pts = DAY_KEYS.map((d,i)=>({ x: 10 + (d/90)*(w-20), y: scaleY(s[i]) }));
+    const path = pts.map((p,i)=> (i?'L':'M')+p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ');
+    const area = path + ` L${pts[pts.length-1].x},${h-8} L${pts[0].x},${h-8}Z`;
+    const curX = 10 + (dayNum/90)*(w-20);
+    // interpolate y at dayNum
+    let curY = pts[pts.length-1].y;
+    for(let i=0;i<pts.length-1;i++){
+      if(dayNum>=DAY_KEYS[i] && dayNum<=DAY_KEYS[i+1]){
+        const t = (dayNum-DAY_KEYS[i])/(DAY_KEYS[i+1]-DAY_KEYS[i]);
+        curY = pts[i].y + (pts[i+1].y - pts[i].y)*t;
+        break;
+      }
+    }
+    el.innerHTML = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+      <line x1="10" y1="${h-8}" x2="${w-10}" y2="${h-8}" stroke="#d9c9b3" stroke-width=".5"/>
+      <path d="${area}" fill="#c4622d" opacity=".12"/>
+      <path d="${path}" fill="none" stroke="#c4622d" stroke-width="1.6"/>
+      ${pts.map((p,i)=>`<circle cx="${p.x}" cy="${p.y}" r="2.5" fill="${i===activeIdx?'#c4622d':'#d9c9b3'}" stroke="#2a1f16" stroke-width=".4"/>`).join('')}
+      <line x1="${curX}" y1="4" x2="${curX}" y2="${h-8}" stroke="#2a1f16" stroke-width=".6" stroke-dasharray="2 2"/>
+      <circle cx="${curX}" cy="${curY}" r="5" fill="#2a1f16"/>
+      <circle cx="${curX}" cy="${curY}" r="2" fill="#c4622d"/>
+      <text x="10" y="${h-14}" font-family="JetBrains Mono" font-size="8" fill="#8a7560" letter-spacing=".1em">D1</text>
+      <text x="${w-20}" y="${h-14}" font-family="JetBrains Mono" font-size="8" fill="#8a7560" letter-spacing=".1em">D90</text>
+    </svg>`;
+  });
+}
+
+// restore
+const savedDay = parseInt(localStorage.getItem('vesper-ba-day'));
+if(!isNaN(savedDay) && savedDay>=0 && savedDay<DAYS.length) setDay(savedDay);
+else setDay(DAYS.length-1);
+</script>
+</body></html>

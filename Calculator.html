@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — The Math</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vesper-shared.css">
+<style>
+  .calc-stage{padding:40px 36px 80px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 440px;gap:40px;align-items:start}
+  @media(max-width:1100px){.calc-stage{grid-template-columns:1fr}}
+
+  /* LEFT: 12 toggleable supplement cards */
+  .bottles-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px}
+  .bottles-head h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:32px;letter-spacing:-.01em}
+  .bottles-head .sub{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+
+  .bottles{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:40px}
+  .bottle{padding:20px;border:1px solid var(--line);background:var(--bg);cursor:pointer;transition:all .25s;display:flex;flex-direction:column;gap:10px;position:relative;user-select:none;min-height:200px}
+  .bottle:hover{border-color:var(--ink)}
+  .bottle.on{background:var(--bg-deep);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+  .bottle::before{content:"";position:absolute;top:12px;right:12px;width:16px;height:16px;border:1px solid var(--line);border-radius:3px;background:var(--bg);transition:all .2s}
+  .bottle.on::before{background:var(--accent);border-color:var(--accent)}
+  .bottle.on::after{content:"✓";position:absolute;top:10px;right:15px;color:var(--bg);font-size:12px;font-weight:600;font-family:var(--mono)}
+
+  .bottle .vis{height:60px;display:flex;align-items:center;justify-content:center}
+  .bottle .vis svg{height:60px;width:auto}
+  .bottle .n{font-family:var(--serif);font-style:italic;font-weight:300;font-size:17px;line-height:1.1;letter-spacing:-.01em;padding-right:30px}
+  .bottle .pf{margin-top:auto;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em}
+  .bottle .pf strong{color:var(--ink);font-family:var(--serif);font-size:14px;font-weight:300;font-style:italic}
+  .bottle .brand{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+
+  .quick-actions{display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap}
+  .quick-actions button{background:transparent;border:1px solid var(--line);padding:10px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .25s;color:var(--ink);border-radius:999px}
+  .quick-actions button:hover{border-color:var(--ink)}
+
+  .assumptions{background:var(--bg-deep);padding:28px;margin-bottom:40px}
+  .assumptions h4{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+  .assumptions ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;font-family:var(--serif);font-size:14px;color:var(--ink-2);line-height:1.4}
+  @media(max-width:600px){.assumptions ul{grid-template-columns:1fr}}
+  .assumptions li{padding-left:20px;position:relative}
+  .assumptions li::before{content:"·";position:absolute;left:6px;color:var(--accent);font-weight:600;font-size:22px;line-height:.8}
+  .assumptions li em{color:var(--accent);font-style:normal;font-family:var(--mono);font-size:12px}
+
+  /* RIGHT: sticky summary / receipt */
+  .receipt{position:sticky;top:100px;background:var(--ink);color:var(--bg);padding:36px 32px;display:flex;flex-direction:column;gap:20px}
+  .receipt .rhead{border-bottom:1px solid rgba(233,223,208,.15);padding-bottom:18px;display:flex;justify-content:space-between;align-items:baseline}
+  .receipt .rhead .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase}
+  .receipt .rhead .d{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:rgba(233,223,208,.5);text-transform:uppercase}
+
+  .receipt-line{display:flex;justify-content:space-between;font-family:var(--serif);font-size:15px;color:rgba(233,223,208,.75);padding:4px 0}
+  .receipt-line span:last-child{font-family:var(--mono);font-size:13px}
+  .receipt-sum{display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid rgba(233,223,208,.15)}
+  .receipt-sum .l{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(233,223,208,.6);text-transform:uppercase}
+  .receipt-sum .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:40px;line-height:1;letter-spacing:-.01em}
+  .receipt-sum .v .cur{font-family:var(--mono);font-size:13px;vertical-align:top;color:rgba(233,223,208,.5);margin-right:3px;font-style:normal}
+
+  .swap{padding:28px 24px;background:var(--accent);color:var(--bg);margin:6px 0;text-align:center}
+  .swap .a{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+  .swap .b{font-family:var(--serif);font-style:italic;font-weight:300;font-size:64px;line-height:1;letter-spacing:-.02em;margin:6px 0}
+  .swap .b .cur{font-family:var(--mono);font-size:15px;vertical-align:top;color:rgba(255,255,255,.6);margin-right:4px;font-style:normal;font-weight:400}
+  .swap .c{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+
+  .receipt-final{font-family:var(--serif);font-size:14px;line-height:1.5;color:rgba(233,223,208,.7);font-style:italic;padding-top:14px;border-top:1px solid rgba(233,223,208,.15)}
+  .receipt-final strong{color:var(--bg);font-style:normal}
+
+  .cta-wrap{margin-top:6px}
+  .cta-wrap button{width:100%;padding:18px;background:var(--bg);color:var(--ink);border:none;font-family:var(--mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:all .25s}
+  .cta-wrap button:hover{background:var(--accent);color:var(--bg)}
+
+  /* Time / pill summary */
+  .savings-time{margin-top:80px;padding:60px 40px;background:var(--bg-deep);border:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  @media(max-width:900px){.savings-time{grid-template-columns:1fr 1fr}}
+  @media(max-width:500px){.savings-time{grid-template-columns:1fr}}
+  .savings-time > div{padding:24px 28px;border-right:1px solid var(--line)}
+  .savings-time > div:last-child{border-right:none}
+  @media(max-width:900px){.savings-time > div{border-right:none;border-bottom:1px solid var(--line)}}
+  .savings-time .k{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+  .savings-time .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:56px;line-height:.95;letter-spacing:-.02em}
+  .savings-time .v em{color:var(--accent)}
+  .savings-time .v .u{font-family:var(--mono);font-size:12px;font-style:normal;color:var(--muted);margin-left:4px;text-transform:uppercase;letter-spacing:.15em;vertical-align:top}
+  .savings-time .c{font-family:var(--serif);font-size:14px;color:var(--ink-2);margin-top:10px;line-height:1.4;font-style:italic}
+</style>
+</head><body>
+
+<nav class="top">
+  <div class="brand"><a href="Vesper.html">Vesper<sup>/01</sup></a></div>
+  <div class="links">
+    <a href="Vesper.html">Home</a>
+    <a href="Catalog.html">Apothecary</a>
+    <a href="Calculator.html" class="active">The math</a>
+    <a href="Versus.html">Vs. others</a>
+    <a href="Hub.html">All pages</a>
+  </div>
+  <a href="Catalog.html" class="cart"><span class="dot"></span><span>Apothecary →</span></a>
+</nav>
+
+<header class="page-head">
+  <div class="eyebrow"><span class="tick"></span><span>WHAT YOU'D OTHERWISE BUY · PRICED AT REAL U.S. RETAIL</span></div>
+  <h1>Tick what you <em>would buy.</em></h1>
+  <p class="lead">Vesper Daily N° 01 is $68 a month. But what does it replace? Tick the bottles you'd otherwise take — we priced each one at the actual retail cost of its best-in-class form, on Amazon, today.</p>
+</header>
+
+<section class="calc-stage">
+  <div>
+    <div class="bottles-head">
+      <h2>The shelf.</h2>
+      <span class="sub"><span id="selCount">12</span> of 12 selected</span>
+    </div>
+
+    <div class="quick-actions">
+      <button onclick="selectAll(true)">Tick all</button>
+      <button onclick="selectAll(false)">Clear</button>
+      <button onclick="selectPreset('foundation')">Foundation only</button>
+      <button onclick="selectPreset('perf')">Performance stack</button>
+      <button onclick="selectPreset('beauty')">Beauty stack</button>
+    </div>
+
+    <div class="bottles" id="bottles"></div>
+
+    <div class="assumptions">
+      <h4>Our price assumptions</h4>
+      <ul>
+        <li>Each price is the <em>lowest</em> Amazon price for a 30-day supply at the active form noted below</li>
+        <li>Forms shown are the bioavailable ones (e.g. <em>methyl-B₁₂</em>, not cyano) — the versions that actually work</li>
+        <li>Ashwagandha is specifically <em>KSM-66</em>; omega-3 is <em>IFOS 5-star triglyceride</em> form</li>
+        <li>Prices sourced <em>April 2026</em> · updated monthly · receipts on file</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Receipt -->
+  <aside class="receipt">
+    <div class="rhead"><span class="l">Your shelf</span><span class="d">Monthly</span></div>
+
+    <div id="receiptLines" style="max-height:340px;overflow-y:auto"></div>
+
+    <div class="receipt-sum">
+      <div>
+        <div class="l">You'd pay</div>
+        <div style="font-family:var(--mono);font-size:9px;color:rgba(233,223,208,.4);margin-top:2px;letter-spacing:.15em;text-transform:uppercase">at best-form retail</div>
+      </div>
+      <div class="v"><span class="cur">$</span><span id="retailTotal">321</span></div>
+    </div>
+
+    <div class="swap">
+      <div class="a">Swap for Vesper N° 01</div>
+      <div class="b"><span class="cur">$</span>68<span style="font-family:var(--mono);font-size:14px;letter-spacing:.2em;font-style:normal;color:rgba(255,255,255,.7)">/mo</span></div>
+      <div class="c">All twelve, one capsule</div>
+    </div>
+
+    <div class="receipt-sum" style="border-bottom:none">
+      <div>
+        <div class="l">Monthly saving</div>
+        <div style="font-family:var(--mono);font-size:9px;color:rgba(233,223,208,.4);margin-top:2px;letter-spacing:.15em;text-transform:uppercase">vs. the shelf you'd buy</div>
+      </div>
+      <div class="v" style="color:var(--accent)">−<span class="cur">$</span><span id="savingsTotal">253</span></div>
+    </div>
+
+    <div class="receipt-final">Over one year — <strong><span id="savingsYear">$3,036</span></strong> kept in your account. And you stopped swallowing <strong><span id="capsYear">4,380</span></strong> individual capsules.</div>
+
+    <div class="cta-wrap">
+      <button>Start my ritual →</button>
+    </div>
+  </aside>
+</section>
+
+<!-- Time / pill summary -->
+<section class="savings-time">
+  <div>
+    <div class="k">Bottles on counter</div>
+    <div class="v"><em id="btl">12</em> <span class="u">→ 1</span></div>
+    <div class="c">One bottle, one ritual, one place on the shelf.</div>
+  </div>
+  <div>
+    <div class="k">Capsules per day</div>
+    <div class="v"><em id="cpd">21</em> <span class="u">→ 2</span></div>
+    <div class="c">Yes, we had to compress the actives. That's the hard part.</div>
+  </div>
+  <div>
+    <div class="k">Minutes / week saved</div>
+    <div class="v"><em id="mins">42</em> <span class="u">min</span></div>
+    <div class="c">Pill-counting, re-ordering, lost bottles. Not free.</div>
+  </div>
+  <div>
+    <div class="k">Plastic avoided / year</div>
+    <div class="v"><em id="plastic">3.2</em> <span class="u">kg</span></div>
+    <div class="c">Eleven fewer bottles a month. The planet notices.</div>
+  </div>
+</section>
+
+<footer class="f">
+  <span>© MMXXVI VESPER HOUSE</span>
+  <span><a href="Hub.html">All pages</a></span>
+  <span>PRICES VERIFIED APRIL 2026 · RECEIPTS ON FILE</span>
+</footer>
+
+<script>
+const SHELF = [
+  {id:'d3', name:'Vitamin D₃ 5000 IU', form:'Lanolin, MCT-suspended', brand:'Thorne', price:18, caps:30, tags:['foundation']},
+  {id:'mag', name:'Magnesium Bisglycinate', form:'400mg elemental', brand:'Pure Encapsulations', price:28, caps:120, tags:['foundation']},
+  {id:'omega', name:'Omega-3 EPA/DHA', form:'IFOS 5-star triglyceride', brand:'Nordic Naturals', price:42, caps:120, tags:['foundation']},
+  {id:'b12', name:'Methyl-B₁₂ 5000mcg', form:'Methylcobalamin sublingual', brand:'Jarrow', price:18, caps:60, tags:['foundation']},
+  {id:'folate', name:'L-Methylfolate', form:'Quatrefolic® 1mg', brand:'Thorne', price:22, caps:60, tags:['foundation']},
+  {id:'ashwa', name:'Ashwagandha KSM-66', form:'600mg, 5% withanolides', brand:'Ixoreal', price:28, caps:60, tags:['perf']},
+  {id:'lions', name:"Lion's Mane 30% β-glucan", form:'Fruiting body only', brand:'Real Mushrooms', price:32, caps:90, tags:['perf']},
+  {id:'curc', name:'Curcumin + BioPerine', form:'95% curcuminoids', brand:'Life Extension', price:26, caps:60, tags:['foundation']},
+  {id:'probio', name:'30 Billion Probiotic', form:'11 strains, shelf-stable', brand:'Seed', price:49, caps:60, tags:['foundation']},
+  {id:'coll', name:'Collagen Peptides', form:'Hydrolyzed Type I/III', brand:'Vital Proteins', price:32, caps:30, tags:['beauty']},
+  {id:'creatine', name:'Creatine Monohydrate', form:'5g Creapure®', brand:'Thorne', price:28, caps:60, tags:['perf']},
+  {id:'k2', name:'Vitamin K₂ + D₃', form:'MK-7 180mcg', brand:'Life Extension', price:22, caps:60, tags:['foundation']},
+];
+
+const PRESETS = {
+  foundation: ['d3','mag','omega','b12','folate','curc','probio','k2'],
+  perf:       ['mag','omega','ashwa','lions','creatine','b12'],
+  beauty:     ['d3','omega','coll','probio','curc','k2']
+};
+
+function bottleSvg(color){
+  return `<svg viewBox="0 0 40 60"><defs><linearGradient id="g_${color}" x1="0" x2="1"><stop offset="0" stop-color="#e9dfd0"/><stop offset="1" stop-color="#c4b49e"/></linearGradient></defs>
+    <rect x="8" y="0" width="24" height="10" fill="#2a1f16" rx="1"/>
+    <rect x="5" y="10" width="30" height="48" fill="url(#g_${color})" stroke="#2a1f16" stroke-width="1" rx="2"/>
+    <rect x="9" y="22" width="22" height="20" fill="${color}" opacity=".85"/>
+  </svg>`;
+}
+
+const selected = new Set(SHELF.map(s => s.id));
+const bottlesEl = document.getElementById('bottles');
+
+SHELF.forEach(s => {
+  const b = document.createElement('div');
+  b.className = 'bottle on';
+  b.dataset.id = s.id;
+  const colors = ['#c4622d','#7a8a63','#c89b4a','#a0543d','#7a5a8a','#3f5a7a'];
+  const c = colors[Math.abs(s.id.charCodeAt(0)) % colors.length];
+  b.innerHTML = `
+    <div class="vis">${bottleSvg(c)}</div>
+    <span class="brand">${s.brand}</span>
+    <span class="n">${s.name}</span>
+    <span class="pf"><span>${s.form.split(',')[0]}</span><strong>$${s.price}</strong></span>`;
+  b.onclick = () => { toggle(s.id); };
+  bottlesEl.appendChild(b);
+});
+
+function toggle(id){
+  if(selected.has(id)) selected.delete(id);
+  else selected.add(id);
+  document.querySelector(`.bottle[data-id="${id}"]`).classList.toggle('on', selected.has(id));
+  render();
+}
+
+function selectAll(on){
+  selected.clear();
+  if(on) SHELF.forEach(s => selected.add(s.id));
+  document.querySelectorAll('.bottle').forEach(b => b.classList.toggle('on', selected.has(b.dataset.id)));
+  render();
+}
+window.selectAll = selectAll;
+
+function selectPreset(key){
+  selected.clear();
+  (PRESETS[key] || []).forEach(id => selected.add(id));
+  document.querySelectorAll('.bottle').forEach(b => b.classList.toggle('on', selected.has(b.dataset.id)));
+  render();
+}
+window.selectPreset = selectPreset;
+
+function render(){
+  const chosen = SHELF.filter(s => selected.has(s.id));
+  const total = chosen.reduce((a,b) => a + b.price, 0);
+  const vesper = 68;
+  const savings = Math.max(0, total - vesper);
+
+  document.getElementById('selCount').textContent = chosen.length;
+  document.getElementById('retailTotal').textContent = total;
+  document.getElementById('savingsTotal').textContent = savings;
+  document.getElementById('savingsYear').textContent = '$' + (savings * 12).toLocaleString();
+  document.getElementById('capsYear').textContent = (chosen.length * 2 * 365).toLocaleString();
+
+  // bottom summary
+  document.getElementById('btl').textContent = chosen.length;
+  document.getElementById('cpd').textContent = chosen.length * 2 - chosen.length + (chosen.length > 0 ? chosen.length : 0); // roughly 2/bottle
+  document.getElementById('cpd').textContent = Math.max(0, chosen.length * 2 - 1);
+  document.getElementById('mins').textContent = Math.round(chosen.length * 3.5);
+  document.getElementById('plastic').textContent = (chosen.length * 0.28).toFixed(1);
+
+  // lines
+  const box = document.getElementById('receiptLines');
+  if(chosen.length === 0){
+    box.innerHTML = `<div style="padding:20px 0;text-align:center;font-family:var(--serif);font-style:italic;color:rgba(233,223,208,.5);font-size:15px">Tick one or more bottles to see the math.</div>`;
+    return;
+  }
+  box.innerHTML = chosen.map(c => `
+    <div class="receipt-line"><span>${c.name.length > 26 ? c.name.slice(0,25)+'…' : c.name}</span><span>$${c.price}</span></div>`).join('');
+}
+
+render();
+</script>
+</body></html>

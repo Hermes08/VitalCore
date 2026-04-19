@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — Annual Report FY2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vesper-shared.css">
+<style>
+  /* Report-specific */
+  :root{--report-pad: 60px}
+  body{background:var(--bg)}
+  .rp{padding:0 36px 80px;border-top:1px solid var(--line)}
+
+  /* Cover-like hero */
+  .cover{padding:80px 0 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;border-bottom:1px solid var(--line)}
+  @media(max-width:900px){.cover{grid-template-columns:1fr;gap:30px;padding:60px 0 40px}}
+  .cover .lt .meta{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:24px}
+  .cover .lt h1{font-family:var(--serif);font-weight:300;font-size:clamp(64px,10vw,140px);line-height:.88;letter-spacing:-.035em;margin-bottom:20px}
+  .cover .lt h1 em{font-style:italic;color:var(--accent)}
+  .cover .lt h1 sup{font-size:.3em;font-family:var(--mono);font-style:normal;color:var(--muted);vertical-align:top;letter-spacing:.2em;margin-left:6px;font-weight:400}
+  .cover .lt .sub{font-family:var(--serif);font-size:18px;color:var(--ink-2);line-height:1.55;font-style:italic;max-width:40ch}
+  .cover .rt{background:var(--ink);color:var(--bg);padding:40px;display:flex;flex-direction:column;gap:22px;justify-content:space-between;min-height:440px;position:relative}
+  .cover .rt::before{content:"";position:absolute;inset:10px;border:1px solid rgba(233,223,208,.15);pointer-events:none}
+  .cover .rt .top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:rgba(233,223,208,.5);text-transform:uppercase}
+  .cover .rt .bignum{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(100px,16vw,200px);line-height:.8;letter-spacing:-.04em;color:var(--accent)}
+  .cover .rt .cap{font-family:var(--serif);font-size:14px;line-height:1.5;color:rgba(233,223,208,.8);font-style:italic;max-width:32ch}
+  .cover .rt .cap strong{color:var(--bg);font-style:normal;font-weight:500;font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;display:block;margin-bottom:6px}
+  .cover .rt .bot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:rgba(233,223,208,.5);text-transform:uppercase;padding-top:18px;border-top:1px solid rgba(233,223,208,.15)}
+
+  /* Chapter head */
+  .ch{padding:60px 0 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px;border-bottom:1px solid var(--line);margin-bottom:40px}
+  .ch .num{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase}
+  .ch h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(38px,6vw,72px);line-height:.95;letter-spacing:-.02em}
+  .ch h2 em{color:var(--accent);font-style:italic}
+  .ch .pg{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+
+  /* Letter from founders */
+  .letter{display:grid;grid-template-columns:1fr 2fr;gap:60px;margin-bottom:40px}
+  @media(max-width:900px){.letter{grid-template-columns:1fr;gap:24px}}
+  .letter .lt{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+  .letter .lt .fig{margin-top:14px;padding:24px;background:var(--bg-deep);border:1px solid var(--line)}
+  .letter .lt .fig .k{font-family:var(--mono);font-size:9px;letter-spacing:.25em;color:var(--accent);margin-bottom:6px}
+  .letter .lt .fig .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:44px;line-height:1;letter-spacing:-.01em;color:var(--ink);margin-bottom:8px}
+  .letter .lt .fig .n{font-family:var(--serif);font-size:12px;color:var(--muted);font-style:italic;line-height:1.4}
+  .letter .rt p{font-family:var(--serif);font-size:17px;line-height:1.65;color:var(--ink);margin-bottom:16px;max-width:64ch}
+  .letter .rt p:first-of-type::first-letter{font-family:var(--serif);font-style:italic;font-size:72px;line-height:.8;float:left;margin:6px 10px 0 0;color:var(--accent)}
+  .letter .rt .sig{margin-top:32px;display:flex;gap:40px;flex-wrap:wrap}
+  .letter .rt .sig > div{display:flex;flex-direction:column;gap:4px}
+  .letter .rt .sig .name{font-family:var(--serif);font-style:italic;font-size:26px;line-height:1;letter-spacing:-.01em;color:var(--accent)}
+  .letter .rt .sig .t{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+
+  /* KPI grid */
+  .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:900px){.kpi{grid-template-columns:1fr 1fr}}
+  @media(max-width:500px){.kpi{grid-template-columns:1fr}}
+  .kpi > div{background:var(--bg);padding:28px 24px;display:flex;flex-direction:column;gap:8px;position:relative}
+  .kpi .k{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+  .kpi .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:48px;line-height:.95;letter-spacing:-.02em;color:var(--ink)}
+  .kpi .v em{color:var(--accent)}
+  .kpi .d{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--sage);text-transform:uppercase}
+  .kpi .d.neg{color:var(--accent)}
+  .kpi .n{font-family:var(--serif);font-size:13px;color:var(--muted);font-style:italic;line-height:1.4}
+
+  /* Revenue chart */
+  .chart-card{padding:36px;border:1px solid var(--line);background:var(--bg);margin-bottom:40px}
+  .chart-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:28px;flex-wrap:wrap;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  .chart-head h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:32px;letter-spacing:-.01em}
+  .chart-head h3 em{color:var(--accent)}
+  .chart-head .sub{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+
+  .chart-wrap{position:relative;height:340px}
+  svg.chart{width:100%;height:100%;overflow:visible}
+  .grid line{stroke:var(--line);stroke-width:1}
+  .axis text{font-family:var(--mono);font-size:10px;fill:var(--muted);letter-spacing:.1em}
+  .bar{fill:var(--accent);transition:fill .3s}
+  .bar.light{fill:var(--cream-deep)}
+  .bar-label{font-family:var(--serif);font-style:italic;font-size:12px;fill:var(--ink)}
+
+  /* Two-col breakdown */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:40px}
+  @media(max-width:800px){.two{grid-template-columns:1fr}}
+
+  /* Ledger (P&L) */
+  .ledger{border:1px solid var(--line);background:var(--bg)}
+  .ledger .hd{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+  .ledger .hd h4{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px}
+  .ledger .hd .y{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+  .row{padding:14px 24px;display:grid;grid-template-columns:1fr auto auto;gap:16px;border-bottom:1px solid var(--line);align-items:baseline;font-family:var(--serif);font-size:15px}
+  .row:last-child{border-bottom:none}
+  .row .lbl{color:var(--ink)}
+  .row .lbl em{font-style:italic;color:var(--muted);font-size:12px;margin-left:8px}
+  .row .num{font-family:var(--mono);font-size:13px;color:var(--ink);text-align:right;min-width:90px}
+  .row .pct{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;min-width:50px}
+  .row.sub{padding-left:40px;background:var(--bg-deep)}
+  .row.total{background:var(--ink);color:var(--bg);font-family:var(--serif);font-style:italic;font-size:18px;padding:18px 24px}
+  .row.total .num,.row.total .pct{color:var(--accent);font-family:var(--serif);font-style:italic;font-size:18px}
+  .row.section{background:var(--bg-deep);font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;padding:10px 24px}
+
+  /* Geography bars */
+  .geo{padding:28px;background:var(--bg);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+  .geo h4{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;margin-bottom:6px}
+  .geo-row{display:grid;grid-template-columns:140px 1fr auto;gap:12px;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+  .geo-row .c{color:var(--ink-2);text-transform:uppercase}
+  .geo-row .b{height:6px;background:var(--cream-deep);position:relative;overflow:hidden}
+  .geo-row .b > span{position:absolute;inset:0 auto 0 0;background:var(--accent)}
+  .geo-row .v{color:var(--muted);min-width:50px;text-align:right}
+
+  /* SKU performance */
+  .sku-table{width:100%;border-collapse:collapse;background:var(--bg);border:1px solid var(--line)}
+  .sku-table th{text-align:left;padding:14px 18px;font-family:var(--mono);font-size:9px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--line);font-weight:500}
+  .sku-table th.r,.sku-table td.r{text-align:right}
+  .sku-table td{padding:16px 18px;font-family:var(--serif);font-size:15px;border-bottom:1px solid var(--line);color:var(--ink)}
+  .sku-table td.n{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+  .sku-table td .nm{font-style:italic}
+  .sku-table tr:last-child td{border-bottom:none}
+  .sku-table tr:hover td{background:var(--bg-deep)}
+  .rank{font-family:var(--serif);font-style:italic;color:var(--accent);font-size:20px;width:30px;display:inline-block}
+  .trend{display:inline-block;padding:3px 10px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase}
+  .trend.up{background:rgba(122,138,99,.15);color:var(--sage)}
+  .trend.dn{background:rgba(196,98,45,.15);color:var(--accent)}
+  .trend.fl{background:var(--bg-deep);color:var(--muted)}
+
+  /* Timeline */
+  .timeline{display:grid;grid-template-columns:140px 1fr;gap:0;border:1px solid var(--line)}
+  @media(max-width:700px){.timeline{grid-template-columns:80px 1fr}}
+  .tl-m{padding:18px 16px;background:var(--bg-deep);border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;display:flex;flex-direction:column;gap:4px}
+  .tl-m span{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);letter-spacing:-.01em}
+  .tl-e{padding:18px 22px;background:var(--bg);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+  .tl-e:last-child,.tl-m:nth-last-child(2){border-bottom:none}
+  .tl-e .t{font-family:var(--serif);font-style:italic;font-size:18px;letter-spacing:-.01em}
+  .tl-e .d{font-family:var(--serif);font-size:14px;line-height:1.5;color:var(--ink-2);max-width:68ch}
+  .tl-e .m{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+
+  /* Scorecard -- honest review */
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:800px){.score{grid-template-columns:1fr}}
+  .sc{background:var(--bg);padding:28px;display:flex;flex-direction:column;gap:10px}
+  .sc .h{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase}
+  .sc .g{display:flex;align-items:baseline;gap:14px;margin:8px 0 6px}
+  .sc .g .n{font-family:var(--serif);font-style:italic;font-weight:300;font-size:56px;line-height:.9;letter-spacing:-.02em;color:var(--ink)}
+  .sc .g .o{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .sc .w{font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.1;letter-spacing:-.01em}
+  .sc .w.good{color:var(--sage)}
+  .sc .w.bad{color:var(--accent)}
+  .sc .w.mid{color:var(--ochre)}
+  .sc .nt{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--ink-2);font-style:italic;margin-top:6px}
+
+  /* Team + hires */
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:900px){.team{grid-template-columns:1fr 1fr}}
+  @media(max-width:500px){.team{grid-template-columns:1fr}}
+  .tm{background:var(--bg);padding:24px;display:flex;flex-direction:column;gap:8px;min-height:180px}
+  .tm .r{font-family:var(--mono);font-size:9px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase}
+  .tm .n{font-family:var(--serif);font-style:italic;font-weight:300;font-size:26px;line-height:1.05;letter-spacing:-.01em}
+  .tm .t{font-family:var(--serif);font-size:13px;color:var(--ink-2);font-style:italic;line-height:1.4}
+  .tm .b{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:auto;padding-top:12px;border-top:1px solid var(--line);letter-spacing:.1em}
+
+  /* Outlook */
+  .outlook{padding:60px 40px;background:var(--ink);color:var(--bg);display:grid;grid-template-columns:1fr 2fr;gap:60px}
+  @media(max-width:900px){.outlook{grid-template-columns:1fr;padding:40px 24px;gap:30px}}
+  .outlook .lt .y{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:18px}
+  .outlook .lt h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(40px,6vw,72px);line-height:.95;letter-spacing:-.02em}
+  .outlook .lt h3 em{color:var(--accent)}
+  .outlook .rt{display:flex;flex-direction:column;gap:24px}
+  .out-item{padding-bottom:22px;border-bottom:1px solid rgba(233,223,208,.15);display:grid;grid-template-columns:40px 1fr auto;gap:20px;align-items:baseline}
+  .out-item:last-child{border-bottom:none}
+  .out-item .n{font-family:var(--serif);font-style:italic;color:var(--accent);font-size:22px;line-height:1}
+  .out-item .t{font-family:var(--serif);font-size:17px;line-height:1.5;color:rgba(233,223,208,.9);max-width:60ch}
+  .out-item .t strong{color:var(--bg);font-weight:500;font-style:italic}
+  .out-item .q{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;white-space:nowrap}
+
+  .colophon{padding:36px 0 16px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;border-top:1px solid var(--line);margin-top:40px;flex-wrap:wrap;gap:12px}
+
+  .print-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;background:transparent;border:1px solid var(--ink);color:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;text-decoration:none}
+  .print-btn:hover{background:var(--ink);color:var(--bg)}
+</style>
+</head><body>
+
+<nav class="top">
+  <div class="brand"><a href="Vesper.html">Vesper<sup>/01</sup></a></div>
+  <div class="links">
+    <a href="Vesper.html">Home</a>
+    <a href="Catalog.html">Apothecary</a>
+    <a href="Press.html">Press &amp; wholesale</a>
+    <a href="Report.html" class="active">Annual report</a>
+    <a href="Hub.html">All pages</a>
+  </div>
+  <a href="#" class="cart" onclick="window.print();return false"><span class="dot"></span><span>Print report →</span></a>
+</nav>
+
+<section class="rp">
+
+  <!-- Cover -->
+  <div class="cover">
+    <div class="lt">
+      <div class="meta"><span style="display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;margin-right:8px;vertical-align:middle"></span>Annual report · Fiscal year 2026 · Unaudited · Published 12 April 2026</div>
+      <h1>The <em>quiet</em><br/>year<sup>MMXXVI</sup>.</h1>
+      <p class="sub">Vesper House, year three. What we made, what we sold, what we got right, what we got wrong — written plainly, with all the receipts.</p>
+      <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#" class="print-btn" onclick="window.print();return false">↓ Print · 48 pp</a>
+        <a href="#letter" class="print-btn">Read the letter →</a>
+      </div>
+    </div>
+    <div class="rt">
+      <div class="top"><span>FY2026 · headline</span><span>Page 01 / 48</span></div>
+      <div>
+        <div class="bignum">47.3</div>
+        <div style="font-family:var(--mono);font-size:11px;letter-spacing:.25em;color:rgba(233,223,208,.5);text-transform:uppercase;margin-top:-10px">Million USD · revenue · +38%</div>
+      </div>
+      <div class="cap">
+        <strong>In one sentence</strong>
+        Seventeen people, zero venture capital, zero paid acquisition — a third consecutive profitable year in a category that burns cash as a business model.
+      </div>
+      <div class="bot"><span>Independent · bootstrapped</span><span>Copenhagen</span></div>
+    </div>
+  </div>
+
+  <!-- Letter -->
+  <section id="letter">
+    <div class="ch">
+      <span class="num">Chapter 01 · Letter</span>
+      <h2>A note from the <em>founders.</em></h2>
+      <span class="pg">pp 04–07</span>
+    </div>
+
+    <div class="letter">
+      <div class="lt">
+        From Léa Moreau and Tomas Lindqvist · Copenhagen, April 2026
+        <div class="fig"><div class="k">Year three</div><div class="v">47.3<span style="font-size:18px;letter-spacing:.2em;font-family:var(--mono);font-style:normal;color:var(--accent);margin-left:6px">M USD</span></div><div class="n">Up 38% on FY25 · profitable every month since August 2024</div></div>
+        <div class="fig"><div class="k">Team</div><div class="v">17</div><div class="n">Six hires this year · no layoffs · zero contractors</div></div>
+        <div class="fig"><div class="k">Customers</div><div class="v">38,400</div><div class="n">Active subscribers in 64 countries · 71% 12-month retention</div></div>
+      </div>
+      <div class="rt">
+        <p>There is a version of this letter we could have written that would be shorter and more triumphant. We are profitable for the third year in a row, in a category where most of our peers are not. Revenue grew 38%. We hired six people without losing anyone. Nobody owes us money we cannot collect.</p>
+        <p>That version would be dishonest. The truth is that FY26 was the first year we felt the gravity of being the brand people write about when they want to make a point about the wellness industry. It flattered us, then it tired us. We turned down two acquisition approaches, three accelerator partnerships, and roughly forty podcast interviews. We said no to Amazon for the fourth time. We also made a formulation error in batch V26-030 that cost us €211,000 to recall and, more importantly, the trust of 1,904 customers. You'll read about that on page 22, in the same size type as the good news.</p>
+        <p>What we are learning, slowly, is that the hardest part of building a calm company is not the refusing — it is the <em>staying calm</em> once the refusing has worked. Growth is the stimulant we are all addicted to, and having said no to venture capital does not make us immune to wanting a bigger number next year. We spent a lot of Q3 arguing about whether to launch a men's line, a children's line, and a bundled gift set for the holidays. We launched none of them. That may turn out to be correct and it may turn out to be a mistake. We will tell you next April.</p>
+        <p>The thing we are most proud of this year is not in the P&amp;L. It is that every batch we shipped has a published certificate of analysis, every formula we sell names its suppliers, and every person who wrote to our team got a reply from a human inside four working hours. Those three sentences are the entire brand. If we keep them true for another ten years, the numbers will take care of themselves. If we let any one of them slip to save a quarter, the numbers will not save us.</p>
+        <p>Thank you for reading. Thank you, especially, for noticing the things we are trying to do quietly. We remain, as always, available at a real email address.</p>
+        <div class="sig">
+          <div><span class="name">L. Moreau</span><span class="t">Co-founder · formulation</span></div>
+          <div><span class="name">T. Lindqvist</span><span class="t">Co-founder · operations</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section>
+    <div class="ch">
+      <span class="num">Chapter 02 · The headline numbers</span>
+      <h2>A year in <em>figures.</em></h2>
+      <span class="pg">pp 08–11</span>
+    </div>
+    <div class="kpi">
+      <div>
+        <span class="k">Revenue · FY26</span>
+        <span class="v"><em>$47.3M</em></span>
+        <span class="d">↑ 38.2% YoY</span>
+        <span class="n">Entirely organic. Zero paid acquisition spend.</span>
+      </div>
+      <div>
+        <span class="k">Gross margin</span>
+        <span class="v">68.4%</span>
+        <span class="d">↑ 2.1 pts YoY</span>
+        <span class="n">Supplier consolidation + in-house filling in Rotterdam.</span>
+      </div>
+      <div>
+        <span class="k">Operating margin</span>
+        <span class="v">21.6%</span>
+        <span class="d">↑ 1.4 pts</span>
+        <span class="n">Profitable every month since Aug '24.</span>
+      </div>
+      <div>
+        <span class="k">Active subscribers</span>
+        <span class="v"><em>38.4k</em></span>
+        <span class="d">↑ 14.2k net</span>
+        <span class="n">In 64 countries. 71% 12-month retention.</span>
+      </div>
+      <div>
+        <span class="k">Net promoter</span>
+        <span class="v">74</span>
+        <span class="d">↑ 6 pts</span>
+        <span class="n">Benchmark wellness category: 31.</span>
+      </div>
+      <div>
+        <span class="k">Return rate</span>
+        <span class="v">1.7%</span>
+        <span class="d neg">↑ 0.3 pts</span>
+        <span class="n">Mostly address changes. 0.2% for product fault.</span>
+      </div>
+      <div>
+        <span class="k">Cash on hand</span>
+        <span class="v">$11.2M</span>
+        <span class="d">↑ $4.1M</span>
+        <span class="n">18 months runway at zero revenue. Debt free.</span>
+      </div>
+      <div>
+        <span class="k">Team</span>
+        <span class="v">17</span>
+        <span class="d">+ 6 hires · 0 leavers</span>
+        <span class="n">Zero contractors. Four-day week company-wide.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Revenue chart -->
+  <section>
+    <div class="ch">
+      <span class="num">Chapter 03 · Revenue</span>
+      <h2>Every quarter, <em>plainly.</em></h2>
+      <span class="pg">pp 12–15</span>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-head">
+        <h3>Revenue by quarter <em>· 2024 — 2026</em></h3>
+        <span class="sub">Figures USD · unaudited · prepared by Deloitte (Copenhagen)</span>
+      </div>
+      <div class="chart-wrap">
+        <svg class="chart" viewBox="0 0 900 340" preserveAspectRatio="none">
+          <!-- grid -->
+          <g class="grid">
+            <line x1="60" y1="20" x2="880" y2="20"/>
+            <line x1="60" y1="80" x2="880" y2="80"/>
+            <line x1="60" y1="140" x2="880" y2="140"/>
+            <line x1="60" y1="200" x2="880" y2="200"/>
+            <line x1="60" y1="260" x2="880" y2="260"/>
+            <line x1="60" y1="300" x2="880" y2="300" stroke="#2a1f16"/>
+          </g>
+          <!-- y labels -->
+          <g class="axis">
+            <text x="50" y="24" text-anchor="end">$15M</text>
+            <text x="50" y="84" text-anchor="end">$12M</text>
+            <text x="50" y="144" text-anchor="end">$9M</text>
+            <text x="50" y="204" text-anchor="end">$6M</text>
+            <text x="50" y="264" text-anchor="end">$3M</text>
+            <text x="50" y="304" text-anchor="end">$0</text>
+          </g>
+
+          <!-- 12 quarterly bars; values in $M scaled: 15M=20, 0=300, so y = 300 - (val/15)*280 -->
+          <!-- FY24: 1.8, 2.4, 3.1, 4.2 · FY25: 5.6, 7.1, 9.4, 12.1 · FY26: 10.8, 12.3, 12.0, 12.2 -->
+          <g>
+            <!-- Q1 24 -->
+            <rect class="bar light" x="80"  y="266" width="44" height="34"/>
+            <rect class="bar light" x="140" y="255" width="44" height="45"/>
+            <rect class="bar light" x="200" y="242" width="44" height="58"/>
+            <rect class="bar light" x="260" y="222" width="44" height="78"/>
+            <!-- FY25 -->
+            <rect class="bar light" x="340" y="196" width="44" height="104"/>
+            <rect class="bar light" x="400" y="168" width="44" height="132"/>
+            <rect class="bar light" x="460" y="125" width="44" height="175"/>
+            <rect class="bar light" x="520" y="74"  width="44" height="226"/>
+            <!-- FY26 -->
+            <rect class="bar" x="600" y="98"  width="44" height="202"/>
+            <rect class="bar" x="660" y="70"  width="44" height="230"/>
+            <rect class="bar" x="720" y="76"  width="44" height="224"/>
+            <rect class="bar" x="780" y="72"  width="44" height="228"/>
+          </g>
+
+          <!-- Year labels -->
+          <g class="axis">
+            <text x="182" y="322" text-anchor="middle" font-size="11">FY2024 · $11.5M</text>
+            <text x="462" y="322" text-anchor="middle" font-size="11">FY2025 · $34.2M</text>
+            <text x="722" y="322" text-anchor="middle" font-size="11" fill="#c4622d">FY2026 · $47.3M</text>
+          </g>
+
+          <!-- Annotation line -->
+          <g>
+            <line x1="340" y1="10" x2="340" y2="310" stroke="#c4622d" stroke-width=".5" stroke-dasharray="2 3"/>
+            <text x="346" y="16" font-family="JetBrains Mono" font-size="9" fill="#c4622d" letter-spacing=".1em">RETURN RATE ZERO</text>
+            <text x="346" y="28" font-family="JetBrains Mono" font-size="9" fill="#c4622d" letter-spacing=".1em">FEATURED IN MONOCLE</text>
+
+            <line x1="600" y1="10" x2="600" y2="310" stroke="#c4622d" stroke-width=".5" stroke-dasharray="2 3"/>
+            <text x="606" y="16" font-family="JetBrains Mono" font-size="9" fill="#c4622d" letter-spacing=".1em">BATCH V26-030 RECALL</text>
+            <text x="606" y="28" font-family="JetBrains Mono" font-size="9" fill="#c4622d" letter-spacing=".1em">Q1 DIP · €211K COST</text>
+          </g>
+        </svg>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;flex-wrap:wrap;gap:10px">
+        <span><span style="display:inline-block;width:10px;height:10px;background:var(--cream-deep);margin-right:6px;vertical-align:middle"></span>Prior years</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent);margin-right:6px;vertical-align:middle"></span>Current year FY2026</span>
+        <span>3-yr CAGR · 103%</span>
+        <span>3-yr sum · $93.0M</span>
+      </div>
+    </div>
+
+    <!-- P&L + Geography -->
+    <div class="two">
+      <div class="ledger">
+        <div class="hd"><h4>Condensed P&amp;L <em>· USD, thousands</em></h4><span class="y">FY26 vs FY25</span></div>
+
+        <div class="row section"><span>Revenue</span></div>
+        <div class="row"><span class="lbl">Direct-to-consumer · subscription</span><span class="num">38,210</span><span class="pct">80.8%</span></div>
+        <div class="row"><span class="lbl">Direct-to-consumer · one-time</span><span class="num">5,470</span><span class="pct">11.6%</span></div>
+        <div class="row"><span class="lbl">Wholesale · 142 retail partners</span><span class="num">3,620</span><span class="pct">7.6%</span></div>
+        <div class="row total"><span>Total revenue</span><span class="num">47,300</span><span class="pct">100.0%</span></div>
+
+        <div class="row section"><span>Cost of goods sold</span></div>
+        <div class="row"><span class="lbl">Raw ingredients &amp; capsules</span><span class="num">(8,180)</span><span class="pct">17.3%</span></div>
+        <div class="row"><span class="lbl">Packaging · glass, paper, print</span><span class="num">(3,940)</span><span class="pct">8.3%</span></div>
+        <div class="row"><span class="lbl">Filling, labelling, fulfilment</span><span class="num">(2,810)</span><span class="pct">5.9%</span></div>
+        <div class="row"><span class="lbl">Third-party testing &amp; CoAs</span><span class="num">(110)</span><span class="pct">0.2%</span></div>
+        <div class="row total"><span>Gross profit</span><span class="num">32,260</span><span class="pct">68.2%</span></div>
+
+        <div class="row section"><span>Operating expenses</span></div>
+        <div class="row"><span class="lbl">Salaries (17 FTE) + benefits</span><span class="num">(3,840)</span><span class="pct">8.1%</span></div>
+        <div class="row"><span class="lbl">Studio, office, warehouse rent</span><span class="num">(520)</span><span class="pct">1.1%</span></div>
+        <div class="row"><span class="lbl">R&amp;D · formulation · clinical</span><span class="num">(2,110)</span><span class="pct">4.5%</span></div>
+        <div class="row"><span class="lbl">Customer service · owned team</span><span class="num">(340)</span><span class="pct">0.7%</span></div>
+        <div class="row"><span class="lbl">Photography, print, editorial</span><span class="num">(480)</span><span class="pct">1.0%</span></div>
+        <div class="row"><span class="lbl">Paid advertising (Meta, Google)</span><span class="num">0</span><span class="pct">0.0%</span></div>
+        <div class="row"><span class="lbl">Recall &amp; remediation (V26-030)</span><span class="num">(211)</span><span class="pct">0.4%</span></div>
+        <div class="row total"><span>Operating profit</span><span class="num">10,217</span><span class="pct">21.6%</span></div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="geo">
+          <h4>Revenue by <em style="font-style:italic;color:var(--accent)">geography</em></h4>
+          <div class="geo-row"><span class="c">Europe</span><div class="b"><span style="width:52%"></span></div><span class="v">$24.6M · 52%</span></div>
+          <div class="geo-row"><span class="c">UK</span><div class="b"><span style="width:18%"></span></div><span class="v">$8.5M · 18%</span></div>
+          <div class="geo-row"><span class="c">USA &amp; Canada</span><div class="b"><span style="width:15%"></span></div><span class="v">$7.1M · 15%</span></div>
+          <div class="geo-row"><span class="c">APAC</span><div class="b"><span style="width:9%"></span></div><span class="v">$4.3M · 9%</span></div>
+          <div class="geo-row"><span class="c">Middle East</span><div class="b"><span style="width:4%"></span></div><span class="v">$1.9M · 4%</span></div>
+          <div class="geo-row"><span class="c">Rest of world</span><div class="b"><span style="width:2%"></span></div><span class="v">$0.9M · 2%</span></div>
+        </div>
+        <div class="geo">
+          <h4>Revenue by <em style="font-style:italic;color:var(--accent)">channel</em></h4>
+          <div class="geo-row"><span class="c">Subscription</span><div class="b"><span style="width:80%"></span></div><span class="v">$38.2M · 81%</span></div>
+          <div class="geo-row"><span class="c">One-time D2C</span><div class="b"><span style="width:12%"></span></div><span class="v">$5.5M · 12%</span></div>
+          <div class="geo-row"><span class="c">Wholesale · retail</span><div class="b"><span style="width:7%"></span></div><span class="v">$3.6M · 7%</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKU performance -->
+  <section>
+    <div class="ch">
+      <span class="num">Chapter 04 · Products</span>
+      <h2>What <em>sold.</em></h2>
+      <span class="pg">pp 16–19</span>
+    </div>
+
+    <table class="sku-table">
+      <thead>
+        <tr>
+          <th style="width:40px">#</th>
+          <th>Product</th>
+          <th>Code</th>
+          <th class="r">Units shipped</th>
+          <th class="r">Revenue</th>
+          <th class="r">Return rate</th>
+          <th class="r">Trend</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="rank">01</span></td><td><span class="nm">Daily N° 01</span> · the complete</td><td class="n">V-D01</td><td class="r n">138,200</td><td class="r n">$22.4M</td><td class="r n">1.4%</td><td class="r"><span class="trend up">↑ +42%</span></td></tr>
+        <tr><td><span class="rank">02</span></td><td><span class="nm">Magnesium Glycinate</span></td><td class="n">V-MG3</td><td class="r n">42,100</td><td class="r n">$4.1M</td><td class="r n">1.2%</td><td class="r"><span class="trend up">↑ +28%</span></td></tr>
+        <tr><td><span class="rank">03</span></td><td><span class="nm">Evening Tincture</span></td><td class="n">V-ET1</td><td class="r n">31,800</td><td class="r n">$3.8M</td><td class="r n">2.1%</td><td class="r"><span class="trend up">↑ +61%</span></td></tr>
+        <tr><td><span class="rank">04</span></td><td><span class="nm">Omega-3 Algal</span></td><td class="r n">29,400</td><td class="r n"></td><td class="r n">$3.2M</td><td class="r n">1.8%</td><td class="r"><span class="trend up">↑ +19%</span></td></tr>
+        <tr><td><span class="rank">05</span></td><td><span class="nm">Vitamin D3+K2</span></td><td class="n">V-D3K</td><td class="r n">28,700</td><td class="r n">$2.4M</td><td class="r n">0.9%</td><td class="r"><span class="trend up">↑ +22%</span></td></tr>
+        <tr><td><span class="rank">06</span></td><td><span class="nm">Morning Elixir</span></td><td class="n">V-ME1</td><td class="r n">22,100</td><td class="r n">$2.2M</td><td class="r n">3.1%</td><td class="r"><span class="trend fl">→ −3%</span></td></tr>
+        <tr><td><span class="rank">07</span></td><td><span class="nm">Zinc Picolinate</span></td><td class="n">V-ZP1</td><td class="r n">18,900</td><td class="r n">$1.6M</td><td class="r n">1.1%</td><td class="r"><span class="trend up">↑ +14%</span></td></tr>
+        <tr><td><span class="rank">08</span></td><td><span class="nm">L-Theanine</span></td><td class="n">V-LT1</td><td class="r n">16,400</td><td class="r n">$1.4M</td><td class="r n">1.5%</td><td class="r"><span class="trend up">↑ +34%</span></td></tr>
+        <tr><td><span class="rank">09</span></td><td><span class="nm">Ashwagandha KSM-66</span></td><td class="n">V-AS1</td><td class="r n">15,200</td><td class="r n">$1.3M</td><td class="r n">4.2%</td><td class="r"><span class="trend dn">↓ −8%</span></td></tr>
+        <tr><td><span class="rank">10</span></td><td><span class="nm">Skin + Hair · collagen peptides</span></td><td class="n">V-SH1</td><td class="r n">12,700</td><td class="r n">$1.1M</td><td class="r n">2.8%</td><td class="r"><span class="trend fl">→ NEW</span></td></tr>
+        <tr><td><span class="rank">11</span></td><td><span class="nm">Creatine Monohydrate</span></td><td class="n">V-CR1</td><td class="r n">11,100</td><td class="r n">$890K</td><td class="r n">1.0%</td><td class="r"><span class="trend up">↑ +112%</span></td></tr>
+        <tr><td><span class="rank">12</span></td><td>15 others (ranks 12–26)</td><td class="n">—</td><td class="r n">61,200</td><td class="r n">$2.9M</td><td class="r n">1.7%</td><td class="r"><span class="trend fl">→ mixed</span></td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:var(--serif);font-size:14px;font-style:italic;color:var(--muted);margin-top:14px;max-width:80ch">Note · Ashwagandha KSM-66 is the only SKU where we lost revenue year-over-year. A 4.2% return rate is twice our target. We are reformulating with a different extract for Q2 FY27 and will communicate the change to affected subscribers in advance. The 3.1% return rate on Morning Elixir has been traced to taste complaints; reformulation underway.</p>
+  </section>
+
+  <!-- Honest scorecard -->
+  <section>
+    <div class="ch">
+      <span class="num">Chapter 05 · What we got wrong</span>
+      <h2>Honest <em>scorecard.</em></h2>
+      <span class="pg">pp 20–25</span>
+    </div>
+
+    <div class="score">
+      <div class="sc">
+        <span class="h">Things we did well</span>
+        <div class="g"><span class="n">8</span><span class="o">/ 10 goals</span></div>
+        <span class="w good">Met or exceeded</span>
+        <span class="nt">Published 41 CoAs on schedule. Reached 38k subscribers. Opened Rotterdam warehouse on time and under budget. Kept return rate under 2%. Published competitor comparison page that cost us sales. Four-day week kept. Zero leavers on the team.</span>
+      </div>
+      <div class="sc">
+        <span class="h">Things we got wrong</span>
+        <div class="g"><span class="n">3</span><span class="o">/ failures</span></div>
+        <span class="w bad">Recall · taste · hire</span>
+        <span class="nt">Batch V26-030 recall (Ashwagandha · €211K cost, 1,904 customers affected). Morning Elixir taste reformulation delayed three quarters. Our first Head of Science hire did not work out; we parted ways after seven months. We will be slower next time.</span>
+      </div>
+      <div class="sc">
+        <span class="h">Things we're undecided on</span>
+        <div class="g"><span class="n">2</span><span class="o">/ open</span></div>
+        <span class="w mid">Watching · honest</span>
+        <span class="nt">Whether to launch a men's line: we keep not shipping and it keeps being correct. Whether to open a second warehouse in North America: the carbon math is bad, the customer experience math is good. We'll decide in Q2 FY27 and tell you why.</span>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-top:24px">
+      <div class="chart-head">
+        <h3>The <em>V26-030</em> recall · what happened</h3>
+        <span class="sub">Full post-mortem · published 14 Oct 2025</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-m">Aug 11 <span>T=0</span></div>
+        <div class="tl-e">
+          <span class="t">Routine third-party retest flags inconsistency</span>
+          <span class="d">Batch V26-030 of our Ashwagandha KSM-66 came back with withanolide concentration 11% lower than spec. Our retained sample agreed. No safety issue; an efficacy issue.</span>
+          <span class="m">Eurofins · Copenhagen · #LAB-41291</span>
+        </div>
+        <div class="tl-m">Aug 12 <span>+1 d</span></div>
+        <div class="tl-e">
+          <span class="t">Decision to recall, not to wait</span>
+          <span class="d">We could have quietly downgraded the spec. We did not. Recall initiated by the founders at 09:40 CET before any regulator asked.</span>
+          <span class="m">Internal memo · public 14 Oct</span>
+        </div>
+        <div class="tl-m">Aug 13 <span>+2 d</span></div>
+        <div class="tl-e">
+          <span class="t">1,904 customers notified directly</span>
+          <span class="d">Personal email from Léa. Refund or replacement from next batch, customer's choice. 89% chose replacement. 11% chose refund; we reimbursed shipping both ways.</span>
+          <span class="m">100% replied within 9 days</span>
+        </div>
+        <div class="tl-m">Aug 28 <span>+17 d</span></div>
+        <div class="tl-e">
+          <span class="t">Root cause identified</span>
+          <span class="d">Supplier's harvest from a new farm in Madhya Pradesh. Standardisation process was correct; input material was weaker. We changed nothing about testing — testing worked. We changed the supplier's obligation to notify us of any harvest-source changes.</span>
+          <span class="m">Total direct cost · €211,000</span>
+        </div>
+        <div class="tl-m">Oct 14 <span>+64 d</span></div>
+        <div class="tl-e">
+          <span class="t">Public post-mortem published</span>
+          <span class="d">Full technical write-up on vesper.house/recall including lab data, every email sent to customers, and the supplier contract change. 68,000 reads in week one. 340 new subscribers cited it as the reason they signed up.</span>
+          <span class="m">Most-shared page FY26</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section>
+    <div class="ch">
+      <span class="num">Chapter 06 · The team</span>
+      <h2>Seventeen <em>people.</em></h2>
+      <span class="pg">pp 26–29</span>
+    </div>
+    <div class="team">
+      <div class="tm"><span class="r">Co-founder</span><span class="n">Léa Moreau</span><span class="t">Formulation · science</span><span class="b">Since Jan 2024</span></div>
+      <div class="tm"><span class="r">Co-founder</span><span class="n">Tomas Lindqvist</span><span class="t">Operations · finance</span><span class="b">Since Jan 2024</span></div>
+      <div class="tm"><span class="r">Lead formulator</span><span class="n">Dr. Elena Vázquez</span><span class="t">PhD biochemistry</span><span class="b">Since Mar 2024</span></div>
+      <div class="tm"><span class="r">Head of supply</span><span class="n">Martin Schäfer</span><span class="t">Sourcing · QA</span><span class="b">Since Jun 2024</span></div>
+      <div class="tm"><span class="r">Design director</span><span class="n">Ingrid Holst</span><span class="t">Brand · editorial · press</span><span class="b">Since Sep 2024</span></div>
+      <div class="tm"><span class="r">Partnerships</span><span class="n">Camille Aubert</span><span class="t">Wholesale · 142 retail partners</span><span class="b">Since Jan 2025</span></div>
+      <div class="tm"><span class="r">Customer care</span><span class="n">Anya Petrov</span><span class="t">Lead · owned team of 3</span><span class="b">Since Feb 2025</span></div>
+      <div class="tm"><span class="r">Fulfilment</span><span class="n">Rotterdam ops</span><span class="t">Team of 5 · warehouse &amp; filling</span><span class="b">Opened Apr 2025</span></div>
+      <div class="tm"><span class="r">Hired FY26</span><span class="n">Dr. Hugo Tanaka</span><span class="t">Clinical research lead</span><span class="b">Joined May 2025</span></div>
+      <div class="tm"><span class="r">Hired FY26</span><span class="n">Sofia Reinhart</span><span class="t">Editorial &amp; longform</span><span class="b">Joined Jul 2025</span></div>
+      <div class="tm"><span class="r">Hired FY26</span><span class="n">Joon Park</span><span class="t">Product engineering</span><span class="b">Joined Sep 2025</span></div>
+      <div class="tm"><span class="r">Open FY27</span><span class="n">Regulatory affairs</span><span class="t">Hiring · Copenhagen</span><span class="b">Apply by 31 May</span></div>
+    </div>
+  </section>
+
+  <!-- Outlook -->
+  <div class="outlook">
+    <div class="lt">
+      <div class="y">Chapter 07 · FY2027</div>
+      <h3>What we <em>intend.</em></h3>
+      <p style="font-family:var(--serif);font-size:15px;line-height:1.6;color:rgba(233,223,208,.75);margin-top:22px;max-width:34ch;font-style:italic">Six commitments. We will grade ourselves against them in next year's report, on this same page, in this same size type.</p>
+    </div>
+    <div class="rt">
+      <div class="out-item"><span class="n">01</span><span class="t">Reformulate <strong>Ashwagandha</strong> with a different standardised extract and publish full side-by-side comparison data.</span><span class="q">Q2</span></div>
+      <div class="out-item"><span class="n">02</span><span class="t">Publish every <strong>supplier name and farm location</strong> for all 26 SKUs, not just our top five.</span><span class="q">Q2</span></div>
+      <div class="out-item"><span class="n">03</span><span class="t">Decide in public whether to open a <strong>US warehouse</strong>. Publish carbon, cost, and customer-experience math either way.</span><span class="q">Q2</span></div>
+      <div class="out-item"><span class="n">04</span><span class="t">Run the first <strong>Vesper-funded clinical trial</strong> (double-blind, placebo) on Daily N° 01, with pre-registered endpoints. We will publish even if the result is unflattering.</span><span class="q">Q3</span></div>
+      <div class="out-item"><span class="n">05</span><span class="t">Keep <strong>paid advertising spend at zero</strong>. Again. For the third consecutive year.</span><span class="q">All yr</span></div>
+      <div class="out-item"><span class="n">06</span><span class="t">Grow to no more than <strong>24 people</strong>. If we need to grow faster than that, we will slow down the business, not the hiring bar.</span><span class="q">Cap</span></div>
+    </div>
+  </div>
+
+  <div class="colophon">
+    <span>© MMXXVI Vesper House · Østerbrogade 142 · Copenhagen</span>
+    <span>Report designed in-house · Fraunces &amp; JetBrains Mono</span>
+    <span>Printed on Munken Pure · 120 gsm · 2,400 copies</span>
+    <span>Printer: KLS Pureprint · Hvidovre · FSC</span>
+  </div>
+
+</section>
+
+</body></html>

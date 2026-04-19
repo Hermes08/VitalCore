@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — Manage your ritual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vesper-shared.css">
+<style>
+  .dash{padding:40px 36px 80px;display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;border-top:1px solid var(--line)}
+  @media(max-width:1000px){.dash{grid-template-columns:1fr}}
+
+  /* SIDEBAR */
+  .side{position:sticky;top:90px;height:fit-content;display:flex;flex-direction:column;gap:18px}
+  .welcome{padding:24px;background:var(--bg-deep);border:1px solid var(--line)}
+  .welcome .hi{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+  .welcome .n{font-family:var(--serif);font-style:italic;font-weight:300;font-size:32px;line-height:1;letter-spacing:-.02em}
+  .welcome .since{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+  .welcome .since strong{color:var(--ink);font-family:var(--serif);font-style:italic;font-weight:400;font-size:14px;text-transform:none;letter-spacing:-.01em}
+
+  .nav-items{display:flex;flex-direction:column;gap:1px}
+  .nav-items a{padding:14px 18px;background:var(--bg);border:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:flex;justify-content:space-between;align-items:center;transition:all .25s}
+  .nav-items a:hover,.nav-items a.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .nav-items a .bubble{background:var(--accent);color:var(--bg);padding:2px 8px;font-size:9px;letter-spacing:.1em}
+
+  /* MAIN COLUMN */
+  .main{display:flex;flex-direction:column;gap:32px;min-width:0}
+
+  .head-row{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end;padding-bottom:20px;border-bottom:1px solid var(--line)}
+  .head-row h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(44px,6vw,74px);line-height:.98;letter-spacing:-.02em}
+  .head-row h1 em{color:var(--accent)}
+  .head-row .subtxt{font-family:var(--serif);font-size:17px;color:var(--ink-2);margin-top:12px;max-width:50ch;line-height:1.45}
+
+  /* NEXT SHIPMENT */
+  .next{background:var(--ink);color:var(--bg);padding:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px}
+  .next > *{min-width:0}
+  @media(max-width:800px){.next{grid-template-columns:1fr}}
+  .next .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+  .next .date{font-family:var(--serif);font-style:italic;font-weight:300;font-size:64px;line-height:.95;letter-spacing:-.02em}
+  .next .date small{display:block;font-size:16px;color:rgba(233,223,208,.55);font-style:normal;font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;margin-top:10px}
+  .next .actions{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px}
+  .next .actions button{background:transparent;border:1px solid rgba(233,223,208,.35);color:var(--bg);font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:10px 16px;cursor:pointer;transition:all .25s}
+  .next .actions button:hover{background:var(--bg);color:var(--ink)}
+  .next .actions button.primary{background:var(--accent);border-color:var(--accent)}
+  .next .actions button.primary:hover{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+
+  .shipment-preview{display:flex;flex-direction:column;gap:10px}
+  .shipment-preview .cost-line{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid rgba(233,223,208,.15);font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:rgba(233,223,208,.7);text-transform:uppercase}
+  .shipment-preview .cost-line strong{color:var(--bg);font-family:var(--serif);font-weight:300;font-style:italic;font-size:17px;letter-spacing:-.01em;text-transform:none}
+  .shipment-preview .total-line{font-size:13px;padding:16px 0 0;border:none}
+  .shipment-preview .total-line strong{font-size:36px;color:var(--accent);line-height:1}
+  .ship-items{display:flex;gap:14px;flex-wrap:wrap;padding-bottom:12px}
+  .ship-items .it{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(233,223,208,.05);border:1px solid rgba(233,223,208,.15)}
+  .ship-items .pill-sm{width:14px;height:32px;border-radius:999px;display:flex;overflow:hidden;flex-shrink:0;transform:rotate(8deg)}
+  .ship-items .pill-sm .h{flex:1;position:relative}
+  .ship-items .pill-sm .h:first-child{background:radial-gradient(circle at 35% 30%,var(--c1),var(--c2) 55%,var(--c3))}
+  .ship-items .pill-sm .h:last-child{background:radial-gradient(circle at 65% 70%,var(--c4,var(--c1)),var(--c2) 50%,var(--c3))}
+  .ship-items .it .n{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--bg);line-height:1.1}
+  .ship-items .it .d{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:rgba(233,223,208,.5);text-transform:uppercase;margin-top:2px}
+
+  /* YOUR RITUAL — Active formulas */
+  .section-hdr{display:flex;justify-content:space-between;align-items:end;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  .section-hdr .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+  .section-hdr em{font-family:var(--serif);font-style:italic;font-weight:300;font-size:30px;letter-spacing:-.02em;display:block;margin-top:4px;color:var(--ink)}
+  .section-hdr a.add{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink);text-decoration:none;padding:10px 16px;border:1px solid var(--ink);text-transform:uppercase;transition:all .25s}
+  .section-hdr a.add:hover{background:var(--ink);color:var(--bg)}
+
+  .ritual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .ritual-card{background:var(--bg);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;transition:border-color .3s}
+  .ritual-card:hover{border-color:var(--ink)}
+  .ritual-card.paused{opacity:.55;background:var(--bg-deep)}
+  .ritual-card .row-top{display:flex;gap:16px;align-items:center}
+  .pill-wrap{width:54px;height:80px;position:relative;flex-shrink:0}
+  .pill-wrap .orb{position:absolute;inset:-6px;border-radius:50%;background:radial-gradient(circle,var(--c2),transparent 70%);filter:blur(14px);opacity:.45;mix-blend-mode:multiply}
+  .pill-wrap .pill{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(10deg);width:26px;height:70px;border-radius:999px;display:flex;overflow:hidden;box-shadow:0 6px 14px rgba(42,31,22,.2),inset 0 0 0 1px rgba(255,255,255,.15)}
+  .pill-wrap .pill .h{flex:1;position:relative;overflow:hidden}
+  .pill-wrap .pill .h:first-child{background:radial-gradient(circle at 35% 30%,var(--c1),var(--c2) 55%,var(--c3))}
+  .pill-wrap .pill .h:last-child{background:radial-gradient(circle at 65% 70%,var(--c4,var(--c1)),var(--c2) 50%,var(--c3))}
+  .pill-wrap .pill .h::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,0) 45%,rgba(0,0,0,.15) 100%)}
+  .ritual-card .meta-top{flex:1;min-width:0}
+  .ritual-card .tag{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  .ritual-card .n{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;line-height:1.1;letter-spacing:-.01em;margin-top:4px}
+  .ritual-card .price{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink-2);margin-top:3px}
+  .ritual-card .status-badge{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:rgba(122,138,99,.2);color:var(--sage)}
+  .ritual-card.paused .status-badge{background:rgba(122,101,83,.2);color:var(--muted)}
+  .ritual-card .progress{display:flex;flex-direction:column;gap:6px}
+  .ritual-card .p-bar{height:3px;background:var(--bg-deep);position:relative;border-radius:2px;overflow:hidden}
+  .ritual-card .p-bar .fill{position:absolute;top:0;left:0;bottom:0;background:var(--accent);border-radius:2px;transition:width .4s}
+  .ritual-card .p-meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+  .ritual-card .p-meta strong{color:var(--ink);font-family:var(--serif);font-style:italic;font-weight:400;font-size:14px;text-transform:none;letter-spacing:-.01em}
+  .ritual-card .actions-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+  .ritual-card .actions-row button{flex:1;font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:9px 10px;background:transparent;border:1px solid var(--line);color:var(--ink);cursor:pointer;transition:all .25s;white-space:nowrap}
+  .ritual-card .actions-row button:hover{border-color:var(--ink)}
+  .ritual-card .actions-row button.active{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+
+  /* FREQUENCY CHOOSER */
+  .freq-chooser{padding:32px;background:var(--bg);border:1px solid var(--line)}
+  .freq-chooser .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+  .freq-chooser em{font-family:var(--serif);font-style:italic;font-weight:300;font-size:28px;line-height:1.1;letter-spacing:-.02em;display:block;margin-bottom:24px}
+  .freq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+  .freq-opt{padding:18px;border:1px solid var(--line);background:var(--bg);cursor:pointer;text-align:left;font-family:inherit;transition:all .25s}
+  .freq-opt:hover{border-color:var(--ink)}
+  .freq-opt.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .freq-opt .d{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .freq-opt.on .d{color:rgba(233,223,208,.55)}
+  .freq-opt .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:24px;line-height:1}
+  .freq-opt .sub{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--muted);margin-top:6px}
+  .freq-opt.on .sub{color:rgba(233,223,208,.55)}
+  .freq-opt .badge{display:inline-block;font-family:var(--mono);font-size:8px;letter-spacing:.15em;background:var(--accent);color:var(--bg);padding:2px 6px;margin-left:6px}
+
+  /* INSIGHT STRIP */
+  .insights-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+  .insights-row > div{background:var(--bg);padding:24px}
+  .insights-row .k{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+  .insights-row .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:30px;line-height:1;letter-spacing:-.02em}
+  .insights-row .v .u{font-family:var(--mono);font-size:11px;color:var(--muted);font-style:normal;margin-left:2px}
+  .insights-row .d{font-family:var(--serif);font-size:13px;color:var(--ink-2);margin-top:8px;line-height:1.4}
+
+  /* TIMELINE */
+  .timeline-wrap{padding:32px;background:var(--bg-deep);border:1px solid var(--line)}
+  .timeline-wrap .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+  .timeline-wrap em{font-family:var(--serif);font-style:italic;font-weight:300;font-size:28px;line-height:1.1;letter-spacing:-.02em;display:block;margin-bottom:24px}
+  .timeline-wrap{min-width:0;overflow:hidden}
+  .tl{display:flex;gap:0;align-items:flex-start;position:relative;overflow-x:auto;padding-bottom:10px;max-width:100%}
+  .tl::before{content:"";position:absolute;top:16px;left:0;right:0;height:1px;background:var(--line)}
+  .tl-item{flex:0 0 170px;padding:0 14px;position:relative}
+  .tl-item:first-child{padding-left:0}
+  .tl-item .dot{width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--line);position:relative;z-index:1;margin-bottom:14px}
+  .tl-item.done .dot{background:var(--sage);border-color:var(--sage)}
+  .tl-item.now .dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px rgba(196,98,45,.2)}
+  .tl-item .when{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+  .tl-item.now .when{color:var(--accent)}
+  .tl-item .what{font-family:var(--serif);font-style:italic;font-weight:300;font-size:17px;line-height:1.2;color:var(--ink)}
+
+  /* REFERRAL CARD */
+  .referral{padding:32px;background:var(--accent);color:var(--bg);display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}
+  @media(max-width:700px){.referral{grid-template-columns:1fr}}
+  .referral .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;opacity:.8;text-transform:uppercase;margin-bottom:8px}
+  .referral h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:34px;line-height:1;letter-spacing:-.02em;margin-bottom:8px}
+  .referral p{font-family:var(--serif);font-size:15px;line-height:1.45;opacity:.9;max-width:50ch}
+  .referral .code{background:var(--ink);color:var(--bg);padding:20px 26px;font-family:var(--mono);font-size:14px;letter-spacing:.25em;display:flex;flex-direction:column;gap:4px;cursor:pointer;min-width:200px;text-align:center}
+  .referral .code span{font-size:9px;letter-spacing:.25em;opacity:.55}
+  .referral .code strong{font-size:20px;letter-spacing:.2em}
+
+  /* MODAL-ish pause overlay */
+  .pause-reason{display:none;position:fixed;inset:0;background:rgba(10,6,3,.65);z-index:100;align-items:center;justify-content:center;padding:30px}
+  .pause-reason.on{display:flex}
+  .pause-reason .box{max-width:520px;background:var(--bg);padding:40px;position:relative}
+  .pause-reason h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:40px;line-height:1;letter-spacing:-.02em;margin-bottom:12px}
+  .pause-reason p{font-family:var(--serif);font-size:16px;color:var(--ink-2);line-height:1.45;margin-bottom:24px}
+  .pause-reason .opts{display:flex;flex-direction:column;gap:8px}
+  .pause-reason .opts button{padding:14px 18px;text-align:left;background:var(--bg-deep);border:1px solid var(--line);font-family:var(--serif);font-size:16px;color:var(--ink);cursor:pointer;transition:all .25s}
+  .pause-reason .opts button:hover{border-color:var(--ink);background:var(--bg)}
+  .pause-reason .opts button strong{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:4px;font-weight:400}
+  .pause-reason .close-x{position:absolute;top:16px;right:16px;background:none;border:none;font-family:var(--mono);font-size:18px;color:var(--muted);cursor:pointer}
+
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120%);background:var(--ink);color:var(--bg);padding:14px 24px;font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;z-index:200;transition:transform .4s cubic-bezier(.2,.7,.2,1);white-space:nowrap}
+  .toast.on{transform:translateX(-50%) translateY(0)}
+</style>
+</head><body>
+
+<nav class="top">
+  <div class="brand"><a href="Vesper.html">Vesper<sup>/01</sup></a></div>
+  <div class="links">
+    <a href="Vesper.html">Home</a>
+    <a href="Catalog.html">Apothecary</a>
+    <a href="Needs.html">By Need</a>
+    <a href="Account.html" class="active">My ritual</a>
+    <a href="Hub.html">All pages</a>
+  </div>
+  <a href="Catalog.html" class="cart"><span class="dot"></span><span>Sign out</span></a>
+</nav>
+
+<section class="dash">
+  <aside class="side">
+    <div class="welcome">
+      <div class="hi">Good morning,</div>
+      <div class="n">Elena</div>
+      <div class="since">SUBSCRIBER SINCE<br/><strong>March 2025 · 14 shipments</strong></div>
+    </div>
+    <nav class="nav-items">
+      <a href="#" class="active"><span>My ritual</span><span>→</span></a>
+      <a href="#"><span>Shipments</span><span class="bubble">14</span></a>
+      <a href="#"><span>Lab reports</span><span>→</span></a>
+      <a href="#"><span>Addresses</span><span>→</span></a>
+      <a href="#"><span>Billing</span><span>→</span></a>
+      <a href="#"><span>Preferences</span><span>→</span></a>
+    </nav>
+  </aside>
+
+  <div class="main">
+
+    <div class="head-row">
+      <div>
+        <h1>Your <em>ritual,</em> in progress.</h1>
+        <p class="subtxt">Four formulas arriving every 30 days. You've held to it for 14 months — the longest streak on this account. You can pause, skip, or swap anything below, any time.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <span class="tag" style="font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase">Status</span>
+        <span style="font-family:var(--serif);font-style:italic;font-size:20px;color:var(--sage)">● Active</span>
+      </div>
+    </div>
+
+    <!-- Next shipment -->
+    <div class="next">
+      <div>
+        <div class="l">Your next shipment</div>
+        <div class="date">April 18<small>In 9 days · Madrid 28002</small></div>
+        <div class="actions">
+          <button class="primary" onclick="t('Shipped early — expect it in 2 days')">Ship now</button>
+          <button onclick="t('Skipped — we\\'ll ship May 18 instead')">Skip this one</button>
+          <button onclick="delayShip()">Delay 2 weeks</button>
+          <button onclick="openPause()">Pause subscription</button>
+        </div>
+      </div>
+      <div class="shipment-preview">
+        <div class="l" style="color:rgba(233,223,208,.55);margin-bottom:14px">CONTENTS · 4 FORMULAS</div>
+        <div class="ship-items">
+          <div class="it" style="--c1:#f3c27a;--c2:#c4622d;--c3:#6b2a10;--c4:#e8a865"><div class="pill-sm"><div class="h"></div><div class="h"></div></div><div><div class="n">Daily N° 01</div><div class="d">60 caps</div></div></div>
+          <div class="it" style="--c1:#d5e3a8;--c2:#7a8a63;--c3:#2f3a22;--c4:#a8bb85"><div class="pill-sm"><div class="h"></div><div class="h"></div></div><div><div class="n">Magnesium</div><div class="d">60 caps</div></div></div>
+          <div class="it" style="--c1:#e8b4a0;--c2:#a0543d;--c3:#3a1b10;--c4:#d08a75"><div class="pill-sm"><div class="h"></div><div class="h"></div></div><div><div class="n">Ashwagandha</div><div class="d">60 caps</div></div></div>
+          <div class="it" style="--c1:#b8c8d9;--c2:#3f5a7a;--c3:#0f1e33;--c4:#7a95b5"><div class="pill-sm"><div class="h"></div><div class="h"></div></div><div><div class="n">Mega EPA/DHA</div><div class="d">60 softgels</div></div></div>
+        </div>
+        <div class="cost-line"><span>Sum of parts</span><strong>$154</strong></div>
+        <div class="cost-line"><span>Ritual of four — 15% off</span><strong style="color:var(--accent)">−$23</strong></div>
+        <div class="cost-line"><span>Shipping</span><strong>Free</strong></div>
+        <div class="cost-line total-line"><span>Due April 17</span><strong>$131</strong></div>
+      </div>
+    </div>
+
+    <!-- Insights strip -->
+    <div class="insights-row">
+      <div><div class="k">Consecutive months</div><div class="v">14</div><div class="d">Your longest run yet. Most subscribers settle between 6 and 24 months.</div></div>
+      <div><div class="k">Next lab report</div><div class="v">V-0425-ρ</div><div class="d">Arrives on your April bottle. Third-party COA will publish online first.</div></div>
+      <div><div class="k">Saved vs retail</div><div class="v">$428</div><div class="d">Compared to buying each formula standalone at pharmacy pricing.</div></div>
+      <div><div class="k">Referral credits</div><div class="v">$40</div><div class="d">Two friends joined. Applied to your next shipment automatically.</div></div>
+    </div>
+
+    <!-- Active formulas -->
+    <div>
+      <div class="section-hdr">
+        <div><span class="l">No. 02</span><em>Your formulas</em></div>
+        <a href="Catalog.html" class="add">+ Add formula</a>
+      </div>
+      <div class="ritual-grid" id="formulas"></div>
+    </div>
+
+    <!-- Frequency chooser -->
+    <div class="freq-chooser">
+      <div class="l">No. 03 · Ship every</div>
+      <em>Change the cadence of your ritual</em>
+      <div class="freq-grid" id="freqGrid"></div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-wrap">
+      <div class="l">No. 04 · Your Vesper year, so far</div>
+      <em>From March 2025 to April 2026</em>
+      <div class="tl" id="timeline"></div>
+    </div>
+
+    <!-- Referral -->
+    <div class="referral">
+      <div>
+        <div class="l">No. 05 · Share the ritual</div>
+        <h3>$20 for a friend, $20 for you.</h3>
+        <p>Send your code to someone you'd actually want to hand a bottle to. They save on their first order; you save on your next.</p>
+      </div>
+      <button class="code" onclick="copyCode()">
+        <span>YOUR CODE</span>
+        <strong>ELENA-A20</strong>
+        <span id="copyHint">Click to copy</span>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- Pause modal -->
+<div class="pause-reason" id="pauseModal">
+  <div class="box">
+    <button class="close-x" onclick="closePause()">×</button>
+    <h3>Before you pause,</h3>
+    <p>Your ritual has the compounding kind of payoff — many subscribers tell us the hardest part of restarting is the first three weeks. Tell us what's going on?</p>
+    <div class="opts">
+      <button onclick="pauseOutcome('stock')"><strong>I still have stock</strong>That's the most common reason. Want to skip just April instead?</button>
+      <button onclick="pauseOutcome('budget')"><strong>Budget is tight this month</strong>We can delay your next ship by 2, 4, or 6 weeks — no charge.</button>
+      <button onclick="pauseOutcome('change')"><strong>I want to change formulas</strong>Swap any formula in your ritual below — we'll ship the new set.</button>
+      <button onclick="pauseOutcome('done')"><strong>I'm actually done for now</strong>OK. We'll pause indefinitely. Return any time — your history stays.</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="f">
+  <span>© MMXXVI VESPER HOUSE</span>
+  <span><a href="Hub.html">All pages</a></span>
+  <span>SECURE · ENCRYPTED · PAUSE ANY TIME</span>
+</footer>
+
+<script>
+const PAL = {
+  terracotta:['#f3c27a','#c4622d','#6b2a10','#e8a865'],
+  sage:['#d5e3a8','#7a8a63','#2f3a22','#a8bb85'],
+  clay:['#e8b4a0','#a0543d','#3a1b10','#d08a75'],
+  slate:['#b8c8d9','#3f5a7a','#0f1e33','#7a95b5'],
+  plum:['#dcc2e0','#7a5a8a','#2a1a33','#a788b8'],
+  amber:['#f0c9a0','#b67a45','#4a2a10','#d4a275'],
+};
+
+let formulas = [
+  {id:'daily', name:'Vesper Daily N° 01', palette:'terracotta', tag:'Foundation', price:68, dose:'2 caps / AM', left:22, total:30, status:'active', freq:'30 days'},
+  {id:'mag', name:'Magnesium Bisglycinate', palette:'sage', tag:'Evening ritual', price:24, dose:'2 caps / PM', left:18, total:30, status:'active', freq:'30 days'},
+  {id:'ashwa', name:'Ashwagandha KSM-66', palette:'clay', tag:'Stress support', price:28, dose:'2 caps / AM', left:25, total:30, status:'active', freq:'30 days'},
+  {id:'omega', name:'Mega EPA/DHA', palette:'slate', tag:'Brain, heart', price:34, dose:'2 softgels / meal', left:12, total:30, status:'active', freq:'30 days'},
+  {id:'sleep', name:'Sleep Formula', palette:'plum', tag:'Occasional', price:26, dose:'2 caps / PM', left:0, total:0, status:'paused', freq:'60 days'},
+];
+
+let freq = '30d';
+
+function renderFormulas(){
+  const g = document.getElementById('formulas');
+  g.innerHTML = '';
+  formulas.forEach(f => {
+    const pal = PAL[f.palette];
+    const pct = f.total ? Math.round(f.left / f.total * 100) : 0;
+    const d = document.createElement('div');
+    d.className = 'ritual-card' + (f.status==='paused' ? ' paused' : '');
+    d.style.setProperty('--c1', pal[0]);
+    d.style.setProperty('--c2', pal[1]);
+    d.style.setProperty('--c3', pal[2]);
+    d.style.setProperty('--c4', pal[3]);
+    d.innerHTML = `
+      <div class="row-top">
+        <div class="pill-wrap"><div class="orb"></div><div class="pill"><div class="h"></div><div class="h"></div></div></div>
+        <div class="meta-top">
+          <span class="tag">${f.tag}</span>
+          <div class="n">${f.name}</div>
+          <div class="price">$${f.price} · every ${f.freq}</div>
+        </div>
+        <span class="status-badge">${f.status==='active'?'● Active':'○ Paused'}</span>
+      </div>
+      ${f.status==='active' ? `
+      <div class="progress">
+        <div class="p-meta"><span>Days of supply</span><strong>${f.left} / ${f.total}</strong></div>
+        <div class="p-bar"><div class="fill" style="width:${pct}%"></div></div>
+      </div>` : ''}
+      <div class="actions-row">
+        ${f.status==='active' ? `
+          <button onclick="swap('${f.id}')">Swap</button>
+          <button onclick="adjust('${f.id}')">Adjust dose</button>
+          <button onclick="pause('${f.id}')">Pause</button>
+          <button onclick="remove('${f.id}')">Remove</button>
+        ` : `
+          <button class="active" onclick="resume('${f.id}')">Resume</button>
+          <button onclick="remove('${f.id}')">Remove permanently</button>
+        `}
+      </div>`;
+    g.appendChild(d);
+  });
+}
+
+const FREQ = [
+  {id:'14d', d:'Every', v:'14 days', sub:'Power users', badge:'-2%'},
+  {id:'30d', d:'Every', v:'30 days', sub:'The usual rhythm'},
+  {id:'45d', d:'Every', v:'45 days', sub:'Lighter cadence'},
+  {id:'60d', d:'Every', v:'60 days', sub:'2 months between'},
+  {id:'90d', d:'Every', v:'90 days', sub:'Quarterly', badge:'+3%'},
+];
+function renderFreq(){
+  const g = document.getElementById('freqGrid');
+  g.innerHTML = '';
+  FREQ.forEach(f => {
+    const b = document.createElement('button');
+    b.className = 'freq-opt' + (f.id===freq?' on':'');
+    b.innerHTML = `<div class="d">${f.d}</div><div class="v">${f.v}${f.badge?`<span class="badge">${f.badge}</span>`:''}</div><div class="sub">${f.sub}</div>`;
+    b.onclick = () => { freq = f.id; renderFreq(); t('Ritual cadence updated to '+f.v); };
+    g.appendChild(b);
+  });
+}
+
+const EVENTS = [
+  {when:'Mar 2025',what:'Joined · First ritual of 3',state:'done'},
+  {when:'May 2025',what:'Added Ashwagandha',state:'done'},
+  {when:'Aug 2025',what:'Paused August (vacation)',state:'done'},
+  {when:'Sep 2025',what:'Resumed — 5% welcome-back',state:'done'},
+  {when:'Nov 2025',what:'Added Mega EPA/DHA',state:'done'},
+  {when:'Jan 2026',what:'1-year anniversary bundle',state:'done'},
+  {when:'Mar 2026',what:'Referred 2 friends',state:'done'},
+  {when:'Apr 18',what:'Next shipment',state:'now'},
+  {when:'May 18',what:'Following shipment',state:''},
+  {when:'Jun 18',what:'Lab report refresh',state:''},
+];
+function renderTimeline(){
+  const g = document.getElementById('timeline');
+  g.innerHTML = '';
+  EVENTS.forEach(e => {
+    const d = document.createElement('div');
+    d.className = 'tl-item ' + e.state;
+    d.innerHTML = `<div class="dot"></div><div class="when">${e.when}</div><div class="what">${e.what}</div>`;
+    g.appendChild(d);
+  });
+}
+
+// Toast
+function t(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('on');
+  clearTimeout(window.__tt);
+  window.__tt = setTimeout(() => el.classList.remove('on'), 2600);
+}
+
+// Actions
+function swap(id){ t('Opening swap picker for '+id); }
+function adjust(id){ t('Dose adjustment saved — tighter ration'); }
+function pause(id){
+  const f = formulas.find(x=>x.id===id); f.status = 'paused'; renderFormulas(); t(f.name+' paused — won\'t ship next time');
+}
+function resume(id){
+  const f = formulas.find(x=>x.id===id); f.status = 'active'; f.left=30; f.total=30; renderFormulas(); t(f.name+' resumed — back on the April ship');
+}
+function remove(id){
+  if(!confirm('Remove permanently? Your history will be kept.')) return;
+  formulas = formulas.filter(f=>f.id!==id); renderFormulas(); t('Formula removed from ritual');
+}
+function delayShip(){ t('Next ship delayed to May 2 · no charge until then'); }
+function openPause(){ document.getElementById('pauseModal').classList.add('on'); }
+function closePause(){ document.getElementById('pauseModal').classList.remove('on'); }
+function pauseOutcome(k){
+  closePause();
+  const msgs = {
+    stock:'April skipped — May 18 will be your next',
+    budget:'Ship delayed 6 weeks — no charge until May 30',
+    change:'Scroll down to swap any formula below',
+    done:'Subscription paused indefinitely · come back anytime',
+  };
+  t(msgs[k]);
+}
+function copyCode(){
+  navigator.clipboard && navigator.clipboard.writeText('ELENA-A20');
+  document.getElementById('copyHint').textContent = 'Copied!';
+  setTimeout(() => document.getElementById('copyHint').textContent = 'Click to copy', 2000);
+}
+window.swap=swap;window.adjust=adjust;window.pause=pause;window.resume=resume;window.remove=remove;
+window.delayShip=delayShip;window.openPause=openPause;window.closePause=closePause;
+window.pauseOutcome=pauseOutcome;window.copyCode=copyCode;
+
+renderFormulas();
+renderFreq();
+renderTimeline();
+</script>
+</body></html>

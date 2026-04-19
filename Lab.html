@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — Lab Notebook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vesper-shared.css">
+<style>
+  .nb-stage{padding:60px 36px 100px;border-top:1px solid var(--line);display:grid;grid-template-columns:240px 1fr;gap:50px;align-items:start;max-width:1400px;margin:0 auto}
+  @media(max-width:900px){.nb-stage{grid-template-columns:1fr}}
+
+  /* Side index */
+  .idx{position:sticky;top:100px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-2);display:flex;flex-direction:column;gap:4px}
+  .idx .t{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;padding:12px 4px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  .idx a{padding:10px 12px;border-left:2px solid transparent;color:var(--ink-2);text-decoration:none;display:grid;grid-template-columns:32px 1fr;gap:8px;align-items:center}
+  .idx a:hover{background:var(--bg-deep);color:var(--ink)}
+  .idx a .n{color:var(--muted);font-size:10px}
+
+  /* Notebook look */
+  .notebook{background:var(--bg);border:1px solid var(--line);position:relative}
+  .notebook::before{content:"";position:absolute;left:0;top:0;bottom:0;width:48px;background:
+    linear-gradient(90deg, transparent 0, transparent 46px, var(--accent) 46px, var(--accent) 47px, transparent 47px),
+    repeating-linear-gradient(0deg, transparent 0, transparent 31px, rgba(42,31,22,.06) 31px, rgba(42,31,22,.06) 32px);
+    pointer-events:none}
+
+  .entry{padding:48px 60px 48px 72px;border-bottom:1px dashed var(--line);position:relative;background:
+    repeating-linear-gradient(0deg, transparent 0, transparent 31px, rgba(42,31,22,.04) 31px, rgba(42,31,22,.04) 32px)}
+  .entry:last-child{border-bottom:none}
+
+  .entry-head{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:baseline;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  .entry .date{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
+  .entry h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.02;letter-spacing:-.01em}
+  .entry h2 em{color:var(--accent)}
+  .entry .author{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;text-align:right;line-height:1.5}
+  .entry .author strong{color:var(--ink);font-weight:500}
+
+  .entry p{font-family:var(--serif);font-size:17px;line-height:1.7;color:var(--ink-2);margin-bottom:14px;max-width:62ch}
+  .entry p strong{color:var(--ink);font-weight:500}
+  .entry p em{color:var(--accent);font-style:italic}
+
+  .entry .aside{margin:28px 0;padding:22px 26px;background:var(--bg-deep);border-left:3px solid var(--accent);font-family:var(--serif);font-size:15px;line-height:1.55;color:var(--ink-2);font-style:italic}
+  .entry .aside strong{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;display:block;margin-bottom:8px;font-style:normal;font-weight:500}
+
+  /* Handwritten margin notes */
+  .margin-note{position:absolute;font-family:"Caveat",cursive;font-size:22px;color:var(--accent);line-height:1.2;max-width:200px;transform:rotate(-3deg);pointer-events:none}
+  .margin-note::before{content:"→";display:inline-block;margin-right:6px}
+
+  /* Data tables */
+  .nb-table{width:100%;margin:24px 0;border-collapse:collapse;font-family:var(--mono);font-size:12px;background:var(--bg)}
+  .nb-table th{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;text-align:left;padding:12px 14px;border-bottom:1px solid var(--ink);font-weight:500}
+  .nb-table td{padding:12px 14px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  .nb-table td:first-child{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink)}
+  .nb-table td.good{color:var(--sage);font-weight:500}
+  .nb-table td.bad{color:var(--accent)}
+  .nb-table tr.chosen td{background:rgba(196,98,45,.08)}
+  .nb-table tr.chosen td:first-child::after{content:" ← chosen";font-family:"Caveat",cursive;font-size:16px;color:var(--accent);font-style:normal;margin-left:8px}
+
+  /* Experiment sketch / diagram */
+  .sketch{margin:24px 0;padding:28px;background:#1a130d;color:var(--bg);position:relative}
+  .sketch .sketch-l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+  .sketch svg{width:100%;max-height:280px;display:block}
+  .sketch-cap{font-family:var(--serif);font-size:13px;font-style:italic;color:rgba(233,223,208,.65);margin-top:14px;text-align:center}
+
+  /* Molecule/diagram labels */
+  .dg-axis{stroke:rgba(233,223,208,.25);stroke-width:.5}
+  .dg-line{fill:none;stroke:var(--accent);stroke-width:2}
+  .dg-line.alt{stroke:rgba(233,223,208,.4);stroke-dasharray:4 4}
+  .dg-label{font-family:"JetBrains Mono";font-size:10px;fill:rgba(233,223,208,.7);letter-spacing:.05em}
+  .dg-label.accent{fill:var(--accent)}
+
+  .dose-bars{display:grid;gap:10px;margin:20px 0}
+  .db{display:grid;grid-template-columns:180px 1fr 80px;gap:14px;align-items:center;font-family:var(--mono);font-size:11px}
+  .db .l{color:var(--ink-2)}
+  .db .t{height:8px;background:var(--bg-deep);position:relative;overflow:hidden}
+  .db .f{height:100%;background:var(--ink);transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+  .db.chosen .f{background:var(--accent)}
+  .db .v{font-family:var(--serif);font-style:italic;font-size:14px;text-align:right}
+
+  /* Signature + stamp */
+  .signed{margin-top:28px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+  .sig{font-family:"Caveat",cursive;font-size:34px;color:var(--accent);line-height:1;transform:rotate(-3deg)}
+  .stamp{border:2px solid var(--accent);padding:8px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;transform:rotate(-6deg);opacity:.85;line-height:1.3;text-align:center}
+  .stamp strong{display:block;font-family:var(--serif);font-style:italic;font-size:16px;letter-spacing:.05em;text-transform:none;font-weight:400}
+
+  /* Footer of notebook */
+  .nb-foot{background:var(--ink);color:var(--bg);padding:40px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+  @media(max-width:700px){.nb-foot{grid-template-columns:1fr}}
+  .nb-foot .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase}
+  .nb-foot p{font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.4;color:rgba(233,223,208,.85);max-width:54ch}
+</style>
+</head><body>
+
+<nav class="top">
+  <div class="brand"><a href="Vesper.html">Vesper<sup>/01</sup></a></div>
+  <div class="links">
+    <a href="Vesper.html">Home</a>
+    <a href="Inside.html">Inside</a>
+    <a href="Lab.html" class="active">Lab notebook</a>
+    <a href="Founder.html">Our letter</a>
+    <a href="Hub.html">All pages</a>
+  </div>
+  <a href="Catalog.html" class="cart"><span class="dot"></span><span>Apothecary →</span></a>
+</nav>
+
+<header class="page-head">
+  <div class="eyebrow"><span class="tick"></span><span>LABORATORY NOTEBOOK · DR. ELENA VÁZQUEZ · LEAD FORMULATOR</span></div>
+  <h1>The <em>boring</em><br/>parts.</h1>
+  <p class="lead">Every formulation decision, with receipts. The trade-offs we made, the ingredients we rejected, the studies we read, and the math behind every dose in Vesper Daily N° 01. From the actual working notebook, transcribed.</p>
+</header>
+
+<section class="nb-stage">
+  <aside class="idx">
+    <div class="t">Index · 6 entries</div>
+    <a href="#e1"><span class="n">Mar '24</span><span>Why methyl</span></a>
+    <a href="#e2"><span class="n">May '24</span><span>The mag trade-off</span></a>
+    <a href="#e3"><span class="n">Jul '24</span><span>Ashwa dose search</span></a>
+    <a href="#e4"><span class="n">Sep '24</span><span>The iron decision</span></a>
+    <a href="#e5"><span class="n">Jan '25</span><span>Omega form wars</span></a>
+    <a href="#e6"><span class="n">Mar '25</span><span>Why 2 capsules</span></a>
+  </aside>
+
+  <div class="notebook">
+
+    <!-- ENTRY 1 -->
+    <article class="entry" id="e1">
+      <div class="entry-head">
+        <span class="date">Entry 01 · 14 March 2024</span>
+        <h2>Why we pay 4× for <em>methylcobalamin</em>.</h2>
+        <span class="author">Dr. Elena Vázquez<br/><strong>Lead formulator</strong></span>
+      </div>
+
+      <p>Every multivitamin on the shelf uses cyanocobalamin for B₁₂. It's stable, cheap, and the FDA has cleared it for 70 years. The only problem: <strong>30% of people carry an MTHFR variant</strong> that reduces their ability to methylate it into the active form. For those people, cyano is largely inert.</p>
+
+      <p>We priced out all three available forms at 5000mcg/serving, per 60-serving bottle cost at supplier gate:</p>
+
+      <table class="nb-table">
+        <thead><tr><th>Form</th><th>Unit cost</th><th>Active</th><th>BBB crossing</th><th>MTHFR-safe</th></tr></thead>
+        <tbody>
+          <tr><td>Cyanocobalamin</td><td>$0.08</td><td class="bad">No — liver converts</td><td>Low</td><td class="bad">No</td></tr>
+          <tr><td>Hydroxocobalamin</td><td>$0.22</td><td>Partial</td><td>Moderate</td><td>Partial</td></tr>
+          <tr class="chosen"><td>Methylcobalamin</td><td>$0.31</td><td class="good">Yes — active</td><td class="good">High</td><td class="good">Yes</td></tr>
+        </tbody>
+      </table>
+
+      <p class="margin-note" style="right:0;top:180px;display:none"></p>
+
+      <p>The methyl form costs us an extra <em>23 cents per bottle</em>. Against a $68 retail price, this is trivially worth it. But multiplied across 1M bottles/year, it's $230K we choose to spend on something 70% of customers won't notice. We make the choice anyway because <strong>it works for everyone</strong>, which is the point.</p>
+
+      <div class="aside">
+        <strong>Reviewer's note · Dr. Priya Bhat</strong>
+        The cyano→methyl conversion in the liver also releases a cyanide radical. Trivially small and cleared by the kidneys, but: why introduce the problem in the first place? Not our job to add things your body has to filter.
+      </div>
+
+      <div class="signed">
+        <span class="sig">E. Vázquez</span>
+        <div class="stamp">APPROVED<br/><strong>N° 01 — §B₁₂</strong></div>
+      </div>
+    </article>
+
+    <!-- ENTRY 2 -->
+    <article class="entry" id="e2">
+      <div class="entry-head">
+        <span class="date">Entry 02 · 22 May 2024</span>
+        <h2>The magnesium <em>trade-off.</em></h2>
+        <span class="author">Dr. Elena Vázquez<br/><strong>Lead formulator</strong></span>
+      </div>
+
+      <p>Magnesium is hard. There are nine common forms, each with a different ratio of <em>elemental magnesium</em> to <em>carrier molecule</em>, and each with different absorption, different side effects, different intended uses. Oxide is 60% magnesium by mass but absorbs at 4%. Glycinate is 14% magnesium by mass but absorbs at 80%. You do the math.</p>
+
+      <div class="dose-bars">
+        <div class="db"><span class="l">Oxide (most brands)</span><div class="t"><div class="f" style="width:4%"></div></div><span class="v">~4%</span></div>
+        <div class="db"><span class="l">Citrate</span><div class="t"><div class="f" style="width:30%"></div></div><span class="v">~30%</span></div>
+        <div class="db"><span class="l">Malate</span><div class="t"><div class="f" style="width:50%"></div></div><span class="v">~50%</span></div>
+        <div class="db"><span class="l">Threonate</span><div class="t"><div class="f" style="width:75%"></div></div><span class="v">~75%</span></div>
+        <div class="db chosen"><span class="l">Bisglycinate</span><div class="t"><div class="f" style="width:80%"></div></div><span class="v">~80%</span></div>
+      </div>
+
+      <p>We chose <strong>bisglycinate</strong> for N° 01 because the glycine carrier does two things oxide can't: it prevents the laxative effect that drives 40% of magnesium returns, and the glycine itself <em>calms the nervous system</em> — a free bonus. Threonate crosses the blood-brain barrier better, but at 2× the cost for marginal benefit outside specific cognitive protocols.</p>
+
+      <p>We include <em>400mg elemental</em> magnesium — the RDA for adult men. Dividing by the 14% ratio means each capsule needs ~2,857mg of bisglycinate salt. This is the <strong>single largest ingredient</strong> in Vesper N° 01 by mass, which is why our capsule is larger than our competitors'. We will not apologize.</p>
+
+      <div class="aside">
+        <strong>Rejected alternative · oxide blend</strong>
+        Supplier proposed blending 50% oxide + 50% bisglycinate to halve cost. Would have saved $1.80/bottle. Would have made the product objectively worse for ~40% of users. Rejected.
+      </div>
+
+      <div class="signed">
+        <span class="sig">E. Vázquez</span>
+        <div class="stamp">APPROVED<br/><strong>N° 01 — §Mg</strong></div>
+      </div>
+    </article>
+
+    <!-- ENTRY 3 -->
+    <article class="entry" id="e3">
+      <div class="entry-head">
+        <span class="date">Entry 03 · 11 July 2024</span>
+        <h2>The ashwagandha <em>dose search</em>.</h2>
+        <span class="author">Dr. Elena Vázquez<br/><strong>Lead formulator</strong></span>
+      </div>
+
+      <p>We spent four months reading every ashwagandha study published since 2015. N = 142 trials. The majority showed effect at 300–600mg KSM-66 daily. Anything below 300mg was statistically indistinguishable from placebo. Anything above 1200mg showed liver enzyme elevation in roughly 1 in 400 participants.</p>
+
+      <div class="sketch">
+        <div class="sketch-l">Dose–response curve · KSM-66 · n=142 trials synthesised</div>
+        <svg viewBox="0 0 500 220" preserveAspectRatio="xMidYMid meet">
+          <!-- axes -->
+          <line x1="50" y1="20" x2="50" y2="180" class="dg-axis"/>
+          <line x1="50" y1="180" x2="470" y2="180" class="dg-axis"/>
+
+          <!-- efficacy curve (logarithmic plateau) -->
+          <path class="dg-line" d="M 50 175 Q 120 170 160 150 Q 220 100 300 65 Q 360 50 420 48 L 470 47"/>
+
+          <!-- safety/adverse line rising past 1200mg -->
+          <path class="dg-line alt" d="M 50 170 L 350 165 Q 380 150 420 110 L 470 80"/>
+
+          <!-- chosen dose indicator -->
+          <line x1="240" y1="30" x2="240" y2="180" stroke="#c4622d" stroke-width="1" stroke-dasharray="3 3" opacity=".6"/>
+          <circle cx="240" cy="90" r="5" fill="#c4622d"/>
+          <text x="248" y="84" class="dg-label accent">600 mg · chosen</text>
+
+          <!-- axis labels -->
+          <text x="50" y="195" class="dg-label">100mg</text>
+          <text x="165" y="195" class="dg-label">300mg</text>
+          <text x="240" y="195" class="dg-label">600mg</text>
+          <text x="355" y="195" class="dg-label">1200mg</text>
+          <text x="440" y="195" class="dg-label">2000mg</text>
+
+          <text x="55" y="30" class="dg-label">Efficacy</text>
+          <text x="55" y="45" class="dg-label" style="fill:rgba(233,223,208,.5)">(cortisol ↓)</text>
+          <text x="340" y="110" class="dg-label" style="fill:rgba(233,223,208,.6)">Adverse · liver enzymes</text>
+        </svg>
+        <div class="sketch-cap">The plateau starts at ~600mg. Doubling the dose does not double the effect.</div>
+      </div>
+
+      <p>So: <strong>600mg is the "just enough" dose</strong>. Every mg above that is marketing. We chose 600mg KSM-66 specifically (not generic ashwagandha), hand-harvested, which costs us $1.42 per bottle in raw. Generic ashwagandha would have cost $0.19. The difference is that <em>KSM-66 is the form the studies used.</em> Generic is not the same molecule.</p>
+
+      <div class="signed">
+        <span class="sig">E. Vázquez</span>
+        <div class="stamp">APPROVED<br/><strong>N° 01 — §Ashwa</strong></div>
+      </div>
+    </article>
+
+    <!-- ENTRY 4 -->
+    <article class="entry" id="e4">
+      <div class="entry-head">
+        <span class="date">Entry 04 · 3 September 2024</span>
+        <h2>We chose not to include <em>iron.</em></h2>
+        <span class="author">Dr. Elena Vázquez<br/><strong>Lead formulator</strong></span>
+      </div>
+
+      <p>This is an entry about something <strong>we left out</strong>. Every multivitamin includes iron. Centrum includes 18mg. AG1 includes 5mg. We include zero. The reason: iron is the only micronutrient where <em>overdose is more common than deficiency in adult men</em>, and the body has no mechanism to excrete excess.</p>
+
+      <p>Iron overload — <em>hereditary hemochromatosis</em> — affects 1 in 250 people of Northern European descent. For those people, a daily multivitamin with iron is actively harmful over time. Liver damage. Diabetes. Joint problems. The label says "supports energy" and they don't know.</p>
+
+      <div class="aside">
+        <strong>The rule we wrote</strong>
+        "Never include an ingredient where the average consumer's default state is <em>sufficiency</em> and overdose has long-term consequences." Iron fails this test for men over 18. It can be essential for menstruating women — but that's a separate formula (Vesper Femme N° 03 · late 2026), not a universal one.
+      </div>
+
+      <p>Instead, we include <strong>vitamin C with a meal</strong>, which doubles the body's own absorption of dietary iron from food. Net result: iron status improves if you were low, stays safe if you were high. This is what we mean by <em>intelligent defaults</em>.</p>
+
+      <div class="signed">
+        <span class="sig">E. Vázquez</span>
+        <div class="stamp">APPROVED<br/><strong>N° 01 — §Fe (omitted)</strong></div>
+      </div>
+    </article>
+
+    <!-- ENTRY 5 -->
+    <article class="entry" id="e5">
+      <div class="entry-head">
+        <span class="date">Entry 05 · 20 January 2025</span>
+        <h2>Omega form <em>wars.</em></h2>
+        <span class="author">Dr. Elena Vázquez<br/><strong>Lead formulator</strong></span>
+      </div>
+
+      <p>Two forms of omega-3 dominate the market. Most cheap fish-oil capsules use the <em>ethyl ester</em> form (EE). A few premium brands use the <em>re-esterified triglyceride</em> form (rTG). They are not interchangeable.</p>
+
+      <table class="nb-table">
+        <thead><tr><th>Form</th><th>Processing</th><th>Absorption</th><th>Cost / g EPA+DHA</th><th>Stability</th></tr></thead>
+        <tbody>
+          <tr><td>Ethyl ester (EE)</td><td>Industrial distillation</td><td class="bad">~50% slower</td><td>$0.04</td><td>Moderate</td></tr>
+          <tr class="chosen"><td>Re-esterified triglyceride</td><td>Re-converted after purification</td><td class="good">Matches body's native form</td><td>$0.11</td><td>High</td></tr>
+          <tr><td>Natural triglyceride</td><td>Unpurified</td><td>Native form</td><td>$0.03</td><td class="bad">Heavy metal contamination</td></tr>
+        </tbody>
+      </table>
+
+      <p>We use <strong>rTG</strong>. It costs 3.7× more per gram. The cost is worth it because <em>your body has no enzymes for ethyl esters</em> — it has to break them apart first, which takes energy, produces ethanol as a byproduct, and reduces absorption by half. It's like buying a $500 wine and drinking it through a filter.</p>
+
+      <p>Separately: we rejected all unpurified natural-TG options because independent testing of 30 samples showed <em>19 had detectable PCBs above our internal ceiling</em>. Cold Norwegian waters filtered through our supplier's 5-step molecular distillation was the only source that passed.</p>
+
+      <div class="signed">
+        <span class="sig">E. Vázquez</span>
+        <div class="stamp">APPROVED<br/><strong>N° 01 — §ω-3</strong></div>
+      </div>
+    </article>
+
+    <!-- ENTRY 6 -->
+    <article class="entry" id="e6">
+      <div class="entry-head">
+        <span class="date">Entry 06 · 18 March 2025</span>
+        <h2>Why the bottle holds <em>two</em>, not eight.</h2>
+        <span class="author">Dr. Elena Vázquez<br/><strong>Lead formulator</strong></span>
+      </div>
+
+      <p>We had a choice. We could have put everything into <strong>one daily capsule</strong>, shrinking each active to the lowest effective dose — the formulation most competitors take to be "convenient." Or we could have done <em>eight capsules</em> at maximally-studied doses. We chose two. Here's why.</p>
+
+      <p>Mathematically, <em>600mg of KSM-66 ashwagandha</em> (our chosen dose) is already <strong>too much mass for a single size-0 capsule</strong>, even before you add anything else. Two capsules let us deliver: 400mg elemental magnesium, 600mg KSM-66, 500mg curcumin, 1g omega-3 and nine other actives at their effective doses.</p>
+
+      <div class="aside">
+        <strong>The hardest trade-off</strong>
+        We sacrificed the one-capsule marketing story. We kept the doses that work. If a customer can't manage two capsules, they can't manage the supplement habit at all — and that's worth being honest about. <em>Correct dose is not a convenience feature.</em>
+      </div>
+
+      <p>We also considered splitting it across an AM and PM capsule — aligning stimulating actives (B-complex, ashwagandha in the morning) with calming ones (magnesium, glycine in the evening). In user testing, compliance dropped 23% when people had to remember two times. Single-dose timing, two capsules, won.</p>
+
+      <div class="signed">
+        <span class="sig">E. Vázquez</span>
+        <div class="stamp">APPROVED<br/><strong>N° 01 — §Form</strong></div>
+      </div>
+    </article>
+
+    <div class="nb-foot">
+      <div class="l">End of notebook<br/>Vol. I · 2024–25</div>
+      <p>Every entry above is on file with our QA system, timestamped, and signed by both the lead formulator and the independent reviewer. If you want the full dataset for any entry — <em>102 cited studies, raw supplier CoAs, cost-per-mg calculations</em> — write <em>science@vesper.house</em>. We will send it.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="f">
+  <span>© MMXXVI VESPER HOUSE</span>
+  <span><a href="Hub.html">All pages</a></span>
+  <span>EVERY FORMULATION DECISION · SIGNED AND ARCHIVED</span>
+</footer>
+
+<script>
+// scroll-spy for index rail
+const links = document.querySelectorAll('.idx a');
+const entries = document.querySelectorAll('.entry');
+function setActive(){
+  let current = entries[0].id;
+  entries.forEach(e => { if(e.getBoundingClientRect().top < 200) current = e.id; });
+  links.forEach(l => l.style.borderLeftColor = l.getAttribute('href') === '#' + current ? 'var(--accent)' : 'transparent');
+}
+window.addEventListener('scroll', setActive);
+setActive();
+</script>
+</body></html>

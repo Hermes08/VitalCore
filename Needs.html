@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vesper — Shop by Need</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vesper-shared.css">
+<style>
+  /* NEEDS GRID — tarot-card deck layout */
+  .needs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  @media(max-width:1000px){.needs-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.needs-grid{grid-template-columns:1fr}}
+  .need{position:relative;padding:44px 32px 36px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);cursor:pointer;min-height:340px;display:flex;flex-direction:column;justify-content:space-between;background:var(--bg);transition:background .4s,color .4s;overflow:hidden}
+  .need:nth-child(4n){border-right:none}
+  .need::before{content:"";position:absolute;inset:0;background:var(--hover-bg);opacity:0;transition:opacity .5s;z-index:0}
+  .need:hover{color:var(--bg)}
+  .need:hover::before{opacity:1}
+  .need.active{color:var(--bg)}
+  .need.active::before{opacity:1}
+  .need > *{position:relative;z-index:1}
+  .need .num{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);transition:color .4s}
+  .need:hover .num,.need.active .num{color:rgba(233,223,208,.55)}
+  .need .glyph{height:120px;display:flex;align-items:center;justify-content:center;margin:12px 0}
+  .need .glyph svg{width:100px;height:100px;opacity:.85}
+  .need h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:.95;letter-spacing:-.02em;margin-bottom:10px}
+  .need .desc{font-family:var(--serif);font-size:15px;line-height:1.45;color:var(--ink-2);max-width:26ch;transition:color .4s}
+  .need:hover .desc,.need.active .desc{color:rgba(233,223,208,.85)}
+  .need .meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:22px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;transition:color .4s}
+  .need:hover .meta,.need.active .meta{color:rgba(233,223,208,.6)}
+  .need .meta .arrow{font-family:var(--serif);font-size:24px;font-style:italic;color:var(--accent)}
+  .need:hover .arrow,.need.active .arrow{color:var(--bg)}
+
+  /* DETAIL PANEL — appears below */
+  .detail{background:var(--bg-deep);padding:60px 36px 80px;border-bottom:1px solid var(--line);display:none}
+  .detail.open{display:block;animation:fadeUp .5s cubic-bezier(.2,.7,.2,1)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .detail .head{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+  .detail h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(44px,6vw,84px);line-height:.98;letter-spacing:-.02em;max-width:14ch}
+  .detail h2 em{color:var(--accent)}
+  .detail .close-btn{background:transparent;border:1px solid var(--ink);color:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:12px 22px;cursor:pointer;transition:all .3s}
+  .detail .close-btn:hover{background:var(--ink);color:var(--bg)}
+  .detail .intro{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;margin-bottom:60px;align-items:start}
+  @media(max-width:800px){.detail .intro{grid-template-columns:1fr}}
+  .detail .intro .prose{font-family:var(--serif);font-size:19px;line-height:1.55;color:var(--ink-2);max-width:58ch}
+  .detail .intro .prose p + p{margin-top:16px}
+  .detail .intro .prose strong{color:var(--ink);font-weight:500}
+  .detail .symptoms{padding:24px;background:var(--bg);border:1px solid var(--line)}
+  .detail .symptoms .title{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .detail .symptoms ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  .detail .symptoms li{font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.3;color:var(--ink);display:flex;gap:12px;align-items:baseline}
+  .detail .symptoms li::before{content:"—";color:var(--accent);font-style:normal;flex-shrink:0}
+
+  /* Stack recommendation */
+  .stack{margin-bottom:60px}
+  .stack-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:28px;flex-wrap:wrap;gap:20px}
+  .stack-head .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+  .stack-head em{font-family:var(--serif);font-style:italic;font-weight:300;font-size:28px;letter-spacing:-.01em;display:block;margin-top:4px;color:var(--ink)}
+  .stack-head .deal{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;padding:8px 16px;border:1px solid var(--accent)}
+  .stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .stack-item{background:var(--bg);border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:14px;transition:all .3s;position:relative}
+  .stack-item:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .stack-item .role{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase}
+  .stack-item .pill-wrap{height:80px;display:flex;align-items:center;justify-content:center;position:relative}
+  .stack-item .pill-wrap .orb{position:absolute;width:76px;height:76px;border-radius:50%;background:radial-gradient(circle,var(--c2),transparent 70%);filter:blur(14px);opacity:.5;mix-blend-mode:multiply}
+  .stack-item .pill-wrap .pill{position:relative;z-index:2;width:28px;height:72px;border-radius:999px;display:flex;overflow:hidden;transform:rotate(10deg);box-shadow:0 8px 18px rgba(42,31,22,.22),inset 0 0 0 1px rgba(255,255,255,.18)}
+  .stack-item .pill-wrap .pill .half{flex:1;position:relative;overflow:hidden}
+  .stack-item .pill-wrap .pill .half:first-child{background:radial-gradient(circle at 35% 30%,var(--c1),var(--c2) 55%,var(--c3))}
+  .stack-item .pill-wrap .pill .half:last-child{background:radial-gradient(circle at 65% 70%,var(--c4,var(--c1)),var(--c2) 50%,var(--c3))}
+  .stack-item .pill-wrap .pill .half::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,0) 45%,rgba(0,0,0,.15) 100%)}
+  .stack-item .n{font-family:var(--serif);font-style:italic;font-weight:300;font-size:20px;line-height:1.05}
+  .stack-item .why{font-family:var(--serif);font-size:14px;color:var(--ink-2);line-height:1.45;flex:1}
+  .stack-item .when{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;padding-top:12px;border-top:1px solid var(--line);display:flex;justify-content:space-between}
+  .stack-item .when strong{color:var(--ink);font-family:var(--serif);font-size:14px;font-weight:300;font-style:italic;text-transform:none;letter-spacing:-.01em}
+
+  /* Timeline of effect */
+  .timeline-box{margin-bottom:60px;background:var(--bg);border:1px solid var(--line);padding:36px}
+  .timeline-box .t{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+  .timeline-box em{font-family:var(--serif);font-style:italic;font-weight:300;font-size:26px;letter-spacing:-.01em;display:block;margin-bottom:28px}
+  .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+  @media(max-width:700px){.tl{grid-template-columns:1fr}}
+  .tl::before{content:"";position:absolute;top:24px;left:24px;right:24px;height:1px;background:var(--line)}
+  @media(max-width:700px){.tl::before{display:none}}
+  .tl .pt{padding:0 20px;position:relative}
+  .tl .pt .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);position:relative;margin-bottom:18px;box-shadow:0 0 0 4px var(--bg)}
+  .tl .pt .when{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+  .tl .pt .what{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;line-height:1.1;letter-spacing:-.01em;margin-bottom:8px}
+  .tl .pt .p{font-family:var(--serif);font-size:14px;color:var(--ink-2);line-height:1.45}
+
+  /* Honest notes */
+  .honest{padding:36px;background:var(--ink);color:rgba(233,223,208,.85);display:grid;grid-template-columns:1fr 2fr;gap:40px}
+  @media(max-width:700px){.honest{grid-template-columns:1fr}}
+  .honest .l{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase}
+  .honest .l em{font-family:var(--serif);font-style:italic;font-weight:300;font-size:32px;letter-spacing:-.01em;display:block;margin-top:8px;color:var(--bg);text-transform:none;letter-spacing:-.01em}
+  .honest .notes{display:flex;flex-direction:column;gap:18px}
+  .honest .notes p{font-family:var(--serif);font-size:16px;line-height:1.55;padding-left:18px;border-left:2px solid var(--accent)}
+  .honest .notes p strong{color:var(--bg)}
+
+  /* Hint banner */
+  .hint-banner{padding:20px 36px;background:var(--bg);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .hint-banner p{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink-2);max-width:56ch;line-height:1.45}
+  .hint-banner p strong{color:var(--accent);font-weight:500;font-style:normal;font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-right:4px}
+  .hint-banner a{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink);text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
+</style>
+</head><body>
+
+<nav class="top">
+  <div class="brand"><a href="Vesper.html">Vesper<sup>/01</sup></a></div>
+  <div class="links">
+    <a href="Vesper.html">Home</a>
+    <a href="Catalog.html">Apothecary</a>
+    <a href="Needs.html" class="active">By Need</a>
+    <a href="Quiz.html">Quiz</a>
+    <a href="Bundles.html">Rituals</a>
+    <a href="Hub.html">All pages</a>
+  </div>
+  <a href="Catalog.html" class="cart"><span class="dot"></span><span>Apothecary →</span></a>
+</nav>
+
+<header class="page-head">
+  <div class="eyebrow"><span class="tick"></span><span>TWELVE HUMAN NEEDS — NOT TWELVE INGREDIENTS</span></div>
+  <h1>Start with <em>what's off,</em><br/>not what's on a shelf.</h1>
+  <p class="lead">Most supplement aisles organize by molecule — Magnesium here, B12 there. That's useful if you already know the answer. This is the opposite shelf: choose the thing that hurts, the thing that won't come, the thing that's too loud — and we'll build the stack from there.</p>
+</header>
+
+<div class="hint-banner">
+  <p><strong>How to use</strong> Click any card — the recommended stack, the timeline of effect, and our honest caveats appear below.</p>
+  <a href="Quiz.html">Prefer a quiz? Start here →</a>
+</div>
+
+<section class="needs-grid" id="needsGrid"></section>
+
+<section class="detail" id="detail"></section>
+
+<footer class="f">
+  <span>© MMXXVI VESPER HOUSE</span>
+  <span><a href="Hub.html">All pages</a></span>
+  <span>FREE WORLDWIDE SHIPPING · PAUSE ANY TIME</span>
+</footer>
+
+<script>
+// 12 human needs, each with stack + timeline + honest caveats
+const PAL = {
+  terracotta:['#f3c27a','#c4622d','#6b2a10','#e8a865'],
+  sage:['#d5e3a8','#7a8a63','#2f3a22','#a8bb85'],
+  ochre:['#f1d58c','#c89b4a','#6b4a14','#e0b875'],
+  clay:['#e8b4a0','#a0543d','#3a1b10','#d08a75'],
+  amber:['#f0c9a0','#b67a45','#4a2a10','#d4a275'],
+  oat:['#ded3b8','#8c7a55','#3e2f18','#b8a580'],
+  rose:['#e6c3c3','#9a4a4a','#3a1818','#c88585'],
+  moss:['#c9d9c0','#5a7a55','#1f2f20','#95b085'],
+  plum:['#dcc2e0','#7a5a8a','#2a1a33','#a788b8'],
+  slate:['#b8c8d9','#3f5a7a','#0f1e33','#7a95b5'],
+};
+
+// SVG glyphs — abstract, hand-drawn feel
+const GLYPHS = {
+  sleep:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="50" cy="50" r="34"/><path d="M32 45c8 4 18 4 26-2 5 7-2 22-18 20-12-1.5-13-12-8-18z"/><circle cx="72" cy="26" r="1.5" fill="currentColor"/><circle cx="82" cy="36" r="1" fill="currentColor"/><circle cx="22" cy="20" r="1" fill="currentColor"/></svg>`,
+  focus:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="50" cy="50" r="34"/><circle cx="50" cy="50" r="22"/><circle cx="50" cy="50" r="10"/><circle cx="50" cy="50" r="2.5" fill="currentColor"/><path d="M50 6v12M50 82v12M6 50h12M82 50h12"/></svg>`,
+  stress:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20 70c12-28 24-40 30-50M32 70c12-24 22-32 28-40M44 70c10-20 20-26 24-32" /><circle cx="72" cy="28" r="6"/><circle cx="60" cy="50" r="4"/><circle cx="48" cy="66" r="3"/></svg>`,
+  energy:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M50 10 L38 52 L54 52 L42 90 L78 42 L58 42 L68 10 Z"/><circle cx="22" cy="26" r="2" fill="currentColor"/><circle cx="82" cy="74" r="2" fill="currentColor"/><circle cx="18" cy="74" r="1.5" fill="currentColor"/></svg>`,
+  immune:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M50 10 L80 26 L80 54 C80 72 65 84 50 90 C35 84 20 72 20 54 L20 26 Z"/><path d="M38 48 L46 58 L64 40"/><path d="M50 22v36"/></svg>`,
+  joint:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="30" cy="30" r="14"/><circle cx="70" cy="70" r="14"/><path d="M38 38 L62 62"/><path d="M22 22 L14 14 M78 78 L86 86"/><circle cx="30" cy="30" r="4" fill="currentColor"/><circle cx="70" cy="70" r="4" fill="currentColor"/></svg>`,
+  beauty:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M50 20 C38 20 30 30 30 42 C30 54 38 64 50 64 C62 64 70 54 70 42 C70 30 62 20 50 20 Z"/><path d="M40 38 Q50 32 60 38"/><path d="M50 64 L50 80"/><path d="M40 74 Q50 82 60 74"/></svg>`,
+  gut:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M30 20 Q50 20 60 30 Q70 40 60 50 Q50 60 60 70 Q70 80 50 85 Q30 80 40 70 Q50 60 40 50 Q30 40 30 20 Z"/><circle cx="46" cy="42" r="2" fill="currentColor"/><circle cx="54" cy="60" r="2" fill="currentColor"/><circle cx="44" cy="74" r="2" fill="currentColor"/></svg>`,
+  heart:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M50 82 C30 70 15 52 15 35 C15 22 25 15 35 15 C42 15 47 20 50 25 C53 20 58 15 65 15 C75 15 85 22 85 35 C85 52 70 70 50 82 Z"/><path d="M20 50 L36 50 L42 38 L50 62 L58 42 L62 50 L80 50"/></svg>`,
+  brain:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M35 22 C25 22 18 30 22 40 C16 45 18 56 26 58 C24 68 33 76 42 72 C44 80 56 80 58 72 C67 76 76 68 74 58 C82 56 84 45 78 40 C82 30 75 22 65 22 C62 18 38 18 35 22 Z"/><path d="M50 30 L50 70 M38 42 Q50 48 62 42 M38 58 Q50 52 62 58"/></svg>`,
+  hormones:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="50" cy="50" r="34"/><path d="M50 16 C60 30 60 40 50 50 C40 60 40 70 50 84"/><path d="M16 50 C30 40 40 40 50 50 C60 60 70 60 84 50"/></svg>`,
+  longevity:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="50" cy="50" r="36"/><path d="M28 58 Q50 42 72 58"/><path d="M32 44 Q50 36 68 44"/><path d="M40 72 Q50 68 60 72"/><circle cx="50" cy="50" r="3" fill="currentColor"/></svg>`,
+};
+
+const NEEDS = [
+  {id:'sleep',n:'01',title:"Can't fall asleep",desc:"Your body is tired but your head keeps rewriting the day.",products:'3 formulas',hoverBg:'#3f2a5c',glyph:'sleep',
+    intro:'<p>The evening nervous system needs two things at once: a lower baseline of cortisol, and something that helps GABA — the brain\'s brake pedal — actually engage.</p><p>This stack avoids melatonin (except optionally), which tends to fix <strong>when</strong> you fall asleep, not <strong>whether</strong>. Instead we layer adaptogens and minerals that quiet the loop.</p>',
+    symptoms:['Staring at ceiling past midnight','Mind won\'t stop "solving" tomorrow','Shoulders tight, jaw clenched','Wake at 3am and stay awake'],
+    stack:[
+      {role:'Foundation',name:'Magnesium Bisglycinate',palette:'sage',why:'Glycine chelation bypasses the laxative effect. Activates GABA receptors.',when:'9pm · 2 caps'},
+      {role:'Adaptogen',name:'Ashwagandha KSM-66',palette:'clay',why:'Lowers evening cortisol by 28% in trials. Works over 14-30 days.',when:'With dinner · 2 caps'},
+      {role:'Finisher',name:'Sleep Formula',palette:'plum',why:'L-theanine, glycine, passionflower — no melatonin, no hangover.',when:'30m before bed · 2 caps'},
+    ],
+    timeline:[
+      {when:'Night 1',what:'Sleep faster',p:'Magnesium + theanine push sleep onset down by 15-25 minutes.'},
+      {when:'Week 2',what:'Deeper sleep',p:'Lower cortisol means more REM and slow-wave minutes.'},
+      {when:'Week 4',what:'Less waking',p:'Nervous system baseline stabilizes. Fewer 3am eyes-open.'},
+      {when:'Week 8',what:'Trust returns',p:'Bed stops being the place you dread. Sleep becomes habit again.'},
+    ],
+    honest:[
+      'If the issue is obstructive sleep apnea, caffeine timing, or late-evening alcohol — no supplement will fix it.',
+      'Don\'t layer melatonin on top without talking to a clinician. More is not better; 0.3mg often beats 5mg.',
+      '<strong>Takes 2-4 weeks</strong> for ashwagandha to settle into its full effect. Magnesium is more immediate.',
+    ]
+  },
+  {id:'focus',n:'02',title:"Brain fog",desc:"You read the same email three times and still can't act on it.",products:'3 formulas',hoverBg:'#1a3a4a',glyph:'focus',
+    intro:'<p>Brain fog has many causes — sleep debt, inflammation, dehydration, under-methylated B-vitamins. We can\'t fix the first. We can address the others.</p><p>This stack rebuilds cellular energy in neurons (B12 methylation, omega-3 membranes) while adding something that sharpens signal-to-noise for 4-6 hours.</p>',
+    symptoms:['Words feel just out of reach','Starting three tasks, finishing none','Post-lunch crash is brutal','Reading twice, understanding once'],
+    stack:[
+      {role:'Fuel',name:"Lion's Mane Complex",palette:'amber',why:'Nerve growth factor support. Fruiting body only — not grain-based fillers.',when:'AM · 2 caps'},
+      {role:'Signal',name:'Vitamin B₁₂ 5000mcg',palette:'amber',why:'Methyl form, sublingual. Immediate; no methylation bottleneck.',when:'AM · 1 tab under tongue'},
+      {role:'Membrane',name:'Mega EPA/DHA',palette:'slate',why:'DHA is literal structural fat in neurons. Reflux-free softgels.',when:'With meals · 2 softgels'},
+    ],
+    timeline:[
+      {when:'Day 1',what:'B12 lift',p:'If you were low, expect a noticeable afternoon alertness on day one.'},
+      {when:'Week 2',what:'Smoother edges',p:'Lion\'s mane takes about 14 days to show its reading-speed effect.'},
+      {when:'Week 6',what:'Omega builds',p:'Red blood cell omega-3 index rises; brain membranes fluid again.'},
+      {when:'Week 12',what:'Different person',p:'Long-term mood + verbal fluency noticeably up, but no "high."'},
+    ],
+    honest:[
+      'Chronic brain fog often points to thyroid, iron, or B12 deficiency. <strong>Get a blood panel</strong> before relying on supplements.',
+      'Lion\'s mane works in studies. It is not Modafinil. Expect a calmer, clearer feeling, not a spike.',
+      'If you drink heavily or sleep under 6h, no amount of DHA fixes that. Fix upstream first.',
+    ]
+  },
+  {id:'stress',n:'03',title:"Always wired",desc:"Heart racing in the parking lot. Shoulders glued to ears by 4pm.",products:'3 formulas',hoverBg:'#2a4a3a',glyph:'stress',
+    intro:'<p>Chronic stress is not a feeling — it\'s a state where cortisol stays elevated past the moment that triggered it. The body forgets how to come down.</p><p>The stack teaches the HPA axis to down-regulate again: adaptogens on top, magnesium and theanine for acute moments.</p>',
+    symptoms:['Wake up with tension already there','Can\'t shake the 3pm wired-tired','Jaw clenching, sighing a lot','Caffeine hits harder than it should'],
+    stack:[
+      {role:'Daily',name:'Ashwagandha KSM-66',palette:'clay',why:'The most-studied adaptogen for cortisol. 600mg of the clinical form.',when:'AM · 2 caps'},
+      {role:'Acute',name:'L-Theanine 200mg',palette:'amber',why:'Alpha brain waves within 30 min. Stacks with caffeine to remove jitter.',when:'As needed · 1 cap'},
+      {role:'Evening',name:'Magnesium Bisglycinate',palette:'sage',why:'Muscles unclench, breath lengthens. Use it before calls with your mother.',when:'5pm · 2 caps'},
+    ],
+    timeline:[
+      {when:'Hour 1',what:'Theanine calm',p:'First dose noticeable within 30 minutes. No drowsiness.'},
+      {when:'Week 2',what:'Cortisol dips',p:'Ashwagandha\'s 28% reduction shows up in morning labs.'},
+      {when:'Week 6',what:'Different baseline',p:'You notice things bother you for 10 minutes, not 10 hours.'},
+      {when:'Week 12',what:'Nervous system repaired',p:'The reflexive "wired" feeling fades. Energy has a smoother curve.'},
+    ],
+    honest:[
+      '<strong>Therapy and behavior change outperform every supplement.</strong> Ashwagandha is a wedge, not a lever.',
+      'Don\'t take ashwagandha if you\'re on thyroid medication without talking to your doctor — it\'s thyrotropic.',
+      'If you\'re in acute burnout or grief, this stack is too mild. Get human support first.',
+    ]
+  },
+  {id:'energy',n:'04',title:"Morning drag",desc:"Coffee #1 is a pre-requisite for existing. #2 stops working.",products:'3 formulas',hoverBg:'#4a3a1a',glyph:'energy',
+    intro:'<p>Real energy is mitochondrial, not stimulant. This stack fuels the cell-level power plants instead of lashing the adrenals for another hour.</p><p>We\'re looking for two things: a ceiling on how early you crash, and a floor on how low your morning baseline is.</p>',
+    symptoms:['Snooze button five times','Need coffee to have a personality','2pm wall, every day','Can\'t imagine working out after work'],
+    stack:[
+      {role:'Cellular fuel',name:'CoQ10 100mg',palette:'ochre',why:'Every cell\'s electron transport chain. Depletes with age and statins.',when:'AM with fat · 1 softgel'},
+      {role:'Red cells',name:'Vitamin B₁₂ 5000mcg',palette:'amber',why:'Oxygen carrying capacity. If low, you\'re running on half a tank.',when:'AM sublingual · 1 tab'},
+      {role:'Adaptogen',name:'Rhodiola Rosea',palette:'terracotta',why:'Mental stamina under load. Not a stimulant; no crash.',when:'AM · 1 cap on empty stomach'},
+    ],
+    timeline:[
+      {when:'Day 3',what:'Rhodiola kicks',p:'Mental endurance during long meetings; less end-of-day fog.'},
+      {when:'Week 2',what:'B12 saturation',p:'Afternoon drag weaker. Climb to the apartment feels lighter.'},
+      {when:'Week 6',what:'CoQ10 plateaus',p:'Maximum cellular uptake. You can tell you have another gear.'},
+      {when:'Week 10',what:'Base level up',p:'Mornings stop being something to survive. Coffee becomes a treat again.'},
+    ],
+    honest:[
+      'If you sleep less than 7 hours, stop here and fix that first. <strong>No stack beats sleep.</strong>',
+      'Iron deficiency can masquerade as fatigue and costs nothing to test. Rule it out.',
+      'Rhodiola works for 4-6 hours of light-to-moderate demand. It is not a pre-workout.',
+    ]
+  },
+  {id:'immune',n:'05',title:"Always catching it",desc:"Three colds a season, the flu from the office, two rounds of strep.",products:'4 formulas',hoverBg:'#5c2a2a',glyph:'immune',
+    intro:'<p>Immune function is a standing army, not a panic button. Vitamin D is the most common deficiency associated with frequent infection; zinc is the most common mineral. Mushrooms add reserve.</p><p>This is a maintenance stack, not a cold-fighter. Running it daily in fall/winter is the point.</p>',
+    symptoms:['First to get every office bug','Low-grade sore throat once a month','Takes longer than others to recover','Winters are rougher each year'],
+    stack:[
+      {role:'The basics',name:'Vitamin D₃ 5000 IU',palette:'ochre',why:'Most people under 60ng/mL. Immune + mood + bone in one softgel.',when:'AM with fat · 1 softgel'},
+      {role:'The cofactor',name:'Zinc 50mg',palette:'oat',why:'Pairs with D3. Keeps mucosal barriers robust.',when:'With dinner · 1 cap'},
+      {role:'The reserve',name:'Seven-Mushroom Complex',palette:'oat',why:'Reishi, turkey tail, maitake — beta-glucans, long-term immune modulators.',when:'AM · 2 caps'},
+      {role:'The gut',name:'30 Billion Probiotic',palette:'moss',why:'70% of immune cells live in the gut. Treat the soil.',when:'AM · 1 cap'},
+    ],
+    timeline:[
+      {when:'Week 2',what:'D3 rising',p:'Blood levels begin climbing. Expect 3-6 months to fully saturate.'},
+      {when:'Week 4',what:'Gut flora shifts',p:'Probiotics need 2-4 weeks to meaningfully colonize.'},
+      {when:'Week 8',what:'Fewer small bugs',p:'Mushroom beta-glucans reach a useful cumulative dose.'},
+      {when:'Season',what:'Fewer bad ones',p:'Full-season protection is what you notice after 3-6 months.'},
+    ],
+    honest:[
+      '<strong>Check your Vitamin D level before dosing higher than 5000 IU.</strong> Too much is worse than too little.',
+      'Immune stacks do not prevent exposure — sleep, handwashing, and crowd avoidance do.',
+      'If you\'re getting sick more than peers, check iron + blood sugar + thyroid before adding mushrooms.',
+    ]
+  },
+  {id:'joint',n:'06',title:"Achy by Thursday",desc:"The knees, the lower back, the shoulder after a long typing day.",products:'3 formulas',hoverBg:'#4a2a1f',glyph:'joint',
+    intro:'<p>Joint discomfort is usually a cocktail of low-grade inflammation plus connective-tissue wear. This stack hits both: reducing the inflammatory signal and giving the matrix what it needs to rebuild.</p><p>Runners, desk-workers, and anyone past 35 will notice this.</p>',
+    symptoms:['Morning stiffness, 10 minute warmup','Knees talk back on stairs','Shoulder clicks after typing day','"Old injuries" woke up'],
+    stack:[
+      {role:'The oil',name:'Mega EPA/DHA',palette:'slate',why:'Lowers inflammatory eicosanoids. 900mg combined, IFOS 5-star.',when:'With meals · 2 softgels'},
+      {role:'The spice',name:'Turmeric 750mg',palette:'terracotta',why:'Curcumin with BioPerine for 2000× absorption. Paired with fat.',when:'With lunch · 1 cap'},
+      {role:'The matrix',name:'Collagen Peptides',palette:'terracotta',why:'Types I & III hydrolyzed. With vitamin C, it rebuilds tendon.',when:'AM in coffee · 1 scoop'},
+    ],
+    timeline:[
+      {when:'Week 3',what:'Less morning stiffness',p:'Curcumin + omega-3 begin showing inflammatory-marker reductions.'},
+      {when:'Week 8',what:'Harder workouts tolerated',p:'Recovery window shortens. Next-day aches weaker.'},
+      {when:'Week 12',what:'Tendon changes',p:'Collagen synthesis measurable on ultrasound at 12 weeks in studies.'},
+      {when:'Week 24',what:'Different body',p:'Stairs feel like stairs. Old injury sites quieter.'},
+    ],
+    honest:[
+      'If a specific joint is <strong>sharp, hot, or swollen</strong> — that\'s a clinician visit, not a supplement.',
+      'Curcumin can interact with blood thinners. Check if you\'re on warfarin or DOACs.',
+      'Collagen works best with ~50mg vitamin C at the same time. Coffee with collagen + an orange is ideal.',
+    ]
+  },
+  {id:'beauty',n:'07',title:"Hair, skin, nails",desc:"Brittleness, thinning, a mirror that asks questions you didn't.",products:'3 formulas',hoverBg:'#6a3a3a',glyph:'beauty',
+    intro:'<p>Skin, hair, and nail quality are downstream of collagen synthesis, omega-3 status, and biotin. This stack gives the building blocks, not the sales-pitch gummies.</p><p>Results at the mirror take 8-12 weeks — hair is slow.</p>',
+    symptoms:['Nails splitting mid-length','Hair thinning at temples','Skin looks flat by Wednesday','Fine lines arriving early'],
+    stack:[
+      {role:'The substrate',name:'Collagen Peptides',palette:'terracotta',why:'10g of Types I & III at 2 kDa — small enough to actually reach skin.',when:'AM · 1 scoop'},
+      {role:'The cofactor',name:'Biotin 10,000mcg',palette:'ochre',why:'B-complex micronutrient. Don\'t need gummy-dose; 10,000mcg is the sweet spot.',when:'AM · 1 cap'},
+      {role:'The oil',name:'Mega EPA/DHA',palette:'slate',why:'Ceramide precursors. Skin barrier hydration from the inside.',when:'With meals · 2 softgels'},
+    ],
+    timeline:[
+      {when:'Week 2',what:'Nails harder',p:'First visible effect — biotin reaches the nail bed quickly.'},
+      {when:'Week 6',what:'Skin plumper',p:'Omega-3 improves barrier; collagen builds dermal elasticity.'},
+      {when:'Week 12',what:'Hair density',p:'New hair is always 12+ weeks out. This is when you notice.'},
+      {when:'Week 20',what:'Full effect',p:'Photograph yourself day 1 vs. day 140. Don\'t rely on daily mirror.'},
+    ],
+    honest:[
+      '<strong>Biotin can skew thyroid blood tests</strong> — stop 72 hours before any lab draw.',
+      'No supplement reverses sun damage. Sunscreen beats everything in this stack, by a mile.',
+      'Postpartum, medication-driven, or autoimmune hair loss needs a dermatologist, not collagen.',
+    ]
+  },
+  {id:'gut',n:'08',title:"Gut feels off",desc:"Bloating by 3pm, inconsistent digestion, the low-grade reflux after dinner.",products:'3 formulas',hoverBg:'#2a4a2a',glyph:'gut',
+    intro:'<p>"Gut health" is a real thing made of unreal marketing. The evidence base is strong for a diverse, shelf-stable probiotic, digestive bitters, and fiber — and not much else, really.</p><p>This is the simple, unglamorous stack that usually works.</p>',
+    symptoms:['Bloated even when eating light','Inconsistent morning routine','Post-dinner reflux','Skin breakouts that track with meals'],
+    stack:[
+      {role:'Flora',name:'30 Billion Probiotic',palette:'moss',why:'11 clinical strains, shelf-stable. No dairy.',when:'AM empty stomach · 1 cap'},
+      {role:'Barrier',name:'Mega EPA/DHA',palette:'slate',why:'Omega-3 reduces gut inflammation. Underrated.',when:'With lunch · 2 softgels'},
+      {role:'Rhythm',name:'Magnesium Bisglycinate',palette:'sage',why:'Bisglycinate avoids laxative effect while keeping rhythm.',when:'PM · 2 caps'},
+    ],
+    timeline:[
+      {when:'Week 1',what:'First shift',p:'Rhythm stabilizes; magnesium\'s effect is quick.'},
+      {when:'Week 4',what:'Colonization',p:'Probiotic strains find their way to active colonization.'},
+      {when:'Week 8',what:'Reflux calmer',p:'Low-grade inflammation dropping. Dinners feel lighter.'},
+      {when:'Week 16',what:'Diversity',p:'Real microbiome change is measurable in stool tests at this point.'},
+    ],
+    honest:[
+      'Blood in stool, sudden changes, or severe reflux = <strong>clinician first, not capsules</strong>.',
+      'Most bloating is fiber-timing and water, not flora. Try eating fewer but larger meals for a week.',
+      'Probiotics do not work if you drink heavy alcohol weekly. They get destroyed.',
+    ]
+  },
+  {id:'heart',n:'09',title:"Cardiovascular care",desc:"A parent had a scare. You've decided to act upstream.",products:'3 formulas',hoverBg:'#4a1f2a',glyph:'heart',
+    intro:'<p>Cardiovascular risk reduction is 95% lifestyle — movement, sleep, less smoking, more fiber, less alcohol. These supplements are the most evidence-backed of the other 5%.</p><p>This is a stack for someone already doing the work.</p>',
+    symptoms:['Family history concerns','Borderline cholesterol numbers','Blood pressure creeping','Want to be there for grandkids'],
+    stack:[
+      {role:'Lipids',name:'Mega EPA/DHA',palette:'slate',why:'Lowers triglycerides. Standard of care now in cardiology.',when:'With meals · 2 softgels'},
+      {role:'Cellular',name:'CoQ10 100mg',palette:'ochre',why:'Heart muscle is CoQ10-hungry. Especially if on statins.',when:'AM with fat · 1 softgel'},
+      {role:'Routing',name:'Vitamin K₂ + D₃',palette:'ochre',why:'K2 keeps calcium out of arteries, D3 absorbs it.',when:'AM · 1 gummy'},
+    ],
+    timeline:[
+      {when:'Week 4',what:'Trigs dropping',p:'Omega-3\'s triglyceride effect shows on labs at 6 weeks.'},
+      {when:'Week 12',what:'CoQ10 plateau',p:'Especially noticeable if you\'re on a statin.'},
+      {when:'Year 1',what:'Arterial calcium',p:'K2\'s effect is measurable but slow — 12+ month horizon.'},
+      {when:'Decades',what:'The real payoff',p:'Heart disease is a 30-year project. Start today.'},
+    ],
+    honest:[
+      '<strong>Get lipids tested yearly.</strong> If your LDL is high, a supplement will not beat a statin.',
+      'Walk 8,000 steps + sleep 7.5h does more for your heart than any formula above.',
+      'If you\'re on blood thinners, talk to your cardiologist before adding omega-3.',
+    ]
+  },
+  {id:'brain',n:'10',title:"Long-term brain",desc:"You've watched someone you love slip. You want to act while you can.",products:'3 formulas',hoverBg:'#1a2a3a',glyph:'brain',
+    intro:'<p>Long-term cognitive health is about two things: vascular health (see Cardiovascular) and neuronal resilience. This stack supports the second.</p><p>Nothing prevents Alzheimer\'s. These are best-evidence hedges on top of sleep, exercise, and social life.</p>',
+    symptoms:['Family history of dementia','Word-finding harder than 5 years ago','Want to protect reading, writing','Value long-term thinking'],
+    stack:[
+      {role:'Membranes',name:'Mega EPA/DHA',palette:'slate',why:'DHA is structural brain fat. Index correlates with cognition in old age.',when:'With meals · 2 softgels'},
+      {role:'Growth',name:"Lion's Mane Complex",palette:'amber',why:'NGF support. Cautious but promising Japanese trials.',when:'AM · 2 caps'},
+      {role:'Methylation',name:'Vitamin B₁₂ 5000mcg',palette:'amber',why:'Methyl-B12 + folate lower homocysteine, a vascular dementia marker.',when:'AM sublingual'},
+    ],
+    timeline:[
+      {when:'Week 4',what:'Measurable B12',p:'Homocysteine drops on repeat labs at 4-6 weeks.'},
+      {when:'Week 12',what:'Omega index',p:'Red blood cell omega-3 index reaches protective range (>8%).'},
+      {when:'Year 1',what:'Retrospective gain',p:'Subjectively: fluency holds. Objectively: rely on tests, not feelings.'},
+      {when:'Decades',what:'The bet',p:'These are small effects, compounded. No one will know if it worked.'},
+    ],
+    honest:[
+      '<strong>Exercise 4× per week and maintain social ties.</strong> Nothing in this stack beats that.',
+      'Lion\'s mane in humans for dementia is promising but thin. Treat it as a hedge, not a therapy.',
+      'If memory loss is rapid or interfering, see a neurologist. Supplements are for healthy people playing long-term.',
+    ]
+  },
+  {id:'hormones',n:'11',title:"Hormonal balance",desc:"Cycle swings, energy dips, mood wobbles that weren't there a year ago.",products:'3 formulas',hoverBg:'#3a1f4a',glyph:'hormones',
+    intro:'<p>We\'re careful here. Hormones are best read with a blood panel; supplements are adjuncts. This stack covers the most common mineral + adaptogen gaps in women\'s hormonal health.</p><p>Always pair with a clinician if cycles have changed meaningfully.</p>',
+    symptoms:['PMS is louder than last year','Sleep shifts with cycle','Energy has cyclical dips','Skin flares with cycle'],
+    stack:[
+      {role:'Minerals',name:'Magnesium Bisglycinate',palette:'sage',why:'Most women run low. Helps mood, sleep, cycle cramps.',when:'PM · 2 caps'},
+      {role:'Adaptogen',name:'Ashwagandha KSM-66',palette:'clay',why:'HPA axis support translates to better hormonal regulation.',when:'AM · 2 caps'},
+      {role:'Foundation',name:'Vesper Daily N° 01',palette:'terracotta',why:'B-complex, D3, iodine, zinc — the basics, in actual doses.',when:'AM · 2 caps'},
+    ],
+    timeline:[
+      {when:'Cycle 1',what:'Cramps softer',p:'Magnesium\'s effect on uterine smooth muscle is quick.'},
+      {when:'Cycle 3',what:'PMS quieter',p:'Ashwagandha + Daily reach full effect by third cycle.'},
+      {when:'Cycle 6',what:'Pattern steadier',p:'Baseline is noticeably steadier. Track with a cycle app.'},
+      {when:'Year',what:'Informed',p:'You know your body\'s rhythm. Small interventions work bigger.'},
+    ],
+    honest:[
+      '<strong>Irregular cycles, heavy bleeding, or missed periods need a doctor</strong>, not a supplement.',
+      'Ashwagandha is thyrotropic. If you have Hashimoto\'s or hyperthyroid, talk to an endocrinologist first.',
+      'Hormonal birth control changes everything about this. This stack is adjunctive, not replacement.',
+    ]
+  },
+  {id:'longevity',n:'12',title:"The long game",desc:"Healthspan, not just lifespan. You want years that feel like life.",products:'4 formulas',hoverBg:'#2a3a1f',glyph:'longevity',
+    intro:'<p>Longevity is the most over-marketed category in supplements. We prefer boring: the interventions with the strongest human evidence, repeated for decades, are omega-3, vitamin D, creatine, and a foundation multi.</p><p>That\'s the stack. Resist the novelty.</p>',
+    symptoms:['Focused on healthspan, not just lifespan','Already doing the lifestyle work','Want the highest-evidence stack','Skeptical of \'longevity\' hype'],
+    stack:[
+      {role:'Foundation',name:'Vesper Daily N° 01',palette:'terracotta',why:'24 molecules at real doses. The base everything sits on.',when:'AM · 2 caps'},
+      {role:'Cellular',name:'Mega EPA/DHA',palette:'slate',why:'Omega-3 index is among the most predictive biomarkers for lifespan.',when:'With meals · 2 softgels'},
+      {role:'Muscle',name:'Creatine Monohydrate',palette:'slate',why:'Sarcopenia prevention. Also neuro-protective. Boring = effective.',when:'Daily · 5g'},
+      {role:'Sunlight',name:'Vitamin D₃ 5000 IU',palette:'ochre',why:'D3 deficiency correlates with most age-related disease.',when:'AM with fat · 1 softgel'},
+    ],
+    timeline:[
+      {when:'Week 4',what:'Baseline labs',p:'D3, B12, homocysteine measurable improvements.'},
+      {when:'Month 3',what:'Grip strength',p:'Creatine + training improves grip — correlates with mortality risk.'},
+      {when:'Year 1',what:'Omega index',p:'Red-cell omega-3 above 8% — the "protected" range.'},
+      {when:'Decades',what:'The compounding',p:'You won\'t feel it. You\'ll just be the one still climbing.'},
+    ],
+    honest:[
+      '<strong>Zone 2 cardio 150min/week and strength training 2×/week</strong> each add more years than any pill.',
+      'Sleep, fiber, social connection, purpose, low-stress work — all outrank supplements for longevity.',
+      'We will never sell NMN, resveratrol, or rapalogs. Evidence is thin. We refuse to hype.',
+    ]
+  },
+];
+
+const grid = document.getElementById('needsGrid');
+NEEDS.forEach((n, i) => {
+  const card = document.createElement('div');
+  card.className = 'need';
+  card.style.setProperty('--hover-bg', n.hoverBg);
+  card.dataset.id = n.id;
+  card.innerHTML = `
+    <div>
+      <div class="num">No. ${n.n}</div>
+      <div class="glyph">${GLYPHS[n.glyph]}</div>
+    </div>
+    <div>
+      <h3>${n.title}</h3>
+      <div class="desc">${n.desc}</div>
+      <div class="meta"><span>${n.products}</span><span class="arrow">→</span></div>
+    </div>`;
+  card.onclick = () => openDetail(n.id);
+  grid.appendChild(card);
+});
+
+function openDetail(id){
+  const n = NEEDS.find(x => x.id === id);
+  if(!n) return;
+  document.querySelectorAll('.need').forEach(x => x.classList.toggle('active', x.dataset.id === id));
+  const d = document.getElementById('detail');
+  d.classList.add('open');
+  d.innerHTML = `
+    <div class="head">
+      <h2>${n.title.replace(/^([^—]+)/, '<em>$1</em>')}</h2>
+      <button class="close-btn" onclick="closeDetail()">Close ×</button>
+    </div>
+    <div class="intro">
+      <div class="prose">${n.intro}</div>
+      <div class="symptoms">
+        <div class="title">How it shows up</div>
+        <ul>${n.symptoms.map(s => `<li>${s}</li>`).join('')}</ul>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="stack-head">
+        <div><div class="l">The stack</div><em>${n.stack.length === 4 ? 'Four formulas' : 'Three formulas'}, sequenced for this need</em></div>
+        <div class="deal">${n.stack.length === 4 ? '15% off four' : '8% off three'}</div>
+      </div>
+      <div class="stack-grid">
+        ${n.stack.map(s => {
+          const pal = PAL[s.palette];
+          return `<div class="stack-item" style="--c1:${pal[0]};--c2:${pal[1]};--c3:${pal[2]};--c4:${pal[3]};">
+            <span class="role">${s.role}</span>
+            <div class="pill-wrap"><div class="orb"></div><div class="pill"><div class="half"></div><div class="half"></div></div></div>
+            <div class="n">${s.name}</div>
+            <div class="why">${s.why}</div>
+            <div class="when"><span>When</span><strong>${s.when}</strong></div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div class="timeline-box">
+      <div class="t">Timeline of effect</div>
+      <em>What to expect, and when</em>
+      <div class="tl">
+        ${n.timeline.map(t => `<div class="pt"><div class="dot"></div><div class="when">${t.when}</div><div class="what">${t.what}</div><div class="p">${t.p}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="honest">
+      <div class="l">Honest notes<em>Because capsules can't do everything</em></div>
+      <div class="notes">${n.honest.map(h => `<p>${h}</p>`).join('')}</div>
+    </div>`;
+  setTimeout(() => {
+    const y = d.getBoundingClientRect().top + window.scrollY - 60;
+    window.scrollTo({top:y, behavior:'smooth'});
+  }, 100);
+}
+
+function closeDetail(){
+  document.querySelectorAll('.need').forEach(x => x.classList.remove('active'));
+  const d = document.getElementById('detail');
+  d.classList.remove('open');
+  const g = document.querySelector('.needs-grid');
+  const y = g.getBoundingClientRect().top + window.scrollY - 60;
+  window.scrollTo({top:y, behavior:'smooth'});
+}
+window.closeDetail = closeDetail;
+
+// Open first need by default for instant context — but don't auto-scroll on load
+const _origOpen = openDetail;
+function openInitial(id){
+  const n = NEEDS.find(x => x.id === id);
+  if(!n) return;
+  document.querySelectorAll('.need').forEach(x => x.classList.toggle('active', x.dataset.id === id));
+  const d = document.getElementById('detail');
+  d.classList.add('open');
+  // reuse openDetail's rendering by calling it, then undo the scroll
+  const scrollY = window.scrollY;
+  openDetail(id);
+  requestAnimationFrame(() => window.scrollTo({top: scrollY}));
+}
+openInitial('sleep');
+</script>
+</body></html>
