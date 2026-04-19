@@ -8,6 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
 <style>
   :root{
     --bg:#efe6d7; --bg-deep:#d9c9b3; --card:#faf5eb;
@@ -129,28 +137,43 @@
   .trust-row span{display:inline-flex;align-items:center;gap:6px}
   .trust-row span::before{content:"◉";color:var(--sage);font-size:8px}
 
-  /* hero right */
-  .hero-r{position:relative;background:var(--bg-deep);overflow:hidden;min-height:600px;display:flex;align-items:center;justify-content:center;border-left:1px solid var(--line)}
-  .scene{position:relative;width:min(420px,78%);aspect-ratio:1}
-  .halo{position:absolute;inset:-15%;background:radial-gradient(circle,rgba(180,80,30,.45) 0%,transparent 65%);filter:blur(24px);animation:breathe 5s ease-in-out infinite}
-  @keyframes breathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.07);opacity:.9}}
-  .ring{position:absolute;inset:-2%;border:1px solid rgba(26,18,11,.18);border-radius:50%;animation:spin 22s linear infinite}
-  .ring::before{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}
+  /* hero right — premium 3D */
+  .hero-r{position:relative;background:radial-gradient(ellipse at 55% 40%,#e6d5bd 0%,#d9c9b3 55%,#c8b99f 100%);overflow:hidden;min-height:620px;display:flex;align-items:center;justify-content:center;border-left:1px solid var(--line)}
+  .hero-r::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at 20% 20%,rgba(255,240,215,.35) 0%,transparent 40%),
+    radial-gradient(circle at 80% 80%,rgba(180,80,30,.18) 0%,transparent 50%);
+    pointer-events:none;z-index:1}
+  .hero-r::after{content:"";position:absolute;inset:0;background-image:
+    radial-gradient(circle at 1px 1px,rgba(26,18,11,.08) 1px,transparent 0);
+    background-size:28px 28px;opacity:.4;mix-blend-mode:multiply;pointer-events:none;z-index:1}
+  .scene{position:relative;width:min(520px,88%);aspect-ratio:1;z-index:2}
+  .scene canvas{width:100%;height:100%;display:block;opacity:0;transition:opacity .9s cubic-bezier(.2,.8,.2,1)}
+  .scene canvas.ready{opacity:1}
+
+  /* CSS fallback — hidden when WebGL activates */
+  .halo{position:absolute;inset:-15%;background:radial-gradient(circle,rgba(180,80,30,.45) 0%,transparent 65%);filter:blur(28px);animation:breathe 5s ease-in-out infinite;z-index:0}
+  @keyframes breathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.07);opacity:.95}}
+  .ring{position:absolute;inset:-2%;border:1px solid rgba(26,18,11,.18);border-radius:50%;animation:spin 22s linear infinite;z-index:1}
+  .ring::before{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;background:var(--accent);transform:translateX(-50%);box-shadow:0 0 16px rgba(180,80,30,.6)}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .capsule-hero{position:absolute;inset:0;margin:auto;width:55%;aspect-ratio:1/2.6;transform:rotate(-14deg);animation:float 6s ease-in-out infinite;filter:drop-shadow(18px 28px 38px rgba(26,18,11,.28))}
+  .capsule-hero{position:absolute;inset:0;margin:auto;width:55%;aspect-ratio:1/2.6;transform:rotate(-14deg);animation:float 6s ease-in-out infinite;filter:drop-shadow(18px 28px 38px rgba(26,18,11,.28));z-index:2}
   @keyframes float{0%,100%{transform:rotate(-14deg) translateY(0)}50%{transform:rotate(-13deg) translateY(-8px)}}
   .capsule-hero .half{position:absolute;left:0;right:0;height:50%;border-radius:100% 100% 0 0 / 50% 50% 0 0}
   .capsule-hero .top{top:0;background:radial-gradient(ellipse at 30% 25%,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 35%),linear-gradient(145deg,#faf5eb 0%,#e9d7b8 60%,#c4a577 100%);box-shadow:inset -6px 0 12px rgba(26,18,11,.12),inset 6px 0 10px rgba(255,255,255,.3)}
   .capsule-hero .bot{bottom:0;border-radius:0 0 100% 100% / 0 0 50% 50%;background:radial-gradient(ellipse at 70% 75%,rgba(255,200,150,.4) 0%,transparent 50%),linear-gradient(145deg,#c4622d 0%,#8a3c12 70%,#5a2408 100%);box-shadow:inset -8px 0 16px rgba(26,18,11,.35),inset 6px -4px 10px rgba(255,200,150,.2)}
   .capsule-hero .seam{position:absolute;top:50%;left:0;right:0;height:2px;background:rgba(26,18,11,.35);box-shadow:0 1px 0 rgba(255,255,255,.2)}
   .capsule-hero .highlight{position:absolute;top:8%;left:22%;width:20%;height:28%;background:linear-gradient(180deg,rgba(255,255,255,.55),transparent);border-radius:50%;filter:blur(3px);opacity:.8}
+  .scene.webgl-on .capsule-hero,
+  .scene.webgl-on .ring,
+  .scene.webgl-on .halo{display:none}
 
-  .hero-r .tag{position:absolute;font-family:var(--mono);font-size:9px;letter-spacing:.25em;color:var(--ink);text-transform:uppercase;background:rgba(250,245,235,.88);padding:5px 10px;border:1px solid var(--line-soft)}
-  .hero-r .tag.t1{top:14%;left:10%}
-  .hero-r .tag.t2{top:32%;right:8%}
-  .hero-r .tag.t3{bottom:22%;left:12%}
-  .hero-r .tag.t4{bottom:10%;right:12%}
+  .hero-r .tag{position:absolute;font-family:var(--mono);font-size:9px;letter-spacing:.25em;color:var(--ink);text-transform:uppercase;background:rgba(250,245,235,.92);padding:6px 11px;border:1px solid var(--line-soft);z-index:3;backdrop-filter:blur(6px);box-shadow:0 8px 24px rgba(26,18,11,.08)}
+  .hero-r .tag.t1{top:14%;left:10%;animation:tagIn .8s .2s both cubic-bezier(.2,.8,.2,1)}
+  .hero-r .tag.t2{top:32%;right:8%;animation:tagIn .8s .4s both cubic-bezier(.2,.8,.2,1)}
+  .hero-r .tag.t3{bottom:22%;left:12%;animation:tagIn .8s .6s both cubic-bezier(.2,.8,.2,1)}
+  .hero-r .tag.t4{bottom:10%;right:12%;animation:tagIn .8s .8s both cubic-bezier(.2,.8,.2,1)}
   .hero-r .tag strong{color:var(--accent);font-weight:500}
+  @keyframes tagIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
   /* ===== PRESS ===== */
   .press{padding:30px 36px;border-bottom:1px solid var(--line);background:var(--bg);display:flex;justify-content:center;align-items:center;gap:40px;flex-wrap:wrap}
@@ -476,7 +499,7 @@
   </div>
 
   <div class="hero-r">
-    <div class="scene">
+    <div class="scene" id="scene">
       <div class="halo"></div>
       <div class="ring"></div>
       <div class="capsule-hero">
@@ -484,6 +507,7 @@
         <div class="half bot"></div>
         <div class="seam"></div>
       </div>
+      <canvas id="v3d"></canvas>
     </div>
     <span class="tag t1"><strong>2,000 IU</strong> · D3</span>
     <span class="tag t2"><strong>800mg</strong> · EPA</span>
@@ -768,6 +792,268 @@
   document.getElementById('menuBtn').onclick = () => drawer.classList.add('open');
   document.getElementById('drawerClose').onclick = () => drawer.classList.remove('open');
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => drawer.classList.remove('open')));
+</script>
+
+<!-- ===== Premium 3D Hero Capsule ===== -->
+<script type="module">
+(async () => {
+  const canvas = document.getElementById('v3d');
+  const sceneEl = document.getElementById('scene');
+  if(!canvas || !sceneEl) return;
+
+  // Feature detect WebGL
+  const gl = (() => {
+    try { return canvas.getContext('webgl2') || canvas.getContext('webgl'); } catch(e){ return null; }
+  })();
+  if(!gl) return; // Keep CSS fallback
+
+  let THREE, RoomEnvironment;
+  try{
+    THREE = await import('three');
+    ({ RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js'));
+  } catch(e){ console.warn('three.js failed to load, using CSS fallback', e); return; }
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  camera.position.set(0, 0, 5.2);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000000, 0);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+  renderer.localClippingEnabled = true;
+
+  // Neutral room env for crisp reflections
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+
+  // ---- Capsule: two clipped halves (glass top + liquid bottom) ----
+  const R = 0.55, L = 1.35;
+  const capGeom = new THREE.CapsuleGeometry(R, L, 48, 96);
+
+  const topPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 0.0);
+  const botPlane = new THREE.Plane(new THREE.Vector3(0,  1, 0), 0.0);
+
+  // Top: translucent cream/ivory glass with iridescence
+  const topMat = new THREE.MeshPhysicalMaterial({
+    color: 0xf3e8d2,
+    metalness: 0.0,
+    roughness: 0.12,
+    transmission: 0.55,
+    ior: 1.42,
+    thickness: 0.55,
+    iridescence: 0.5,
+    iridescenceIOR: 1.3,
+    iridescenceThicknessRange: [120, 520],
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.04,
+    envMapIntensity: 1.25,
+    attenuationColor: 0xf5ead4,
+    attenuationDistance: 1.8,
+    clippingPlanes: [topPlane],
+    side: THREE.DoubleSide
+  });
+
+  // Bottom: terracotta liquid with sheen + sub-surface feel
+  const botMat = new THREE.MeshPhysicalMaterial({
+    color: 0xb4501e,
+    metalness: 0.08,
+    roughness: 0.32,
+    clearcoat: 0.85,
+    clearcoatRoughness: 0.1,
+    sheen: 1.0,
+    sheenColor: new THREE.Color(0xffb87a),
+    sheenRoughness: 0.22,
+    envMapIntensity: 1.4,
+    emissive: new THREE.Color(0x5a2408),
+    emissiveIntensity: 0.18,
+    clippingPlanes: [botPlane],
+    side: THREE.DoubleSide
+  });
+
+  const topMesh = new THREE.Mesh(capGeom, topMat);
+  const botMesh = new THREE.Mesh(capGeom, botMat);
+
+  // Thin gold seam ring at Y=0
+  const seamGeom = new THREE.TorusGeometry(R * 1.005, 0.012, 16, 128);
+  const seamMat = new THREE.MeshPhysicalMaterial({
+    color: 0x1a120b, metalness: 0.9, roughness: 0.25,
+    clearcoat: 1, clearcoatRoughness: 0.1, envMapIntensity: 1.2
+  });
+  const seam = new THREE.Mesh(seamGeom, seamMat);
+  seam.rotation.x = Math.PI / 2;
+
+  const capsuleGroup = new THREE.Group();
+  capsuleGroup.add(topMesh, botMesh, seam);
+  capsuleGroup.rotation.z = -0.22;  // matches CSS -14deg
+  capsuleGroup.rotation.x = 0.12;
+  scene.add(capsuleGroup);
+
+  // ---- Volumetric halo (behind capsule) ----
+  const haloMat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false,
+    uniforms: { t: { value: 0 } },
+    vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+    fragmentShader: `
+      varying vec2 vUv;
+      uniform float t;
+      void main(){
+        vec2 p = vUv - 0.5;
+        float d = length(p);
+        float ring = smoothstep(0.52, 0.15, d);
+        float core = smoothstep(0.28, 0.0, d);
+        float pulse = 0.75 + 0.25 * sin(t * 1.2);
+        vec3 warm = mix(vec3(0.95, 0.58, 0.28), vec3(0.71, 0.32, 0.12), smoothstep(0.0, 0.35, d));
+        vec3 col = warm * (ring * 0.55 + core * 1.1) * pulse;
+        float a = (ring * 0.45 + core * 0.9) * pulse;
+        gl_FragColor = vec4(col, a);
+      }
+    `
+  });
+  const halo = new THREE.Mesh(new THREE.PlaneGeometry(5.5, 5.5), haloMat);
+  halo.position.z = -1.5;
+  scene.add(halo);
+
+  // ---- Orbiting ring (3D version of CSS .ring) ----
+  const ringGeom = new THREE.TorusGeometry(1.45, 0.006, 8, 256);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0x1a120b, transparent: true, opacity: 0.28 });
+  const ring = new THREE.Mesh(ringGeom, ringMat);
+  ring.rotation.x = Math.PI / 2.3;
+  scene.add(ring);
+
+  // Accent dot on ring
+  const dotGeom = new THREE.SphereGeometry(0.045, 16, 16);
+  const dotMat = new THREE.MeshBasicMaterial({ color: 0xb4501e });
+  const dot = new THREE.Mesh(dotGeom, dotMat);
+  const dotGlow = new THREE.PointLight(0xff8a3a, 2.5, 2.5, 2);
+  ring.add(dot); dot.position.set(1.45, 0, 0); dot.add(dotGlow);
+
+  // ---- Particle field ----
+  const N = 180;
+  const pPos = new Float32Array(N * 3);
+  const pSize = new Float32Array(N);
+  for (let i = 0; i < N; i++) {
+    const r = 1.1 + Math.random() * 1.8;
+    const th = Math.random() * Math.PI * 2;
+    const ph = (Math.random() - 0.5) * 1.8;
+    pPos[i*3]   = Math.cos(th) * r * 0.9;
+    pPos[i*3+1] = Math.sin(ph) * r * 1.2;
+    pPos[i*3+2] = Math.sin(th) * r * 0.7 - 0.2;
+    pSize[i] = 0.5 + Math.random() * 1.5;
+  }
+  const pGeom = new THREE.BufferGeometry();
+  pGeom.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  pGeom.setAttribute('aSize',    new THREE.BufferAttribute(pSize, 1));
+  const pMat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    uniforms: { t: { value: 0 }, pixelRatio: { value: renderer.getPixelRatio() } },
+    vertexShader: `
+      attribute float aSize;
+      uniform float t;
+      uniform float pixelRatio;
+      varying float vA;
+      void main(){
+        vec3 p = position;
+        p.y += sin(t*0.6 + position.x*2.0) * 0.06;
+        p.x += cos(t*0.4 + position.y*1.5) * 0.05;
+        vec4 mv = modelViewMatrix * vec4(p, 1.0);
+        gl_PointSize = aSize * 3.5 * pixelRatio * (1.0 / -mv.z);
+        gl_Position = projectionMatrix * mv;
+        vA = 0.4 + 0.4 * sin(t*1.2 + aSize*6.2);
+      }
+    `,
+    fragmentShader: `
+      varying float vA;
+      void main(){
+        vec2 c = gl_PointCoord - 0.5;
+        float d = length(c);
+        if(d > 0.5) discard;
+        float a = smoothstep(0.5, 0.0, d) * vA * 0.7;
+        gl_FragColor = vec4(0.97, 0.92, 0.82, a);
+      }
+    `
+  });
+  const particles = new THREE.Points(pGeom, pMat);
+  scene.add(particles);
+
+  // ---- Lights ----
+  scene.add(new THREE.AmbientLight(0xfff1de, 0.35));
+  const key = new THREE.DirectionalLight(0xfff4e4, 1.6);
+  key.position.set(3, 4.5, 4);
+  scene.add(key);
+  const rim = new THREE.DirectionalLight(0xffb478, 1.1);
+  rim.position.set(-4, -2, -2.5);
+  scene.add(rim);
+  const fill = new THREE.DirectionalLight(0xd9c9b3, 0.4);
+  fill.position.set(-2, 3, 2);
+  scene.add(fill);
+
+  // ---- Resize ----
+  function resize(){
+    const rect = canvas.getBoundingClientRect();
+    const w = Math.max(1, rect.width), h = Math.max(1, rect.height);
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    pMat.uniforms.pixelRatio.value = renderer.getPixelRatio();
+  }
+  const ro = new ResizeObserver(resize); ro.observe(canvas);
+  resize();
+
+  // ---- Mouse parallax ----
+  let mx = 0, my = 0, tx = 0, ty = 0;
+  const onMove = (e) => {
+    const pt = e.touches ? e.touches[0] : e;
+    const r = sceneEl.getBoundingClientRect();
+    mx = ((pt.clientX - r.left) / r.width  - 0.5) * 2;
+    my = ((pt.clientY - r.top)  / r.height - 0.5) * 2;
+  };
+  window.addEventListener('pointermove', onMove, { passive: true });
+
+  // Pause when offscreen
+  let running = true;
+  const io = new IntersectionObserver((ents) => { running = ents[0].isIntersecting; }, { threshold: 0.01 });
+  io.observe(sceneEl);
+
+  // ---- Loop ----
+  const clock = new THREE.Clock();
+  function loop(){
+    if(running){
+      const t = clock.getElapsedTime();
+      tx += (mx - tx) * 0.06;
+      ty += (my - ty) * 0.06;
+
+      if(!reduced){
+        capsuleGroup.rotation.y = tx * 0.5 + Math.sin(t * 0.55) * 0.12;
+        capsuleGroup.rotation.x = 0.12 - ty * 0.28 + Math.cos(t * 0.45) * 0.04;
+        capsuleGroup.rotation.z = -0.22 + Math.sin(t * 0.7) * 0.025;
+        capsuleGroup.position.y = Math.sin(t * 0.9) * 0.07;
+        ring.rotation.z = t * 0.22;
+        particles.rotation.y = t * 0.06;
+      } else {
+        capsuleGroup.rotation.y = tx * 0.15;
+      }
+
+      haloMat.uniforms.t.value = t;
+      pMat.uniforms.t.value = t;
+
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  // Reveal canvas + hide CSS fallback
+  requestAnimationFrame(() => {
+    canvas.classList.add('ready');
+    sceneEl.classList.add('webgl-on');
+  });
+})();
 </script>
 
 </body>
