@@ -1,5 +1,27 @@
 # Friendly URLs → actual files
-/home          /index.html              200
+/home          /Home.html               200
+/daily         /Vesper.html             200
+/daily-01      /Vesper.html             200
+/journal       /Journal.html            200
+/blog          /Journal.html            200
+/articles      /Journal.html            200
+/articles/*    /Articles/:splat         200
+/article/*     /Articles/:splat         200
+
+# SEO P0 article pretty URLs
+/acv-gummies                   /Articles/apple-cider-vinegar-gummies.html   200
+/apple-cider-vinegar-gummies   /Articles/apple-cider-vinegar-gummies.html   200
+/magnesium-glycinate           /Articles/magnesium-glycinate.html           200
+/magnesium                     /Articles/magnesium-glycinate.html           200
+
+# Spanish mirror
+/es              /es/Home.html                                             200
+/es/             /es/Home.html                                             200
+/es/catalogo     /es/Catalog.html                                          200
+/es/articulos/*  /es/articulos/:splat                                      200
+/es/gomitas-vinagre-de-manzana   /es/articulos/gomitas-vinagre-de-manzana.html   200
+/es/magnesio-glicinato           /es/articulos/magnesio-glicinato.html           200
+
 /apothecary    /Catalog.html            200
 /catalog       /Catalog.html            200
 /quiz          /Quiz.html               200
