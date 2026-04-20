@@ -731,7 +731,7 @@
     let list = [...VESPER_P0].slice(0, 10);
     if (TWEAKS.sort === 'alpha') list = list.sort((a,b) => a.name_en.localeCompare(b.name_en));
     else list = list.sort((a,b) => a.rank - b.rank);
-    list.slice(0, 5).forEach((p, i) => {
+    list.forEach((p, i) => {
       const a = document.createElement('a');
       a.className = 'best-card';
       a.href = `Articles/${p.slug_en}.html`;
