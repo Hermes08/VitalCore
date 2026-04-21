@@ -1,29 +1,52 @@
-# Vesper
+# Vesper — Deployment Guide
 
-A premium supplement apothecary — conversion-focused home with a 20-page apothecary site, built in static HTML/CSS/JS.
+SEO-driven supplement storefront. 82 products, bilingual (EN/ES), static HTML.
 
-**Landing:** `index.html` / `Vesper.html` — conversion-first home featuring Daily N° 01. Sticky buy bar, mobile-first layout, WCAG AA contrast, no build step.
+## What to deploy
 
-**Alt shop:** `Shop.html` — sibling conversion page with product-grid layout (available at `/shop`).
+Deploy **this folder as-is**. It is a static site — no build step, no server runtime.
 
-**Mobile preview:** `Mobile-Preview.html` — renders the home inside iPhone 14 and Pixel 7 frames side by side (iframe-based). Also available at `/mobile`.
+**Entry point:** `index.html` (redirects to `Home.html`).
 
-**Archive:** `Vesper-v1.html` — the original 3D Three.js scroll-driven landing (available at `/v1`).
+## Canonical file map
 
-## Pages
-- **Shop** — `Shop.html` (conversion-focused product shop)
-- **Apothecary** — `Catalog.html` (full product catalog with form-specific visuals: capsule, softgel, tablet, gummy, powder, packet, tincture)
-- **Quiz** — `Quiz.html`
-- **Rituals / Bundles** — `Bundles.html`
-- **Sourcing** — `Sourcing.html`
-- **Inside / Science / Lab / Report** — `Inside.html`, `Lab.html`, `Report.html`
-- **Compare / Versus** — `Compare.html`, `Versus.html`
-- **Subscription / Account** — `Subscription.html`, `Account.html`
-- **Founder / Press / Timeline** — supporting pages
-- **Needs / Calculator / Before / Waitlist / Hub** — onboarding & utility
+| Path | Role |
+|---|---|
+| `index.html` | Root redirect → `Home.html` |
+| `Home.html` | English homepage (SEO landing) |
+| `Catalog.html` | Full apothecary — 82 products, modal PDP, cart |
+| `Journal.html` | Article index |
+| `Articles/apple-cider-vinegar-gummies.html` | P0 article |
+| `Articles/magnesium-glycinate.html` | P0 article |
+| `es/Home.html` | Spanish homepage |
+| `es/Catalog.html` | Spanish apothecary |
+| `es/articulos/gomitas-vinagre-de-manzana.html` | ES article |
+| `es/articulos/magnesio-glicinato.html` | ES article |
+| `data/products.js` | Product data (source of truth) |
+| `catalog-data.js`, `catalog-app.js` | Catalog runtime |
+| `vesper-shared.css` | Shared styles |
 
-## Stack
-- Static HTML/CSS/JS (no build step)
-- Google Fonts: Fraunces + JetBrains Mono
-- `Vesper-v1.html` uses Three.js r160 from unpkg for the 3D capsule
-- Palette: cream `#efe6d7`, ink `#1a120b`, terracotta `#b4501e`, ochre `#b48232`, sage `#5d7050`
+Nothing else should exist in the deployed output. Legacy files (`Hub.html`, `Shop.html`, `Quiz.html`, `Founder.html`, `Vesper Apothecary.html`, `vesper-3d.js`, `vesper-ui.js`, `nav-partial.html`, `UX.md`, `qa/`, `uploads/`, `ios-frame.jsx`) have been removed — if your deploy shows them, you are deploying from a stale snapshot.
+
+## SEO wiring
+
+- `hreflang`: EN canonical is `./Home.html`, ES is `./es/Home.html`, with `x-default` → EN.
+- Product URLs are slug-based via the catalog modal (`?id=<slug>`).
+- Each article has `<link rel="canonical">` + JSON-LD Article schema.
+
+## Instructions for implementation agent
+
+If you are an agent picking this up:
+
+1. Serve the project root. `index.html` redirects to `Home.html`.
+2. **Do not re-introduce deleted legacy pages.** If the user asks for quiz/bundles/etc., build them fresh — do not look for `Quiz.html` etc.; they were explicitly removed.
+3. `data/products.js` is the single source of truth for product data. Both `Catalog.html` and `Home.html` read from it via the `window.VESPER_PRODUCTS` / `VESPER_P0` / `VESPER_FIND` globals.
+4. Product images are CSS-rendered (orb halo + colored capsule/gummy/tablet shape). No raster assets needed.
+5. For new pages, reuse `vesper-shared.css` and match the nav pattern in `Home.html`.
+
+## Local preview
+
+```sh
+python3 -m http.server 8000
+# → open http://localhost:8000/
+```
