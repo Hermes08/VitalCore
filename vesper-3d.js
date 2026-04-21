@@ -16,6 +16,33 @@
   const scene = new THREE.Scene();
   scene.fog = new THREE.Fog(0xe9dfd0, 8, 28);
 
+  // Environment map — warm studio reflections for glossy materials
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  pmremGenerator.compileEquirectangularShader();
+  // Build a procedural gradient env (no external file)
+  const envCanvas = document.createElement('canvas');
+  envCanvas.width = 512; envCanvas.height = 256;
+  const envCtx = envCanvas.getContext('2d');
+  const grad = envCtx.createLinearGradient(0, 0, 0, 256);
+  grad.addColorStop(0, '#f5e4c8');
+  grad.addColorStop(0.35, '#e9c39a');
+  grad.addColorStop(0.55, '#c4622d');
+  grad.addColorStop(0.8, '#6b2a10');
+  grad.addColorStop(1, '#2a1408');
+  envCtx.fillStyle = grad;
+  envCtx.fillRect(0, 0, 512, 256);
+  // Add some warm highlights — faux sun
+  envCtx.fillStyle = 'rgba(255,245,220,0.9)';
+  envCtx.beginPath(); envCtx.arc(380, 90, 45, 0, Math.PI*2); envCtx.fill();
+  envCtx.fillStyle = 'rgba(255,210,150,0.4)';
+  envCtx.beginPath(); envCtx.arc(120, 130, 70, 0, Math.PI*2); envCtx.fill();
+  const envTex = new THREE.CanvasTexture(envCanvas);
+  envTex.mapping = THREE.EquirectangularReflectionMapping;
+  const envRT = pmremGenerator.fromEquirectangular(envTex);
+  scene.environment = envRT.texture;
+  envTex.dispose();
+  pmremGenerator.dispose();
+
   const camera = new THREE.PerspectiveCamera(38, window.innerWidth/window.innerHeight, 0.1, 100);
   camera.position.set(0, 0, 6);
 
@@ -105,45 +132,94 @@
     }
   `;
 
-  /* ---- Hero capsule — a pill made from two hemispheres + cylinder ---- */
+  /* ---- Hero capsule — pharmaceutical two-tone pill, glossy ---- */
   const capsuleGroup = new THREE.Group();
   scene.add(capsuleGroup);
 
-  // Outer glass shell
-  const shellMat = new THREE.MeshPhysicalMaterial({
-    color: 0xe9dfd0, transmission: 0.92, thickness: 0.45,
-    roughness: 0.12, metalness: 0.0, ior: 1.42, attenuationDistance: 1.5,
-    attenuationColor: new THREE.Color('#f0cfa0'), clearcoat: 1, clearcoatRoughness: 0.2,
-    transparent:true, opacity: 0.95
-  });
-  const shellGeom = new THREE.CapsuleGeometry(0.55, 1.1, 24, 48);
-  const shell = new THREE.Mesh(shellGeom, shellMat);
-  capsuleGroup.add(shell);
+  // Enable local clipping so we can split pill into two halves
+  renderer.localClippingEnabled = true;
+  const planeUp = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+  const planeDown = new THREE.Plane(new THREE.Vector3(0, -1, 0), 0);
 
-  // Inner liquid — slightly smaller capsule with shader
+  // Top half — deep terracotta, glossy opaque
+  const topMat = new THREE.MeshPhysicalMaterial({
+    color: 0x8a3a1c, roughness: 0.18, metalness: 0.0,
+    clearcoat: 1, clearcoatRoughness: 0.08,
+    sheen: 1, sheenColor: new THREE.Color('#c4622d'), sheenRoughness: 0.3,
+    iridescence: 0.4, iridescenceIOR: 1.35,
+    clippingPlanes: [planeDown]
+  });
+  // Bottom half — warm amber, semi-translucent showing liquid
+  const bottomMat = new THREE.MeshPhysicalMaterial({
+    color: 0xe8a86a, roughness: 0.15, metalness: 0.0,
+    transmission: 0.3, thickness: 0.6, ior: 1.42,
+    attenuationColor: new THREE.Color('#c4622d'), attenuationDistance: 1.2,
+    clearcoat: 1, clearcoatRoughness: 0.08,
+    sheen: 0.8, sheenColor: new THREE.Color('#f3c27a'),
+    iridescence: 0.25, iridescenceIOR: 1.4,
+    clippingPlanes: [planeUp]
+  });
+
+  const capsuleGeom = new THREE.CapsuleGeometry(0.55, 1.2, 32, 64);
+  const capTop = new THREE.Mesh(capsuleGeom, topMat);
+  const capBot = new THREE.Mesh(capsuleGeom, bottomMat);
+  capsuleGroup.add(capTop, capBot);
+
+  // Inner liquid — visible through the amber bottom half
   const liquidMat = new THREE.ShaderMaterial({
     uniforms: liquidUniforms, vertexShader: liquidVertex, fragmentShader: liquidFragment,
+    transparent: true
   });
-  const liquidGeom = new THREE.CapsuleGeometry(0.48, 1.05, 28, 56);
+  const liquidGeom = new THREE.CapsuleGeometry(0.42, 1.0, 28, 56);
   const liquid = new THREE.Mesh(liquidGeom, liquidMat);
   capsuleGroup.add(liquid);
 
-  // Seam line (two-tone pill)
-  const seamMat = new THREE.MeshStandardMaterial({ color:0x2a1f16, roughness:0.3, metalness:0.1 });
-  const seamGeom = new THREE.TorusGeometry(0.551, 0.008, 8, 64);
+  // Shell ref for click detection (use top half)
+  const shell = capTop;
+  const shellMat = topMat;
+
+  // Seam line between halves — subtle debossed ring
+  const seamMat = new THREE.MeshStandardMaterial({ color: 0x2a1408, roughness: 0.5, metalness: 0.4 });
+  const seamGeom = new THREE.TorusGeometry(0.552, 0.006, 12, 96);
   const seam = new THREE.Mesh(seamGeom, seamMat);
-  seam.rotation.x = Math.PI/2;
+  seam.rotation.x = Math.PI / 2;
   capsuleGroup.add(seam);
 
-  // Halo disc behind capsule
+  // Tiny engraved mark on top — "V" dot (uses a small sphere)
+  const markMat = new THREE.MeshStandardMaterial({ color: 0x2a1408, roughness: 0.6 });
+  const mark = new THREE.Mesh(new THREE.SphereGeometry(0.014, 16, 16), markMat);
+  mark.position.set(0, 0.82, 0.54);
+  capsuleGroup.add(mark);
+
+  // Companion secondary capsule — smaller, angled behind
+  const capsule2 = new THREE.Group();
+  const cap2Top = new THREE.Mesh(capsuleGeom, topMat.clone());
+  const cap2Bot = new THREE.Mesh(capsuleGeom, bottomMat.clone());
+  cap2Top.material.clippingPlanes = [planeDown];
+  cap2Bot.material.clippingPlanes = [planeUp];
+  capsule2.add(cap2Top, cap2Bot);
+  capsule2.scale.setScalar(0.7);
+  capsule2.position.set(1.2, -0.6, -1.2);
+  capsule2.rotation.set(0.3, -0.5, -0.8);
+  capsuleGroup.add(capsule2);
+
+  // Halo glow behind — layered radial fog
   const haloMat = new THREE.MeshBasicMaterial({
-    color: 0xc4622d, transparent:true, opacity:0.08, side:THREE.DoubleSide
+    color: 0xc4622d, transparent: true, opacity: 0.18, side: THREE.DoubleSide, depthWrite: false
   });
-  const halo = new THREE.Mesh(new THREE.RingGeometry(1.3, 1.9, 64), haloMat);
-  halo.position.z = -1.2;
+  const halo = new THREE.Mesh(new THREE.CircleGeometry(2.2, 64), haloMat);
+  halo.position.z = -1.8;
   capsuleGroup.add(halo);
 
-  capsuleGroup.rotation.z = 0.18;
+  // Secondary inner glow — warmer center
+  const haloInner = new THREE.Mesh(
+    new THREE.CircleGeometry(1.0, 48),
+    new THREE.MeshBasicMaterial({ color: 0xf3c27a, transparent: true, opacity: 0.25, depthWrite: false })
+  );
+  haloInner.position.z = -1.5;
+  capsuleGroup.add(haloInner);
+
+  capsuleGroup.rotation.z = 0.22;
   capsuleGroup.position.set(0, 0, 0);
 
   /* ================================================================
@@ -428,18 +504,24 @@
     },
     setSurface(kind){
       if (kind==='glass'){
-        shell.material = new THREE.MeshPhysicalMaterial({
-          color:0xffffff, transmission:1, thickness:0.5, roughness:0.35,
-          metalness:0, ior:1.5, transparent:true, opacity:0.8, clearcoat:1
+        const m = new THREE.MeshPhysicalMaterial({
+          color:0xffffff, transmission:1, thickness:0.5, roughness:0.25,
+          metalness:0, ior:1.5, transparent:true, opacity:0.85, clearcoat:1,
+          clippingPlanes:[planeDown]
         });
+        const m2 = m.clone(); m2.clippingPlanes=[planeUp];
+        capTop.material = m; capBot.material = m2;
         liquid.visible = false;
       } else if (kind==='chrome'){
-        shell.material = new THREE.MeshPhysicalMaterial({
-          color:0xcfc3b0, metalness:1, roughness:0.15, clearcoat:1, envMapIntensity:1.3
+        const m = new THREE.MeshPhysicalMaterial({
+          color:0xcfc3b0, metalness:1, roughness:0.15, clearcoat:1, envMapIntensity:1.6,
+          clippingPlanes:[planeDown]
         });
+        const m2 = m.clone(); m2.clippingPlanes=[planeUp];
+        capTop.material = m; capBot.material = m2;
         liquid.visible = false;
       } else {
-        shell.material = shellMat;
+        capTop.material = topMat; capBot.material = bottomMat;
         liquid.visible = true;
       }
     },

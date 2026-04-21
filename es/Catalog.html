@@ -83,6 +83,9 @@
   .card .tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--bg);background:var(--accent);padding:3px 8px;text-transform:uppercase;border-radius:2px}
   .card .tag.sage{background:var(--sage)}
   .card .tag.ochre{background:var(--ochre)}
+  .card .tag.special{background:#2a1f16;color:#e9dfd0;letter-spacing:.22em}
+  .card.is-special{background:linear-gradient(180deg,rgba(42,31,22,.04),transparent 60%)}
+  .so-note{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin-top:6px;font-weight:500}
 
   .card .pic{position:relative;flex:1;min-height:140px;display:flex;align-items:center;justify-content:center;perspective:600px}
   .card .pic .halo{position:absolute;width:130px;height:130px;border-radius:50%;filter:blur(30px);opacity:.45;transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .5s;mix-blend-mode:multiply;background:radial-gradient(circle,var(--c1),var(--c2) 70%,transparent)}
@@ -299,8 +302,8 @@ function mountCard(p, idx, parent){
   el.style.setProperty('--c2', p.colors[1]);
   el.style.setProperty('--c3', p.colors[2] || p.colors[1]);
   const needs = (p.need||[]).slice(0,2).map(n => needLabelEs[n]||n).join(' · ');
-  const tagCls = p.priority === 'P0' ? '' : (p.priority === 'P1' ? 'sage' : 'ochre');
-  const tagLbl = p.priority === 'P0' ? 'Más buscado' : (p.priority === 'P1' ? 'Nº '+p.rank : 'Nicho');
+  const tagCls = p.special ? 'special' : (p.priority === 'P0' ? '' : (p.priority === 'P1' ? 'sage' : 'ochre'));
+  const tagLbl = p.special ? 'Pedido especial' : (p.priority === 'P0' ? 'Más buscado' : (p.priority === 'P1' ? 'Nº '+p.rank : 'Nicho'));
   el.innerHTML = `
     <div class="topline">
       <span class="idx">Nº ${String(idx).padStart(2,'0')} · ${needs || '—'}</span>
@@ -384,9 +387,9 @@ function openModal(p){
     <p class="body"><em>${p.tagline}.</em> Esta fórmula existe porque cientos de miles de personas cada mes escriben su nombre en un buscador. Nosotras respondemos con un producto honesto: certificado por terceros, sin rellenos innecesarios, con instrucciones claras.</p>
     <div class="need-chips">${needs.map(n => `<span>${n}</span>`).join('')}</div>
     <div class="guide">${guide}</div>
-    <div class="price-big"><span class="cur">USD$</span>${p.price}</div>
+    <div class="price-big"><span class="cur">USD$</span>${p.price}${p.special?'<span class="so-note">Pedido especial · 3–5 semanas</span>':''}</div>
     <button class="buy-big" onclick="addCart('${p.id}')">
-      <span>Añadir al carrito</span>
+      <span>${p.special?'Solicitar pedido especial':'Añadir al carrito'}</span>
       <span>→</span>
     </button>
   `;

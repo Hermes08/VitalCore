@@ -183,12 +183,11 @@
       <div class="cta-bar">
         <div class="price-block">
           <div class="price-num" id="pNum"><span class="cur">$</span>${p.price}</div>
-          <div class="sub-choose">
-            <button data-sub="once" class="on">One-time</button>
-            <button data-sub="sub">Subscribe −15%</button>
-          </div>
         </div>
-        <div></div>
+        <div class="sub-choose">
+          <button data-sub="once" class="on">One-time</button>
+          <button data-sub="sub">Subscribe −15%</button>
+        </div>
         <button class="add" onclick="window.__addToCart('${p.id}')">Add to cart →</button>
       </div>`;
     modal.querySelectorAll('.sub-choose button').forEach(btn=>{
