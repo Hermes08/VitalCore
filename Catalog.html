@@ -42,31 +42,44 @@
   .hero .meta-row{display:flex;gap:36px;margin-top:40px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
   .hero .meta-row span strong{color:var(--ink);font-weight:400}
 
-  /* Filters */
-  .controls{position:sticky;top:72px;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding:18px 36px;display:grid;grid-template-columns:1fr auto auto auto;gap:20px;align-items:center}
-  .controls .search{display:flex;align-items:center;gap:12px;max-width:420px;min-width:200px;border-bottom:1px solid var(--ink);padding:6px 0}
-  .controls .search input{flex:1;min-width:0;border:none;outline:none;background:none;font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink)}
-  .controls .search input::placeholder{color:var(--muted);font-style:italic}
-  .controls .search .ico{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  /* Filters — PROMINENT search + dropdowns */
+  .controls{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding:18px 36px;display:grid;grid-template-columns:1fr auto auto auto;gap:16px;align-items:center}
+  .controls .search{position:relative;display:flex;align-items:center;gap:12px;max-width:520px;min-width:220px;background:#faf5eb;border:1.5px solid var(--ink);border-radius:999px;padding:0 18px 0 20px;height:52px;box-shadow:0 2px 0 var(--ink),0 8px 22px -6px rgba(42,31,22,.18);transition:box-shadow .2s, border-color .2s, transform .15s}
+  .controls .search:hover{box-shadow:0 2px 0 var(--ink),0 10px 26px -6px rgba(42,31,22,.26)}
+  .controls .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px rgba(196,98,45,.18),0 2px 0 var(--accent),0 10px 24px -6px rgba(42,31,22,.22)}
+  .controls .search .ico{font-family:var(--mono);font-size:18px;color:var(--ink);line-height:1;flex-shrink:0}
+  .controls .search input{flex:1;min-width:0;border:none;outline:none;background:none;font-family:var(--serif);font-size:17px;color:var(--ink);padding:0;height:100%}
+  .controls .search input::placeholder{color:var(--muted);font-style:italic;opacity:.9}
+  .controls .search .clear{display:none;background:var(--ink);color:var(--bg);border:none;width:22px;height:22px;border-radius:50%;font-family:var(--mono);font-size:12px;line-height:1;cursor:pointer;align-items:center;justify-content:center;padding:0;flex-shrink:0}
+  .controls .search.has-val .clear{display:inline-flex}
+  .controls .search.has-val .clear:hover{background:var(--accent)}
+  .controls .search .kbd{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--muted);border:1px solid var(--line);padding:3px 6px;border-radius:4px;text-transform:uppercase;flex-shrink:0}
+  .controls .search.has-val .kbd,.controls .search:focus-within .kbd{display:none}
   .controls .count{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
-  .controls .drop{position:relative;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);padding:0 12px 0 14px;height:38px;transition:border-color .2s}
-  .controls .drop:hover{border-color:var(--ink)}
-  .controls .drop .dl{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
-  .controls .drop select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:none;border:none;outline:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;color:var(--ink);text-transform:uppercase;padding:8px 22px 8px 6px;cursor:pointer;font-weight:500}
-  .controls .drop::after{content:"▾";position:absolute;right:10px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--muted);pointer-events:none}
+  .controls .drop{position:relative;display:flex;align-items:center;gap:8px;border:1.5px solid var(--ink);background:#faf5eb;padding:0 14px 0 14px;height:44px;border-radius:999px;transition:background .2s, color .2s, border-color .2s;cursor:pointer}
+  .controls .drop:hover{background:var(--ink);color:var(--bg)}
+  .controls .drop:hover .dl,.controls .drop:hover select,.controls .drop:hover::after{color:var(--bg)}
+  .controls .drop:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(196,98,45,.18)}
+  .controls .drop .dl{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;transition:color .2s}
+  .controls .drop select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:none;border:none;outline:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;color:var(--ink);text-transform:uppercase;padding:10px 22px 10px 6px;cursor:pointer;font-weight:600;transition:color .2s}
+  .controls .drop::after{content:"▾";position:absolute;right:12px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--accent);pointer-events:none;font-weight:600;transition:color .2s}
   @media(max-width:880px){
-    .controls{grid-template-columns:1fr 1fr;gap:12px;padding:14px 22px}
-    .controls .search{grid-column:1/-1;max-width:none}
+    .controls{grid-template-columns:1fr 1fr;gap:10px;padding:14px 18px}
+    .controls .search{grid-column:1/-1;max-width:none;height:48px}
+    .controls .search input{font-size:16px}
+    .controls .search .kbd{display:none}
     .controls .count{grid-column:1/-1;order:3}
-    .controls .drop{flex:1}
+    .controls .drop{flex:1;height:42px}
   }
 
-  .cats{padding:16px 36px 20px;border-bottom:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap;background:var(--bg)}
-  .cats button{background:transparent;border:1px solid var(--line);padding:8px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);cursor:pointer;border-radius:999px;transition:all .3s;white-space:nowrap;flex-shrink:0}
-  .cats button:hover{border-color:var(--ink)}
-  .cats button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .cats{padding:16px 36px 20px;border-bottom:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;background:var(--bg);align-items:center}
+  .cats::before{content:"BROWSE BY";font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin-right:6px;align-self:center;white-space:nowrap}
+  .cats button{background:transparent;border:1px solid var(--line);padding:9px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2);cursor:pointer;border-radius:999px;transition:all .25s;white-space:nowrap;flex-shrink:0;font-weight:500}
+  .cats button:hover{border-color:var(--ink);background:rgba(42,31,22,.06);color:var(--ink)}
+  .cats button.on{background:var(--accent);color:var(--bg);border-color:var(--accent);box-shadow:0 2px 10px -2px rgba(196,98,45,.45);font-weight:600}
   @media(max-width:880px){
-    .cats{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding:14px 22px;scrollbar-width:none;-webkit-overflow-scrolling:touch;-ms-overflow-style:none;mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%)}
+    .cats{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding:14px 18px;scrollbar-width:none;-webkit-overflow-scrolling:touch;-ms-overflow-style:none;mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%)}
+    .cats::before{display:none}
     .cats::-webkit-scrollbar{display:none}
     .cats button{scroll-snap-align:start}
   }
@@ -400,6 +413,14 @@
   .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:14px 22px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;z-index:120;opacity:0;transition:all .4s;border-radius:2px}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+  /* Persistent cart FAB — visible whenever cart has items (nav-unified.js strips the nav cart button) */
+  .cart-fab{position:fixed;right:22px;bottom:22px;z-index:70;display:none;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:none;padding:14px 22px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;border-radius:999px;box-shadow:0 12px 32px -8px rgba(42,31,22,.4),0 2px 6px rgba(42,31,22,.18);transition:transform .2s, background .2s}
+  .cart-fab:hover{background:var(--accent);transform:translateY(-2px)}
+  .cart-fab.show{display:inline-flex}
+  .cart-fab .fab-count{background:var(--accent);color:var(--bg);font-size:10px;min-width:20px;height:20px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;padding:0 6px;font-weight:600}
+  .cart-fab:hover .fab-count{background:var(--bg);color:var(--accent)}
+  @media(max-width:640px){.cart-fab{right:14px;bottom:14px;padding:12px 18px;font-size:10px}}
+
   footer{background:var(--ink);color:var(--bg);padding:60px 36px;margin-top:80px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(233,223,208,.5)}
   footer a{color:rgba(233,223,208,.7);text-decoration:none}
 
@@ -448,21 +469,23 @@
 </nav>
 
 <header class="hero">
-  <div class="eyebrow"><span class="tick"></span><span>THE APOTHECARY — 200+ SINGLE‑ORIGIN FORMULAS</span></div>
+  <div class="eyebrow"><span class="tick"></span><span>THE APOTHECARY — 82 SINGLE‑ORIGIN FORMULAS</span></div>
   <h1>Every <em>molecule</em><br/>on its own shelf.</h1>
   <p class="lead">A complete house catalogue, organised as it ought to be: alphabetically, honestly, each bottle with the studies folded inside. Browse by need, or choose your chapter below.</p>
   <div class="meta-row">
-    <span><strong>214</strong> formulas</span>
+    <span><strong>82</strong> formulas</span>
     <span><strong>16</strong> categories</span>
     <span>USP verified · every batch</span>
-    <span>Ships from Miami</span>
+    <span>Formulated in Rotterdam · Shipped from Miami</span>
   </div>
 </header>
 
 <div class="controls">
-  <div class="search">
-    <span class="ico">FIND —</span>
-    <input id="q" type="text" placeholder="Magnesium, sleep, ashwagandha…"/>
+  <div class="search" id="searchBox">
+    <span class="ico" aria-hidden="true">⌕</span>
+    <input id="q" type="search" autocomplete="off" spellcheck="false" aria-label="Search 82 formulas" placeholder="Search 82 formulas — magnesium, sleep, ashwagandha…"/>
+    <span class="kbd" aria-hidden="true">/ to search</span>
+    <button class="clear" id="qClear" type="button" aria-label="Clear search">×</button>
   </div>
   <label class="drop" for="formSel">
     <span class="dl">Form</span>
@@ -512,6 +535,13 @@
 </aside>
 
 <div class="toast" id="toast">Added to cart</div>
+
+<!-- Persistent cart FAB (shown only when cart has items) -->
+<button class="cart-fab" id="cartFab" type="button" aria-label="Open cart">
+  <span>Cart</span>
+  <span class="fab-count" id="fabCount">0</span>
+  <span aria-hidden="true">→</span>
+</button>
 
 <footer>
   <span>© MMXXVI VESPER HOUSE · APOTHECARY N° 01</span>

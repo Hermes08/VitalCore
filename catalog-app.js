@@ -301,11 +301,17 @@
   }
 
   function renderCart(){
-    $('#cartCount').textContent = cart.reduce((a,b)=>a+b.qty, 0);
+    const cc = $('#cartCount'); const totalCount = cart.reduce((a,b)=>a+b.qty, 0);
+    if(cc) cc.textContent = totalCount;
+    // Floating cart FAB (visible only when cart has items)
+    const fab = $('#cartFab'); const fc = $('#fabCount');
+    if(fab) fab.classList.toggle('show', totalCount > 0);
+    if(fc) fc.textContent = totalCount;
     const items = $('#cartItems');
+    if(!items) return; // cart drawer not present on this page
     if(cart.length===0){
       items.innerHTML = `<div class="cart-empty">${T.nothing}</div>`;
-      $('#cartTotal').textContent = '$0';
+      const tt = $('#cartTotal'); if(tt) tt.textContent = '$0';
       return;
     }
     items.innerHTML = cart.map((it,idx) => {
@@ -328,7 +334,7 @@
         </div>`;
     }).join('');
     const total = cart.reduce((a,b)=>a + b.price*b.qty, 0);
-    $('#cartTotal').textContent = '$' + total;
+    const tt = $('#cartTotal'); if(tt) tt.textContent = '$' + total;
   }
 
   window.__cartQty = (i, delta) => {
@@ -343,6 +349,7 @@
   function closeCart(){ cartEl.classList.remove('show'); overlay.classList.remove('show'); }
   if($('#openCart')) $('#openCart').onclick = openCart;
   if($('#closeCart')) $('#closeCart').onclick = closeCart;
+  if($('#cartFab')) $('#cartFab').onclick = openCart;
   if($('.checkout')) $('.checkout').onclick = () => toast(IS_ES?'Redirigiendo al pago seguro…':'Redirecting to secure checkout…');
 
   function toast(msg){
@@ -354,7 +361,35 @@
   }
 
   // Search
-  $('#q').oninput = (e) => { query = e.target.value; render(); };
+  const qInput = $('#q');
+  const searchBox = $('#searchBox');
+  const qClear = $('#qClear');
+  qInput.oninput = (e) => {
+    query = e.target.value;
+    if(searchBox) searchBox.classList.toggle('has-val', !!query);
+    render();
+  };
+  if(qClear){
+    qClear.onclick = () => {
+      qInput.value = '';
+      query = '';
+      if(searchBox) searchBox.classList.remove('has-val');
+      qInput.focus();
+      render();
+    };
+  }
+  // "/" keyboard shortcut → focus search (unless already typing elsewhere)
+  document.addEventListener('keydown', (e) => {
+    if(e.key === '/' && document.activeElement !== qInput){
+      const t = e.target;
+      const tag = t && t.tagName;
+      if(tag !== 'INPUT' && tag !== 'TEXTAREA' && !(t && t.isContentEditable)){
+        e.preventDefault();
+        qInput.focus();
+        qInput.select();
+      }
+    }
+  });
 
   // Form + sort dropdowns
   const formSel = $('#formSel'), sortSel = $('#sortSel');
@@ -383,7 +418,8 @@
 
   // Translate search placeholder + count label for ES
   if(IS_ES){
-    const qi = $('#q'); if(qi) qi.placeholder = 'Magnesio, sueño, ashwagandha…';
+    const qi = $('#q'); if(qi){ qi.placeholder = 'Buscar 82 fórmulas — magnesio, sueño, ashwagandha…'; qi.setAttribute('aria-label','Buscar 82 fórmulas'); }
+    const kbd = document.querySelector('.controls .search .kbd'); if(kbd) kbd.textContent = '/ para buscar';
     const countEl = document.querySelector('.controls .count');
     if(countEl) countEl.lastChild.textContent = ' mostradas';
   }
