@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#efe6d7"/>
+<title>Vesper — Encuentra tu fórmula · Quiz de 2 minutos</title>
+<meta name="description" content="Responde seis preguntas sobre tu sueño, energía, estrés y rutina. Nuestra farmacéutica te elige 3–4 fórmulas de las 82 del catálogo. Sin email requerido."/>
+<link rel="canonical" href="./Quiz.html"/>
+<link rel="alternate" hreflang="en-us" href="../Quiz.html"/>
+<link rel="alternate" hreflang="es" href="./Quiz.html"/>
+<link rel="alternate" hreflang="x-default" href="../Quiz.html"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="../nav-unified.js" defer></script>
+<script src="../catalog-data.js" defer></script>
+<script src="../catalog-data-es.js" defer></script>
+
+<style>
+  :root{
+    --bg:#efe6d7; --bg-deep:#d9c9b3; --card:#faf5eb;
+    --ink:#1a120b; --ink-2:#3a2a1e; --muted:#6a5644;
+    --accent:#b4501e; --accent-deep:#8a3c12;
+    --ochre:#b48232; --sage:#5d7050;
+    --line:rgba(26,18,11,.22); --line-soft:rgba(26,18,11,.12);
+    --serif:"Fraunces",Georgia,serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden;min-height:100vh}
+  a{color:inherit}
+  button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
+  ::selection{background:var(--accent);color:var(--bg)}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0 0.03  0 0 0 .3 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity:.18;mix-blend-mode:multiply}
+
+  /* ===== Intro hero ===== */
+  .intro{padding:100px 36px 72px;display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:center;border-bottom:1px solid var(--line)}
+  .intro .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--accent);text-transform:uppercase;display:flex;align-items:center;gap:14px;margin-bottom:28px}
+  .intro .eyebrow .tick{width:18px;height:1px;background:var(--accent)}
+  .intro h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(48px,7vw,108px);line-height:.94;letter-spacing:-.025em;color:var(--ink);max-width:14ch}
+  .intro h1 em{color:var(--accent)}
+  .intro .sub{font-family:var(--serif);font-size:20px;line-height:1.5;color:var(--ink-2);max-width:48ch;margin-top:28px}
+  .intro .meta{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;display:flex;gap:22px;margin-top:32px;flex-wrap:wrap}
+  .intro .meta span{display:inline-flex;align-items:center;gap:8px}
+  .intro .meta span::before{content:"◉";color:var(--ochre);font-size:10px}
+  .intro .start{display:inline-flex;align-items:center;gap:14px;padding:22px 36px;background:var(--accent);color:var(--bg);font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;text-decoration:none;margin-top:40px;transition:background .2s}
+  .intro .start:hover{background:var(--accent-deep)}
+  .intro .start .arr{transition:transform .2s}
+  .intro .start:hover .arr{transform:translateX(4px)}
+
+  .intro-r{display:flex;flex-direction:column;gap:18px;padding-left:40px;border-left:1px solid var(--line)}
+  .intro-r .label{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+  .intro-r .qs-list{display:flex;flex-direction:column;gap:2px}
+  .intro-r .qs-list li{list-style:none;display:grid;grid-template-columns:auto 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--line-soft);font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink-2)}
+  .intro-r .qs-list li .n{font-family:var(--mono);font-style:normal;font-size:10px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;padding-top:4px}
+  .intro-r .note{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--muted);line-height:1.5;margin-top:14px;padding-top:14px;border-top:1px solid var(--line-soft);max-width:40ch}
+
+  @media(max-width:900px){
+    .intro{grid-template-columns:1fr;padding:60px 22px 50px;gap:40px}
+    .intro-r{padding-left:0;border-left:none;padding-top:30px;border-top:1px solid var(--line)}
+  }
+
+  /* ===== Quiz flow ===== */
+  .quiz-wrap{max-width:880px;margin:0 auto;padding:90px 36px;display:none}
+  .quiz-wrap.on{display:block}
+
+  .q-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:48px;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+  .q-head .step{color:var(--accent)}
+  .q-head .progress{display:flex;gap:6px}
+  .q-head .progress .d{width:34px;height:3px;background:var(--line);transition:background .3s}
+  .q-head .progress .d.on{background:var(--accent)}
+  .q-head .progress .d.done{background:var(--ink)}
+
+  .q-num{font-family:var(--mono);font-size:11px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:14px}
+  .q-num::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+  .q-title{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(34px,4.2vw,54px);line-height:1.05;letter-spacing:-.02em;max-width:22ch;margin-bottom:14px}
+  .q-title em{color:var(--accent)}
+  .q-hint{font-family:var(--serif);font-size:16px;color:var(--muted);font-style:italic;margin-bottom:36px;max-width:52ch}
+
+  .options{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:40px}
+  .options.col-1{grid-template-columns:1fr}
+  .options.col-3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:720px){.options,.options.col-3{grid-template-columns:1fr}}
+
+  .opt{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--card);border:1px solid var(--line-soft);cursor:pointer;transition:all .2s;text-align:left;font-family:var(--serif);font-size:17px;color:var(--ink);position:relative}
+  .opt:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .opt .check{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .opt.on{border-color:var(--accent);background:#f7e9d9}
+  .opt.on .check{background:var(--accent);border-color:var(--accent)}
+  .opt.on .check::after{content:"✓";color:var(--bg);font-family:var(--mono);font-size:12px;font-weight:500}
+  .opt .t{flex:1}
+  .opt .t strong{font-weight:500;display:block;margin-bottom:2px}
+  .opt .t .s{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+  .opt.on .t .s{color:var(--accent-deep)}
+
+  .q-nav{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--line-soft)}
+  .q-nav button{padding:16px 28px;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:10px}
+  .q-nav .back{color:var(--muted);background:transparent;border:none}
+  .q-nav .back:hover{color:var(--ink)}
+  .q-nav .next{background:var(--accent);color:var(--bg);border:none;min-width:160px;justify-content:center}
+  .q-nav .next:hover:not(:disabled){background:var(--accent-deep)}
+  .q-nav .next:disabled{opacity:.35;cursor:not-allowed}
+  .q-nav .skip{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;background:none;border:none;cursor:pointer}
+  .q-nav .skip:hover{color:var(--ink)}
+
+  /* ===== Result ===== */
+  .result{display:none;max-width:1100px;margin:0 auto;padding:90px 36px}
+  .result.on{display:block}
+  .result .r-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--accent);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:14px}
+  .result .r-eyebrow::before{content:"◉";color:var(--ochre)}
+  .result h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(44px,6vw,88px);line-height:.95;letter-spacing:-.02em;max-width:16ch;color:var(--ink)}
+  .result h2 em{color:var(--accent)}
+  .result .lede{font-family:var(--serif);font-size:19px;line-height:1.55;color:var(--ink-2);max-width:54ch;margin-top:24px;font-style:italic}
+  .result .divider{height:1px;background:var(--line);margin:56px 0}
+  .result .r-grid{display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start}
+  @media(max-width:860px){.result .r-grid{grid-template-columns:1fr;gap:32px}}
+  .result .summary{position:sticky;top:110px;display:flex;flex-direction:column;gap:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;color:var(--ink-2);text-transform:uppercase;padding:24px;background:var(--card);border:1px solid var(--line-soft)}
+  .result .summary h5{font-family:var(--serif);font-style:italic;font-size:22px;letter-spacing:-.01em;color:var(--accent);text-transform:none;font-weight:400;margin-bottom:6px}
+  .result .summary .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line-soft);gap:12px}
+  .result .summary .row:last-of-type{border-bottom:none}
+  .result .summary .row .v{color:var(--ink);font-family:var(--mono);font-size:10.5px;text-align:right}
+
+  .picks{display:flex;flex-direction:column;gap:18px}
+  .pick{display:grid;grid-template-columns:150px 1fr auto;gap:28px;padding:26px;background:var(--card);border:1px solid var(--line-soft);text-decoration:none;color:inherit;transition:all .3s;align-items:center}
+  .pick:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 20px 40px rgba(26,18,11,.08)}
+  .pick .bottle{width:150px;height:200px;position:relative;display:flex;align-items:center;justify-content:center}
+  .pick .bottle .b{width:90px;height:150px;background:linear-gradient(180deg,var(--c1,#d4a574) 0%,var(--c2,#b8783f) 55%,var(--c3,#8b5a2a) 100%);border-radius:16px 16px 10px 10px;position:relative;box-shadow:0 24px 40px rgba(26,18,11,.18);overflow:hidden}
+  .pick .bottle .b::before{content:"";position:absolute;top:0;left:0;right:0;height:26px;background:#1a120b;border-radius:8px 8px 0 0}
+  .pick .bottle .b::after{content:"";position:absolute;top:10%;left:6px;bottom:8%;width:22px;background:linear-gradient(90deg,rgba(255,255,255,.35),transparent);border-radius:50%;filter:blur(6px)}
+  .pick .info{display:flex;flex-direction:column;gap:6px}
+  .pick .info .rank{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--ochre);text-transform:uppercase;display:flex;align-items:center;gap:10px}
+  .pick .info h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:28px;letter-spacing:-.01em;color:var(--ink)}
+  .pick .info .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-top:3px}
+  .pick .info p{font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.5;color:var(--ink-2);max-width:52ch;margin-top:6px}
+  .pick .info .why{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  .pick .info .why span{padding:4px 9px;border:1px solid var(--line-soft);background:var(--bg)}
+  .pick .price{display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:110px}
+  .pick .price .$ {font-family:var(--serif);font-style:italic;font-size:32px;color:var(--ink);letter-spacing:-.01em}
+  .pick .price .per{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+  .pick .price .add-actions{display:flex;flex-direction:column;gap:6px;margin-top:10px;min-width:160px}
+  .pick .price .add{padding:10px 14px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;cursor:pointer;border:none;text-align:center;transition:all .15s}
+  .pick .price .add.once{background:var(--ink);color:var(--bg)}
+  .pick .price .add.once:hover{background:var(--accent-deep)}
+  .pick .price .add.sub{background:var(--ochre);color:var(--ink)}
+  .pick .price .add.sub:hover{background:var(--accent);color:var(--bg)}
+  .pick .price .add.added{background:var(--sage)!important;color:var(--bg)!important}
+  .pick .info .rank a.link{color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px;letter-spacing:.18em;margin-left:10px}
+  .pick .info .rank a.link:hover{color:var(--accent-deep);text-decoration:underline;text-underline-offset:3px}
+
+  .view-cart-pill{position:fixed;bottom:24px;right:24px;display:none;align-items:center;gap:10px;padding:14px 22px;background:var(--accent);color:var(--bg);font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;box-shadow:0 16px 40px rgba(26,18,11,.28);z-index:300;transition:all .2s}
+  .view-cart-pill:hover{background:var(--accent-deep);transform:translateY(-2px)}
+  .view-cart-pill .n{background:var(--bg);color:var(--accent);padding:2px 8px;font-family:var(--mono);font-weight:500}
+
+  @media(max-width:760px){
+    .pick{grid-template-columns:100px 1fr;grid-template-rows:auto auto;gap:18px;padding:18px}
+    .pick .bottle{width:100px;height:140px}
+    .pick .bottle .b{width:64px;height:108px}
+    .pick .price{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center;border-top:1px solid var(--line-soft);padding-top:14px;margin-top:6px;gap:10px}
+    .pick .price .add-actions{flex:1 1 100%;flex-direction:row;min-width:0;margin-top:0}
+    .pick .price .add{flex:1;text-align:center}
+  }
+
+  .result .bundle{margin-top:40px;padding:36px;background:var(--ink);color:var(--bg);display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
+  .result .bundle h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(28px,3.5vw,42px);line-height:1.1;letter-spacing:-.02em;max-width:24ch}
+  .result .bundle h3 em{color:var(--ochre)}
+  .result .bundle p{font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.5;color:rgba(239,230,215,.75);margin-top:12px;max-width:50ch}
+  .result .bundle .cta{display:flex;flex-direction:column;gap:10px;align-items:flex-end;min-width:200px}
+  .result .bundle .cta .p{font-family:var(--serif);font-style:italic;font-size:38px;color:var(--ochre);letter-spacing:-.01em}
+  .result .bundle .cta .p s{color:rgba(239,230,215,.4);font-size:24px;margin-right:10px}
+  .result .bundle .cta .go{padding:18px 28px;background:var(--ochre);color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:background .2s}
+  .result .bundle .cta .go:hover{background:var(--bg)}
+  @media(max-width:760px){.result .bundle{grid-template-columns:1fr;padding:24px}.result .bundle .cta{align-items:flex-start}}
+
+  .result .restart{margin-top:40px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+  .result .restart button{color:var(--accent);text-decoration:underline;text-underline-offset:4px}
+  .result .restart button:hover{color:var(--accent-deep)}
+
+  /* ===== Reassurance ===== */
+  .reassure{padding:80px 36px;background:var(--card);border-top:1px solid var(--line)}
+  .reassure-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .reassure h4{font-family:var(--serif);font-style:italic;font-size:24px;color:var(--accent);letter-spacing:-.01em;margin-bottom:10px}
+  .reassure p{font-family:var(--serif);font-size:15px;line-height:1.55;color:var(--ink-2);max-width:36ch}
+  @media(max-width:760px){.reassure-grid{grid-template-columns:1fr;gap:30px}}
+
+  footer{padding:50px 36px 28px;background:var(--bg-deep);color:var(--ink-2);font-family:var(--serif)}
+  footer .top{display:flex;justify-content:space-between;align-items:center;padding-bottom:22px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:16px}
+  footer .top .b{font-family:var(--serif);font-style:italic;font-size:24px;color:var(--ink)}
+  footer .top nav{display:flex;gap:22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase}
+  footer .top nav a{color:var(--ink-2);text-decoration:none;opacity:.75}
+  footer .top nav a:hover{color:var(--accent);opacity:1}
+  footer .bot{padding-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body data-page="quiz">
+
+<!-- Intro -->
+<section class="intro" id="intro" data-screen-label="01 Intro">
+  <div>
+    <div class="eyebrow"><span class="tick"></span>Formulario personal · 2 min · Sin email</div>
+    <h1>Cuéntanos cómo es <em>tu</em> día. Te decimos qué tomar.</h1>
+    <p class="sub">Seis preguntas sobre sueño, energía, estrés y rutina. Nuestra farmacéutica cruza tus respuestas con tres o cuatro fórmulas del catálogo — sin ventas cruzadas, sin pseudociencia, sin esos "quiz de bienestar" sin fondo.</p>
+    <div class="meta">
+      <span>6 preguntas</span>
+      <span>~2 min</span>
+      <span>Sin cuenta</span>
+      <span>Puedes saltar al catálogo</span>
+    </div>
+    <a href="#" class="start" id="startBtn">Empezar el quiz <span class="arr">→</span></a>
+  </div>
+  <aside class="intro-r">
+    <div class="label">Lo que te preguntamos</div>
+    <ol class="qs-list">
+      <li><span class="n">01</span>¿Qué te quita el sueño — literalmente?</li>
+      <li><span class="n">02</span>¿Cuándo se te cae la energía?</li>
+      <li><span class="n">03</span>¿Cómo va el estrés, de verdad?</li>
+      <li><span class="n">04</span>¿Cómo es tu constitución?</li>
+      <li><span class="n">05</span>¿Cuántas pastillas toleras al día?</li>
+      <li><span class="n">06</span>¿Qué formato prefieres?</li>
+    </ol>
+    <p class="note">Guardamos tus respuestas solo localmente. Nada se envía al servidor salvo que compres.</p>
+  </aside>
+</section>
+
+<!-- Quiz -->
+<section class="quiz-wrap" id="quiz" data-screen-label="02 Quiz">
+  <div class="q-head">
+    <span class="step">Paso <span id="stepNum">01</span> / 06</span>
+    <div class="progress" id="progress"></div>
+  </div>
+  <div id="qSlot"></div>
+  <div class="q-nav">
+    <button class="back" id="backBtn">← Atrás</button>
+    <button class="skip" id="skipBtn">Saltar pregunta</button>
+    <button class="next" id="nextBtn" disabled>Siguiente →</button>
+  </div>
+</section>
+
+<!-- Result -->
+<section class="result" id="result" data-screen-label="03 Resultado">
+  <div class="r-eyebrow">Tu formulario · Generado <span id="dateStamp"></span></div>
+  <h2>Según lo que nos contaste, <em>estas</em> pertenecen a tu rutina.</h2>
+  <p class="lede" id="lede">Tres fórmulas elegidas para el patrón que describiste. Empieza por la primera — suma las demás en las siguientes semanas mientras tu cuerpo se adapta.</p>
+
+  <div class="divider"></div>
+
+  <div class="r-grid">
+    <aside class="summary" id="summary"></aside>
+    <div>
+      <div class="picks" id="picks"></div>
+      <div class="bundle" id="bundle"></div>
+      <div class="restart">
+        <button id="restartBtn">Rehacer el quiz →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reassurance -->
+<section class="reassure">
+  <div class="reassure-grid">
+    <div><h4>Recomendaciones honestas.</h4><p>Nuestra farmacéutica te dirá cuando una cafeína o una charla con tu médico es mejor respuesta que un suplemento.</p></div>
+    <div><h4>Ajustado a ti.</h4><p>Tus respuestas moldean el stack — estómagos sensibles reciben formas suaves, quienes odian los polvos reciben gomitas y líquidos, todos reciben dosis clínicas.</p></div>
+    <div><h4>Nada es final.</h4><p>Responde a tu primer pedido y la farmacéutica reajusta el stack. Pasa a diario. Sin costo.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="top">
+    <div class="b">Vesper<sup style="font-family:var(--mono);font-size:9px;vertical-align:top;letter-spacing:.2em;opacity:.55;font-style:normal">/MMXXVI</sup></div>
+    <nav>
+      <a href="Catalog.html">Tienda</a>
+      <a href="Journal.html">Diario</a>
+      <a href="Founder.html">Fundadora</a>
+      <a href="../Quiz.html">English</a>
+    </nav>
+  </div>
+  <div class="bot">
+    <span>© 2026 Vesper Botanicals, Rotterdam</span>
+    <span>Probado por terceros · cGMP · Pequeños lotes</span>
+  </div>
+</footer>
+
+<a href="Catalog.html?cart=1" class="view-cart-pill" id="viewCartPill">Ver carrito <span class="n">0</span> →</a>
+
+<script>
+/* === Questions === */
+const QUESTIONS = [
+  { id:'sleep', title:'¿Cuál describe mejor tus noches?', hint:'Elige la más cercana — ajustamos detalles después.', cols:2,
+    opts:[
+      {v:'racing',    t:'Mente acelerada',    s:'No puedo apagar'},
+      {v:'wake',      t:'Me despierto a las 3am', s:'No vuelvo a dormir'},
+      {v:'shallow',   t:'Sueño superficial',  s:'Me despierto sin descanso'},
+      {v:'fine',      t:'Duermo bien',        s:'Lo quiero más profundo'},
+    ]},
+  { id:'energy', title:'¿Cuándo se te <em>derrumba</em> la energía?', hint:'Honestamente — "bajón de la tarde" es lo más común.', cols:2,
+    opts:[
+      {v:'morning',   t:'Despierto plano',        s:'Nunca al 100%'},
+      {v:'11am',      t:'Media mañana',           s:'Muro de las 11'},
+      {v:'3pm',       t:'Bajón de la tarde',      s:'El corte de las 3'},
+      {v:'eve',       t:'Caigo después de cenar', s:'No paso de las 9'},
+    ]},
+  { id:'stress', title:'Tu estrés, <em>de verdad</em>.', hint:'No lo que le dices al terapeuta — lo que te dice el cuerpo.', cols:2,
+    opts:[
+      {v:'wired',     t:'Tenso pero cansado',     s:'No puedo parar'},
+      {v:'foggy',     t:'Neblinoso y lento',      s:'Al borde del burnout'},
+      {v:'snappy',    t:'Irritable, corto',       s:'Mecha corta'},
+      {v:'steady',    t:'Relativamente estable',  s:'Solo prevención'},
+    ]},
+  { id:'const', title:'¿Cómo es tu constitución?', hint:'Generalización — podemos adaptar si nos cuentas más.', cols:2,
+    opts:[
+      {v:'sensitive', t:'Estómago sensible',      s:'La cafeína me pega fuerte'},
+      {v:'tough',     t:'Estómago de acero',      s:'Aguanto lo que sea'},
+      {v:'vegan',     t:'Vegano / vegetariano',   s:'Solo formas vegetales'},
+      {v:'preg',      t:'Embarazada / buscando',  s:'Precaución extra'},
+    ]},
+  { id:'count', title:'¿Cuántas pastillas toleras <em>al día</em>?', hint:'Un número realista que vayas a cumplir.', cols:3,
+    opts:[
+      {v:'1-2',       t:'1–2',                    s:'Minimalista'},
+      {v:'3-5',       t:'3–5',                    s:'Una rutina pequeña'},
+      {v:'6+',        t:'6 o más',                s:'Stack completo bienvenido'},
+    ]},
+  { id:'form', title:'¿Qué <em>formato</em> prefieres?', hint:'Priorizamos este formato donde sea posible.', cols:3,
+    opts:[
+      {v:'capsule',   t:'Cápsulas',               s:'Rápido y limpio'},
+      {v:'gummy',     t:'Gomitas',                s:'Más fácil de recordar'},
+      {v:'powder',    t:'Polvos y líquidos',      s:'Máxima absorción'},
+    ]},
+];
+
+/* === State === */
+let step = 0;
+let answers = {};
+try{
+  const saved = localStorage.getItem('vesper-quiz');
+  if(saved) answers = JSON.parse(saved);
+}catch(e){}
+
+const $ = id => document.getElementById(id);
+const intro = $('intro'), quiz = $('quiz'), result = $('result');
+const qSlot = $('qSlot'), stepNum = $('stepNum'), progress = $('progress');
+const backBtn = $('backBtn'), nextBtn = $('nextBtn'), skipBtn = $('skipBtn');
+
+function renderProgress(){
+  progress.innerHTML = QUESTIONS.map((_,i)=>
+    `<span class="d ${i<step?'done':i===step?'on':''}"></span>`
+  ).join('');
+  stepNum.textContent = String(step+1).padStart(2,'0');
+}
+
+function renderQ(){
+  const q = QUESTIONS[step];
+  const cur = answers[q.id];
+  qSlot.innerHTML = `
+    <div class="q-num">Question ${String(step+1).padStart(2,'0')}</div>
+    <h2 class="q-title">${q.title}</h2>
+    <p class="q-hint">${q.hint}</p>
+    <div class="options col-${q.cols}">
+      ${q.opts.map(o => `
+        <button class="opt ${cur===o.v?'on':''}" data-v="${o.v}">
+          <span class="check"></span>
+          <span class="t"><strong>${o.t}</strong><span class="s">${o.s}</span></span>
+        </button>
+      `).join('')}
+    </div>
+  `;
+  qSlot.querySelectorAll('.opt').forEach(b => {
+    b.addEventListener('click', ()=>{
+      answers[q.id] = b.dataset.v;
+      try{ localStorage.setItem('vesper-quiz', JSON.stringify(answers)); }catch(e){}
+      qSlot.querySelectorAll('.opt').forEach(o=>o.classList.remove('on'));
+      b.classList.add('on');
+      nextBtn.disabled = false;
+    });
+  });
+  nextBtn.disabled = !answers[q.id];
+  backBtn.style.visibility = step===0 ? 'hidden' : 'visible';
+  nextBtn.textContent = step === QUESTIONS.length-1 ? 'Ver mis fórmulas →' : 'Next →';
+  renderProgress();
+}
+
+$('startBtn').addEventListener('click', e => {
+  e.preventDefault();
+  intro.style.display = 'none';
+  quiz.classList.add('on');
+  step = 0;
+  renderQ();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+backBtn.addEventListener('click', ()=>{
+  if(step > 0){ step--; renderQ(); }
+});
+skipBtn.addEventListener('click', ()=>{
+  delete answers[QUESTIONS[step].id];
+  if(step < QUESTIONS.length-1){ step++; renderQ(); }
+  else { showResult(); }
+});
+nextBtn.addEventListener('click', ()=>{
+  if(step < QUESTIONS.length-1){ step++; renderQ(); }
+  else { showResult(); }
+});
+
+/* === Motor de recomendación ===
+   Los picks son IDs reales del catálogo (catalog-data.js).
+   showResult() resuelve datos en vivo de window.VESPER_PRODUCTS (+ ES merge). */
+function pickFormulas(){
+  const raw = [];
+  const add = (id, tag, why) => raw.push({id, tag, why});
+
+  // Sueño
+  if(answers.sleep==='racing' || answers.stress==='wired'){
+    add('mag-glycinate', 'Sueño · Calma', ['mente acelerada','wired']);
+  }
+  if(answers.sleep==='wake' || answers.sleep==='shallow'){
+    add('sleep-formula', 'Sueño · Profundo', ['despiertas 3am','sueño ligero']);
+  }
+
+  // Energía
+  if(answers.energy==='morning' || answers.energy==='11am'){
+    add('b-complex', 'Energía · Diaria', ['mañanas planas','pared 11am']);
+  }
+  if(answers.energy==='3pm'){
+    add('ashwagandha', 'Energía · Tarde', ['bajón 3pm']);
+  }
+  if(answers.energy==='eve'){
+    add('rhodiola', 'Energía · Resistencia', ['caída postcena']);
+  }
+
+  // Estrés
+  if(answers.stress==='foggy' || answers.stress==='snappy'){
+    add('l-theanine', 'Calma · Foco', ['niebla','irritable']);
+  }
+
+  // Constitución
+  if(answers.const==='preg'){
+    add('prenatal', 'Mujer · Prenatal', ['embarazo']);
+  }
+  if(answers.const==='vegan'){
+    add('b12-5000', 'Vegano · Esencial', ['vegano']);
+  }
+  if(answers.const==='sensitive'){
+    add('mag-glycinate', 'Gentil · Bufferizada', ['estómago sensible']);
+  }
+
+  // Preferencia de forma
+  if(answers.form==='gummy'){
+    add('d3-k2-gummies', 'Gomita · Diaria', ['prefiere gomitas']);
+    add('acv-gummies',   'Digestión · Diaria', ['prefiere gomitas']);
+  }
+
+  const cap = answers.count==='1-2' ? 2 : answers.count==='6+' ? 4 : 3;
+
+  const byId = new Map();
+  for(const p of raw){
+    if(byId.has(p.id)){
+      const cur = byId.get(p.id);
+      cur.why = [...new Set([...cur.why, ...p.why])];
+    } else {
+      byId.set(p.id, {id:p.id, tag:p.tag, why:[...p.why]});
+    }
+  }
+  let out = [...byId.values()];
+
+  const fallbacks = ['daily-01','omega-3','d3-5000'];
+  for(const id of fallbacks){
+    if(out.length >= Math.max(3, cap)) break;
+    if(!byId.has(id)){
+      out.push({id, tag:'Base · Diaria', why:['fundamental']});
+      byId.set(id, true);
+    }
+  }
+  out = out.slice(0, cap);
+  const P = window.VESPER_PRODUCTS || [];
+  out = out.filter(x => P.some(p => p.id === x.id));
+  return out;
+}
+
+/* === Carrito (mismo formato que catalog-app.js) === */
+function readCart(){
+  try{ return JSON.parse(localStorage.getItem('vesperCart') || '[]'); }
+  catch(e){ return []; }
+}
+function writeCart(c){
+  try{ localStorage.setItem('vesperCart', JSON.stringify(c)); }catch(e){}
+  updateCartPill();
+}
+function cartCount(){
+  return readCart().reduce((a,b)=>a + (b.qty||0), 0);
+}
+function updateCartPill(){
+  const pill = document.getElementById('viewCartPill');
+  if(!pill) return;
+  const n = cartCount();
+  if(n > 0){
+    pill.style.display = 'inline-flex';
+    const span = pill.querySelector('.n');
+    if(span) span.textContent = n;
+  } else {
+    pill.style.display = 'none';
+  }
+}
+// Merge ES translations into products (if not already merged elsewhere)
+function esProducts(){
+  const P = window.VESPER_PRODUCTS || [];
+  const TES = window.VESPER_PRODUCTS_ES;
+  if(!TES) return P;
+  return P.map(p => {
+    const t = TES[p.id];
+    if(!t) return p;
+    return { ...p, name: t.name||p.name, blurb: t.blurb||p.blurb };
+  });
+}
+window.__quizAdd = (id, sub) => {
+  const P = window.VESPER_PRODUCTS || [];
+  const p = P.find(x=>x.id===id);
+  if(!p){ console.warn('quiz: producto desconocido', id); return; }
+  const price = sub==='sub' ? Math.round(p.price * 0.85) : p.price;
+  const cart = readCart();
+  const existing = cart.find(x => x.id===id && x.sub===sub);
+  if(existing) existing.qty += 1;
+  else cart.push({ id, qty:1, sub, price });
+  writeCart(cart);
+  const btn = document.querySelector(`[data-add="${id}"][data-sub="${sub}"]`);
+  if(btn){
+    const original = btn.dataset.label || btn.textContent;
+    btn.dataset.label = original;
+    btn.textContent = sub==='sub' ? 'Suscripción añadida ✓' : 'Añadido ✓';
+    btn.classList.add('added');
+    setTimeout(()=>{ btn.textContent = original; btn.classList.remove('added'); }, 1500);
+  }
+};
+window.__quizAddBundle = (ids) => {
+  const P = window.VESPER_PRODUCTS || [];
+  const cart = readCart();
+  ids.forEach(id => {
+    const p = P.find(x=>x.id===id);
+    if(!p) return;
+    const price = Math.round(p.price * 0.85);
+    const existing = cart.find(x => x.id===id && x.sub==='sub');
+    if(existing) existing.qty += 1;
+    else cart.push({ id, qty:1, sub:'sub', price });
+  });
+  writeCart(cart);
+  window.location.href = 'Catalog.html?cart=1';
+};
+
+function ansLabel(qid, val){
+  if(!val) return '—';
+  const q = QUESTIONS.find(q=>q.id===qid);
+  const o = q && q.opts.find(o=>o.v===val);
+  return o ? o.t : val;
+}
+
+function showResult(){
+  quiz.classList.remove('on');
+  result.classList.add('on');
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  // Date stamp
+  const d = new Date();
+  $('dateStamp').textContent = d.toLocaleDateString('es-ES', {year:'numeric',month:'long',day:'numeric'});
+
+  // Summary
+  const sum = $('summary');
+  sum.innerHTML = `
+    <h5>Tu patrón</h5>
+    <div class="row"><span>Sueño</span><span class="v">${ansLabel('sleep',answers.sleep)}</span></div>
+    <div class="row"><span>Energía</span><span class="v">${ansLabel('energy',answers.energy)}</span></div>
+    <div class="row"><span>Estrés</span><span class="v">${ansLabel('stress',answers.stress)}</span></div>
+    <div class="row"><span>Constitución</span><span class="v">${ansLabel('const',answers.const)}</span></div>
+    <div class="row"><span>Pastillas al día</span><span class="v">${ansLabel('count',answers.count)}</span></div>
+    <div class="row"><span>Formato preferido</span><span class="v">${ansLabel('form',answers.form)}</span></div>
+  `;
+
+  const picksMeta = pickFormulas();
+  const PP = esProducts();
+  const picks = picksMeta.map(m => {
+    const p = PP.find(x=>x.id===m.id);
+    return p ? {...p, _tag:m.tag, _why:m.why} : null;
+  }).filter(Boolean);
+
+  const picksWrap = $('picks');
+  picksWrap.innerHTML = picks.map((p,i) => {
+    const subPrice = Math.round(p.price * 0.85);
+    return `
+    <div class="pick" data-id="${p.id}">
+      <div class="bottle"><div class="b" style="--c1:${p.c1};--c2:${p.c2};--c3:${p.c3}"></div></div>
+      <div class="info">
+        <div class="rank">Fórmula ${String(i+1).padStart(2,'0')} / ${picks.length} · <a href="Catalog.html#${p.id}" class="link">Ver detalles →</a></div>
+        <h3>${p.name}</h3>
+        <div class="tag">${p._tag} · ${p.dose}</div>
+        <p>${p.blurb}</p>
+        <div class="why">${p._why.map(w=>`<span>→ ${w}</span>`).join('')}</div>
+      </div>
+      <div class="price">
+        <div class="$">$${p.price}</div>
+        <div class="per">suscripción: $${subPrice}</div>
+        <div class="add-actions">
+          <button class="add once" data-add="${p.id}" data-sub="once" onclick="window.__quizAdd('${p.id}','once')">Añadir</button>
+          <button class="add sub" data-add="${p.id}" data-sub="sub" onclick="window.__quizAdd('${p.id}','sub')">Suscribir −15%</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Bundle
+  const total = picks.reduce((s,p)=>s+p.price, 0);
+  const bundlePrice = picks.reduce((s,p)=>s + Math.round(p.price * 0.85), 0);
+  const ids = picks.map(p=>p.id);
+  $('bundle').innerHTML = `
+    <div>
+      <h3>Llévate el <em>stack completo</em>, 15% menos.</h3>
+      <p>Suscríbete y enviamos la rutina completa. Cancela cuando quieras. Llega en 3–5 días hábiles.</p>
+    </div>
+    <div class="cta">
+      <div class="p"><s>$${total}</s> $${bundlePrice}</div>
+      <button class="go" onclick='window.__quizAddBundle(${JSON.stringify(ids)})'>Suscribirme al stack →</button>
+    </div>
+  `;
+
+  updateCartPill();
+}
+
+$('restartBtn').addEventListener('click', ()=>{
+  answers = {};
+  try{ localStorage.removeItem('vesper-quiz'); }catch(e){}
+  result.classList.remove('on');
+  intro.style.display = '';
+  step = 0;
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', updateCartPill);
+} else {
+  updateCartPill();
+}
+</script>
+
+</body>
+</html>

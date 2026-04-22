@@ -344,8 +344,9 @@
   .tweaks-panel .swatches button.on{border-color:var(--ink)}
   @media(max-width:520px){.tweaks-panel{right:12px;left:12px;bottom:12px;width:auto}}
 </style>
+<script src="nav-unified.js" defer></script>
 </head>
-<body>
+<body data-page="home">
 
 <div class="ann">
   <span><em>◉</em> Batch N° 031 · 488 bottles left</span>
@@ -358,10 +359,12 @@
 <nav class="top">
   <a class="brand" href="Home.html">Vesper<sup>/MMXXVI</sup></a>
   <div class="links">
-    <a href="Home.html" class="active">Home</a>
-    <a href="Catalog.html">Apothecary</a>
+    <a href="Catalog.html" class="active">Shop all</a>
+    <a href="Catalog.html">By need</a>
     <a href="Journal.html">Journal</a>
-    <a href="es/Home.html">Español</a>
+    <a href="Quiz.html">Find mine</a>
+    <a href="Home.html">Daily N° 01</a>
+    <a href="Home.html">All pages</a>
   </div>
   <div class="cart">
     <a class="btn-nav" href="Catalog.html">Shop<span>→</span></a>
@@ -371,9 +374,12 @@
 
 <aside class="drawer" id="drawer">
   <button class="x" id="drawerClose">Close ✕</button>
-  <a href="Home.html">Home <span class="tag">Landing</span></a>
-  <a href="Catalog.html">Apothecary <span class="tag">82 formulas</span></a>
+  <a href="Catalog.html">Shop all <span class="tag">82 formulas</span></a>
+  <a href="Catalog.html">Shop by need <span class="tag">6 outcomes</span></a>
   <a href="Journal.html">Journal <span class="tag">82 articles</span></a>
+  <a href="Quiz.html">Find mine <span class="tag">2-min quiz</span></a>
+  <a href="Home.html">Daily N° 01 <span class="tag">Flagship</span></a>
+  <a href="Home.html">All pages <span class="tag">20 rooms</span></a>
   <a href="es/Home.html">Español <span class="tag">ES site</span></a>
 </aside>
 
@@ -428,7 +434,7 @@
     <div class="right">Six outcomes, thoughtfully paired with the formulas that actually support them.</div>
   </div>
   <div class="needs-grid">
-    <a href="Catalog.html" class="need-tile">
+    <a href="Catalog.html#sleep" class="need-tile">
       <span class="glyph">☾</span>
       <div>
         <h4>Sleep</h4>
@@ -436,7 +442,7 @@
       </div>
       <span class="arr">12 formulas →</span>
     </a>
-    <a href="Catalog.html" class="need-tile">
+    <a href="Catalog.html#energy" class="need-tile">
       <span class="glyph">☀</span>
       <div>
         <h4>Energy</h4>
@@ -444,7 +450,7 @@
       </div>
       <span class="arr">14 formulas →</span>
     </a>
-    <a href="Catalog.html" class="need-tile">
+    <a href="Catalog.html#immunity" class="need-tile">
       <span class="glyph">✧</span>
       <div>
         <h4>Immunity</h4>
@@ -452,7 +458,7 @@
       </div>
       <span class="arr">9 formulas →</span>
     </a>
-    <a href="Catalog.html" class="need-tile">
+    <a href="Catalog.html#women" class="need-tile">
       <span class="glyph">♀</span>
       <div>
         <h4>Women</h4>
@@ -460,7 +466,7 @@
       </div>
       <span class="arr">8 formulas →</span>
     </a>
-    <a href="Catalog.html" class="need-tile">
+    <a href="Catalog.html#men" class="need-tile">
       <span class="glyph">♂</span>
       <div>
         <h4>Men</h4>
@@ -468,7 +474,7 @@
       </div>
       <span class="arr">7 formulas →</span>
     </a>
-    <a href="Catalog.html" class="need-tile">
+    <a href="Catalog.html#kids" class="need-tile">
       <span class="glyph">✺</span>
       <div>
         <h4>Kids</h4>
@@ -513,7 +519,7 @@
   </div>
   <div class="r">
     <blockquote>"My mother took seventeen pills a day. None of them worked for her — and I knew it, and she knew it, and the pharmacist knew it. We just <em>did it anyway.</em> Vesper is what I wish I had handed her in 2014."</blockquote>
-    <a href="Journal.html">Read the journal →</a>
+    <a href="Founder.html">Read her letter →</a>
   </div>
 </section>
 
@@ -524,7 +530,7 @@
   <p class="sub">Our three bestsellers cover most of what you'd walk into the pharmacy to find. Pick one, try it for thirty days, send it back if it's not yours.</p>
   <div class="cta-group">
     <a href="Catalog.html" class="btn-primary">Shop all formulas →</a>
-    <a href="Journal.html" class="btn-ghost">Read the journal</a>
+    <a href="Quiz.html" class="btn-ghost">Take the 2-min quiz</a>
   </div>
 </section>
 
@@ -539,20 +545,36 @@
       <h5>Shop</h5>
       <ul>
         <li><a href="Catalog.html">All formulas</a></li>
-        <li><a href="Journal.html">Journal</a></li>
+        <li><a href="Catalog.html">By need</a></li>
+        <li><a href="Catalog.html">Rituals</a></li>
+        <li><a href="Home.html">Daily N° 01</a></li>
       </ul>
     </div>
     <div>
-      <h5>Articles</h5>
+      <h5>Learn</h5>
       <ul>
-        <li><a href="Articles/apple-cider-vinegar-gummies.html">Apple cider vinegar gummies</a></li>
-        <li><a href="Articles/magnesium-glycinate.html">Magnesium glycinate</a></li>
+        <li><a href="Journal.html">Journal</a></li>
+        <li><a href="Journal.html">The science</a></li>
+        <li><a href="Journal.html">Sourcing</a></li>
+        <li><a href="Founder.html">Our founder</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Help</h5>
+      <ul>
+        <li><a href="Quiz.html">Find mine</a></li>
+        <li><a href="Catalog.html">Compare</a></li>
+        <li><a href="Catalog.html">Savings</a></li>
+        <li><a href="Catalog.html">Account</a></li>
       </ul>
     </div>
     <div>
       <h5>Other</h5>
       <ul>
         <li><a href="es/Home.html">Español</a></li>
+        <li><a href="Journal.html">Press</a></li>
+        <li><a href="Journal.html">The lab</a></li>
+        <li><a href="Home.html">All pages</a></li>
       </ul>
     </div>
   </div>

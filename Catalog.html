@@ -43,17 +43,33 @@
   .hero .meta-row span strong{color:var(--ink);font-weight:400}
 
   /* Filters */
-  .controls{position:sticky;top:72px;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding:18px 36px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
-  .controls .search{display:flex;align-items:center;gap:12px;max-width:420px;flex:1;border-bottom:1px solid var(--ink);padding:6px 0}
-  .controls .search input{flex:1;border:none;outline:none;background:none;font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink)}
+  .controls{position:sticky;top:72px;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding:18px 36px;display:grid;grid-template-columns:1fr auto auto auto;gap:20px;align-items:center}
+  .controls .search{display:flex;align-items:center;gap:12px;max-width:420px;min-width:200px;border-bottom:1px solid var(--ink);padding:6px 0}
+  .controls .search input{flex:1;min-width:0;border:none;outline:none;background:none;font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink)}
   .controls .search input::placeholder{color:var(--muted);font-style:italic}
   .controls .search .ico{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
-  .controls .count{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  .controls .count{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+  .controls .drop{position:relative;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);padding:0 12px 0 14px;height:38px;transition:border-color .2s}
+  .controls .drop:hover{border-color:var(--ink)}
+  .controls .drop .dl{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+  .controls .drop select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:none;border:none;outline:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;color:var(--ink);text-transform:uppercase;padding:8px 22px 8px 6px;cursor:pointer;font-weight:500}
+  .controls .drop::after{content:"▾";position:absolute;right:10px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--muted);pointer-events:none}
+  @media(max-width:880px){
+    .controls{grid-template-columns:1fr 1fr;gap:12px;padding:14px 22px}
+    .controls .search{grid-column:1/-1;max-width:none}
+    .controls .count{grid-column:1/-1;order:3}
+    .controls .drop{flex:1}
+  }
 
   .cats{padding:16px 36px 20px;border-bottom:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap;background:var(--bg)}
-  .cats button{background:transparent;border:1px solid var(--line);padding:8px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);cursor:pointer;border-radius:999px;transition:all .3s}
+  .cats button{background:transparent;border:1px solid var(--line);padding:8px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);cursor:pointer;border-radius:999px;transition:all .3s;white-space:nowrap;flex-shrink:0}
   .cats button:hover{border-color:var(--ink)}
   .cats button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  @media(max-width:880px){
+    .cats{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding:14px 22px;scrollbar-width:none;-webkit-overflow-scrolling:touch;-ms-overflow-style:none;mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%)}
+    .cats::-webkit-scrollbar{display:none}
+    .cats button{scroll-snap-align:start}
+  }
 
   /* Product grid */
   .section-label{display:flex;align-items:center;gap:16px;font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin:60px 36px 24px}
@@ -413,16 +429,17 @@
   .m-drawer .m-foot{margin-top:auto;padding-top:20px;display:flex;flex-direction:column;gap:8px;font-family:var(--mono,'JetBrains Mono',monospace);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;opacity:.55}
   .m-drawer .m-cta{margin-top:20px;display:inline-flex;justify-content:space-between;align-items:center;background:#c9613b;color:#e9dfd0;padding:15px 18px;text-decoration:none;font-family:var(--mono,'JetBrains Mono',monospace);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
   </style>
+<script src="nav-unified.js" defer></script>
 </head>
-<body>
+<body data-page="shop">
 
 <nav class="top">
-  <div class="brand"><a href="Home.html">Vesper<sup>/MMXXVI</sup></a></div>
+  <div class="brand"><a href="Home.html">Vesper<sup>/01</sup></a></div>
   <div class="links">
     <a href="Home.html">Home</a>
     <a href="Catalog.html" class="active">Apothecary</a>
     <a href="Journal.html">Journal</a>
-    <a href="es/Home.html">Español</a>
+    <a href="Founder.html">Founder</a>
   </div>
   <button class="cart" id="openCart"><span class="dot"></span><span>Cart — <span id="cartCount">0</span></span></button>
 
@@ -447,6 +464,28 @@
     <span class="ico">FIND —</span>
     <input id="q" type="text" placeholder="Magnesium, sleep, ashwagandha…"/>
   </div>
+  <label class="drop" for="formSel">
+    <span class="dl">Form</span>
+    <select id="formSel" aria-label="Filter by form">
+      <option value="all">Any form</option>
+      <option value="capsule">Capsules</option>
+      <option value="softgel">Softgels</option>
+      <option value="tablet">Tablets</option>
+      <option value="gummy">Gummies</option>
+      <option value="powder">Powders</option>
+      <option value="packet">Packets</option>
+      <option value="sublingual">Sublingual</option>
+    </select>
+  </label>
+  <label class="drop" for="sortSel">
+    <span class="dl">Sort</span>
+    <select id="sortSel" aria-label="Sort products">
+      <option value="featured">Featured</option>
+      <option value="price-asc">Price ↑</option>
+      <option value="price-desc">Price ↓</option>
+      <option value="az">A–Z</option>
+    </select>
+  </label>
   <div class="count"><span id="shownN">0</span> / <span id="totalN">0</span> shown</div>
 </div>
 
@@ -491,11 +530,15 @@
   </div>
   <nav class="m-links">
     <a href="Home.html"><span>Home</span><span class="num">01</span></a>
-    <a href="Catalog.html"><span>Apothecary</span><span class="num">02</span></a>
-    <a href="Journal.html"><span>Journal</span><span class="num">03</span></a>
-    <a href="es/Home.html"><span>Español</span><span class="num">04</span></a>
+    <a href="Catalog.html"><span>Shop</span><span class="num">02</span></a>
+    <a href="Catalog.html"><span>Apothecary</span><span class="num">03</span></a>
+    <a href="Quiz.html"><span>Quiz</span><span class="num">04</span></a>
+    <a href="Catalog.html"><span>Bundles</span><span class="num">05</span></a>
+    <a href="Journal.html"><span>Inside</span><span class="num">06</span></a>
+    <a href="Founder.html"><span>Journal</span><span class="num">07</span></a>
+    <a href="Home.html"><span>All pages</span><span class="num">20</span></a>
   </nav>
-  <a class="m-cta" href="Catalog.html">Shop all formulas<span>→</span></a>
+  <a class="m-cta" href="Catalog.html">Shop Vesper N°01<span>→</span></a>
   <div class="m-foot">
     <span>Free shipping · 30-day guarantee</span>
     <span>© Vesper Apothecary 2026</span>

@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#efe6d7"/>
+<title>Vesper — La Fundadora · Dra. Marthe Janssen, PharmD</title>
+<meta name="description" content="La historia detrás de Vesper. Una farmacéutica, una mesa de compounding, y 82 fórmulas hechas por alguien que lee los estudios."/>
+<link rel="canonical" href="./Founder.html"/>
+<link rel="alternate" hreflang="en-us" href="../Founder.html"/>
+<link rel="alternate" hreflang="es" href="./Founder.html"/>
+<link rel="alternate" hreflang="x-default" href="../Founder.html"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="../nav-unified.js" defer></script>
+
+<style>
+  :root{
+    --bg:#efe6d7; --bg-deep:#d9c9b3; --card:#faf5eb;
+    --ink:#1a120b; --ink-2:#3a2a1e; --muted:#6a5644;
+    --accent:#b4501e; --accent-deep:#8a3c12;
+    --ochre:#b48232; --sage:#5d7050;
+    --line:rgba(26,18,11,.22); --line-soft:rgba(26,18,11,.12);
+    --serif:"Fraunces",Georgia,serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  a{color:inherit}
+  ::selection{background:var(--accent);color:var(--bg)}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0 0.03  0 0 0 .3 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity:.2;mix-blend-mode:multiply}
+
+  /* HERO — portrait + pull quote */
+  .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:0;border-bottom:1px solid var(--line);min-height:86vh;align-items:stretch}
+  .hero .l{padding:120px 60px 60px;display:flex;flex-direction:column;justify-content:flex-end;gap:32px}
+  .hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:14px}
+  .hero .eyebrow .tick{width:22px;height:1px;background:var(--accent)}
+  .hero h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(52px,7.5vw,128px);line-height:.9;letter-spacing:-.03em;max-width:13ch}
+  .hero h1 em{color:var(--accent)}
+  .hero .sub{font-family:var(--serif);font-size:20px;line-height:1.55;color:var(--ink-2);max-width:48ch;font-style:italic}
+  .hero .meta{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;padding-top:18px;border-top:1px solid var(--line-soft)}
+  .hero .meta span::before{content:"◉  ";color:var(--ochre)}
+
+  .hero .r{background:linear-gradient(160deg,#8a5a38 0%,#6a3a20 45%,#3a1f10 100%);position:relative;overflow:hidden;min-height:560px}
+  .hero .r .portrait{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .hero .r .portrait svg{width:80%;max-width:540px;height:auto;display:block;filter:drop-shadow(0 30px 60px rgba(26,18,11,.5))}
+  .hero .r .stamp{position:absolute;left:40px;bottom:40px;color:rgba(239,230,215,.75);font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;line-height:1.8}
+  .hero .r .stamp em{color:var(--ochre);font-style:normal}
+  .hero .r .corner{position:absolute;top:30px;right:30px;width:66px;height:66px;border:1px solid rgba(239,230,215,.35);display:flex;align-items:center;justify-content:center;color:rgba(239,230,215,.85);font-family:var(--serif);font-style:italic;font-size:22px}
+  @media(max-width:960px){
+    .hero{grid-template-columns:1fr;min-height:0}
+    .hero .l{padding:60px 24px 40px}
+    .hero .r{min-height:440px;order:-1}
+  }
+
+  /* SIGNATURE LINE */
+  .sig-line{background:var(--ink);color:var(--bg);padding:34px 36px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+  .sig-line .sig{font-family:var(--serif);font-style:italic;font-size:36px;color:var(--ochre);letter-spacing:-.01em}
+  .sig-line .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.25em;text-transform:uppercase;opacity:.75;text-align:right;line-height:1.8}
+  .sig-line .who em{color:var(--ochre);font-style:normal;letter-spacing:.2em}
+
+  /* STORY — drop cap essay */
+  .story{max-width:760px;margin:0 auto;padding:110px 36px 90px;border-bottom:1px solid var(--line)}
+  .story .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:14px}
+  .story .kicker::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+  .story h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(36px,4.5vw,58px);line-height:1.04;letter-spacing:-.02em;margin-bottom:42px;max-width:22ch}
+  .story h2 em{color:var(--accent)}
+  .story p{font-family:var(--serif);font-size:20px;line-height:1.65;color:var(--ink-2);margin-bottom:22px}
+  .story p.first::first-letter{font-family:var(--serif);font-style:italic;font-weight:300;font-size:108px;line-height:.82;float:left;margin:8px 14px -6px 0;color:var(--accent)}
+  .story p em{color:var(--accent);font-style:italic}
+  .story blockquote{margin:40px -40px;padding:40px;background:var(--card);border-left:3px solid var(--accent);font-family:var(--serif);font-style:italic;font-weight:300;font-size:28px;line-height:1.35;letter-spacing:-.01em;color:var(--ink);max-width:none}
+  .story blockquote cite{display:block;font-size:12px;font-family:var(--mono);letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-style:normal;margin-top:18px}
+  @media(max-width:620px){
+    .story{padding:60px 22px}
+    .story p.first::first-letter{font-size:76px}
+    .story blockquote{margin:30px 0;padding:24px;font-size:22px}
+  }
+
+  /* TIMELINE */
+  .timeline{padding:100px 36px;background:var(--card);border-bottom:1px solid var(--line)}
+  .timeline-wrap{max-width:1100px;margin:0 auto}
+  .timeline h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(34px,4vw,52px);line-height:1;letter-spacing:-.02em;margin-bottom:48px;max-width:18ch}
+  .timeline h3 em{color:var(--accent)}
+  .timeline .row{display:grid;grid-template-columns:120px 1fr 2fr;gap:40px;padding:28px 0;border-top:1px solid var(--line-soft);align-items:baseline}
+  .timeline .row:last-child{border-bottom:1px solid var(--line-soft)}
+  .timeline .row .yr{font-family:var(--serif);font-style:italic;font-size:36px;color:var(--accent);letter-spacing:-.01em}
+  .timeline .row h4{font-family:var(--serif);font-style:italic;font-weight:400;font-size:22px;color:var(--ink);letter-spacing:-.01em;max-width:20ch}
+  .timeline .row p{font-family:var(--serif);font-size:16px;line-height:1.55;color:var(--ink-2);max-width:54ch}
+  @media(max-width:760px){
+    .timeline .row{grid-template-columns:80px 1fr;gap:20px}
+    .timeline .row p{grid-column:1/-1;margin-top:-10px;padding-left:100px}
+    .timeline .row .yr{font-size:26px}
+  }
+
+  /* CREDENTIALS — grid */
+  .creds{padding:90px 36px;border-bottom:1px solid var(--line)}
+  .creds-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px}
+  .creds-grid .c{padding:30px;background:var(--card);border:1px solid var(--line-soft);display:flex;flex-direction:column;gap:10px}
+  .creds-grid .c .k{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+  .creds-grid .c h5{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--ink);letter-spacing:-.01em;font-weight:400;line-height:1.1}
+  .creds-grid .c p{font-family:var(--serif);font-size:15px;line-height:1.55;color:var(--ink-2)}
+  @media(max-width:860px){.creds-grid{grid-template-columns:1fr;gap:18px}}
+
+  /* THREE PRINCIPLES */
+  .principles{padding:100px 36px;background:var(--ink);color:var(--bg);border-bottom:1px solid var(--line)}
+  .principles-wrap{max-width:1100px;margin:0 auto}
+  .principles .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--ochre);text-transform:uppercase;margin-bottom:18px}
+  .principles h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:-.02em;max-width:18ch;margin-bottom:56px}
+  .principles h3 em{color:var(--ochre)}
+  .principles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+  .principles-grid .p{padding:0 36px;border-right:1px solid rgba(239,230,215,.15);display:flex;flex-direction:column;gap:14px}
+  .principles-grid .p:first-child{padding-left:0}
+  .principles-grid .p:last-child{border-right:none;padding-right:0}
+  .principles-grid .p .n{font-family:var(--serif);font-style:italic;font-size:84px;line-height:1;color:var(--ochre);letter-spacing:-.03em;font-weight:300}
+  .principles-grid .p h4{font-family:var(--serif);font-style:italic;font-weight:400;font-size:28px;color:var(--bg);letter-spacing:-.01em;line-height:1.1;max-width:18ch}
+  .principles-grid .p p{font-family:var(--serif);font-size:16px;line-height:1.55;color:rgba(239,230,215,.75);max-width:36ch}
+  @media(max-width:860px){
+    .principles-grid{grid-template-columns:1fr;gap:36px}
+    .principles-grid .p{padding:0!important;border-right:none;border-bottom:1px solid rgba(239,230,215,.15);padding-bottom:30px!important}
+    .principles-grid .p:last-child{border-bottom:none}
+  }
+
+  /* LETTER FOOTER */
+  .letter{padding:120px 36px;text-align:center;background:var(--card);border-bottom:1px solid var(--line)}
+  .letter blockquote{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(32px,4.5vw,58px);line-height:1.15;letter-spacing:-.02em;color:var(--ink);max-width:22ch;margin:0 auto 40px}
+  .letter blockquote em{color:var(--accent)}
+  .letter .sig{font-family:var(--serif);font-style:italic;font-size:44px;color:var(--accent);letter-spacing:-.01em}
+  .letter .meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-top:12px}
+
+  /* CTA */
+  .cta{padding:100px 36px;text-align:center}
+  .cta .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:18px}
+  .cta h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(44px,6vw,96px);line-height:.95;letter-spacing:-.02em;max-width:16ch;margin:0 auto 32px}
+  .cta h2 em{color:var(--accent)}
+  .cta .group{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .cta a{padding:20px 32px;font-family:var(--mono);font-size:12px;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s}
+  .cta .primary{background:var(--accent);color:var(--bg)}
+  .cta .primary:hover{background:var(--accent-deep)}
+  .cta .ghost{border:1px solid var(--line);color:var(--ink)}
+  .cta .ghost:hover{background:var(--ink);color:var(--bg)}
+
+  footer{padding:48px 36px 24px;background:var(--bg-deep);color:var(--ink-2);font-family:var(--serif)}
+  footer .top{display:flex;justify-content:space-between;align-items:center;padding-bottom:22px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:16px}
+  footer .top .b{font-family:var(--serif);font-style:italic;font-size:24px;color:var(--ink)}
+  footer .top nav{display:flex;gap:22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase}
+  footer .top nav a{color:var(--ink-2);text-decoration:none;opacity:.75}
+  footer .top nav a:hover{color:var(--accent);opacity:1}
+  footer .bot{padding-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body data-page="founder">
+
+<!-- HERO -->
+<section class="hero" data-screen-label="01 Portada">
+  <div class="l">
+    <div class="eyebrow"><span class="tick"></span>La Fundadora · Fundada 2019</div>
+    <h1>Una farmacéutica con una <em>mesa de compounding</em> y 82 opiniones tercas.</h1>
+    <p class="sub">La Dra. Marthe Janssen pasó doce años tras un mostrador en Rotterdam viendo a clientes traerle frascos de suplementos con ingredientes que no podía recomendar. En 2019 empezó a hacer las versiones que sí dispensaría.</p>
+    <div class="meta">
+      <span>PharmD · Utrecht, 2011</span>
+      <span>Farmacia hospitalaria · 7 años</span>
+      <span>Certificación en compounding</span>
+    </div>
+  </div>
+  <div class="r">
+    <div class="corner">V</div>
+    <div class="portrait">
+      <!-- Abstract portrait: profile silhouette with warm lighting -->
+      <svg viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="35%" r="55%">
+            <stop offset="0%" stop-color="#f0c890" stop-opacity=".8"/>
+            <stop offset="100%" stop-color="#f0c890" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="face" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#d4a574"/>
+            <stop offset="100%" stop-color="#8b5a2a"/>
+          </linearGradient>
+          <linearGradient id="hair" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#2a1810"/>
+            <stop offset="100%" stop-color="#1a0c06"/>
+          </linearGradient>
+          <linearGradient id="coat" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#efe6d7"/>
+            <stop offset="100%" stop-color="#c9b8a0"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="200" cy="180" rx="200" ry="220" fill="url(#glow)"/>
+        <!-- Hair back -->
+        <path d="M120 140 Q110 90 160 70 Q220 52 270 80 Q310 110 300 180 L300 240 Q300 230 290 220 L260 220 L260 140 Q230 120 200 122 Q170 124 150 150 L150 220 L120 220 Q110 200 118 175 Z" fill="url(#hair)"/>
+        <!-- Face -->
+        <path d="M150 150 Q150 230 180 270 Q195 286 220 286 Q250 286 260 260 Q268 240 265 210 L262 175 Q262 130 220 124 Q180 124 162 146 Q150 155 150 150 Z" fill="url(#face)"/>
+        <!-- Neck -->
+        <path d="M195 278 L195 320 L245 320 L245 270 Q230 288 215 288 Q205 288 195 278 Z" fill="url(#face)" opacity=".9"/>
+        <!-- Coat -->
+        <path d="M110 320 Q160 310 200 320 Q240 310 290 320 L310 440 Q320 520 310 520 L90 520 Q80 520 90 440 Z" fill="url(#coat)"/>
+        <!-- Coat lapel -->
+        <path d="M200 320 L180 440 L200 460 L220 440 Z" fill="#d4c5aa" opacity=".5"/>
+        <!-- Cheek light -->
+        <ellipse cx="175" cy="215" rx="14" ry="22" fill="#f0c890" opacity=".35"/>
+        <!-- Hair front wisp -->
+        <path d="M150 145 Q160 120 190 118 Q210 115 220 125 Q200 135 175 140 Z" fill="url(#hair)" opacity=".9"/>
+      </svg>
+    </div>
+    <div class="stamp">
+      Dr. Marthe Janssen<br>
+      <em>PharmD · Fundadora</em><br>
+      Rotterdam · 2026
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE LINE -->
+<div class="sig-line">
+  <div class="sig">— Marthe</div>
+  <div class="who"><em>Todo en este sitio</em><br>fue formulado o aprobado personalmente por la Dra. Janssen</div>
+</div>
+
+<!-- STORY -->
+<article class="story" data-screen-label="02 Historia">
+  <div class="kicker">Origen · En sus palabras</div>
+  <h2>Empecé <em>Vesper</em> porque me cansé de mentir con mi silencio.</h2>
+
+  <p class="first">Durante siete años trabajé tras un mostrador de farmacia en Rotterdam. La gente entraba con frascos de suplementos que había pedido online — caros, bien reseñados, casi siempre equivocados. Óxido de magnesio en dosis bajas para dormir. Gomitas endulzadas con alcoholes de azúcar que causaban los mismos problemas digestivos que supuestamente solucionaban. Vitaminas "prenatales" con ácido fólico en vez de folato, en cantidades demasiado bajas para importar.</p>
+
+  <p>Sonreía. Decía "esto no te va a hacer daño". Los veía irse. Y llegaba a casa hirviendo por dentro.</p>
+
+  <p>La industria de suplementos en 2018 era — y sigue siendo — una pesadilla para un farmacéutico. Las afirmaciones en las etiquetas no se verifican. "Dosis clínica" no significa nada legalmente. Una empresa puede poner 25mg de un ingrediente estudiado a 400mg y llamarlo igual. Lo peor: los <em>buenos</em> ingredientes existen. Solo que no están en los frascos que la gente compra.</p>
+
+  <blockquote>
+    Quería un estante de suplementos que pudiera darle a mi madre, a mi hermana, a un extraño — y estar segura, clínicamente, de que la dosis en la etiqueta era la dosis en la cápsula y la dosis que iba a hacer algo.
+    <cite>— sobre por qué existe Vesper</cite>
+  </blockquote>
+
+  <p>Así que en el invierno de 2019 renté un pequeño espacio de compounding encima de una panadería en Witte de Withstraat, compré una encapsuladora con certificación cGMP, e hice <em>una</em> fórmula — glicinato de magnesio, quelado, 400mg, probado por terceros. Se la vendí a catorce de mis clientes regulares. En un mes pedían más cosas. Glicina. B-complex. Un mejor prenatal.</p>
+
+  <p>Seis años después hay ochenta y dos fórmulas y un equipo de cuatro. Seguimos probando cada lote. Sigo escribiendo cada etiqueta. Y cada persona que nos escribe pidiendo consejo recibe una respuesta real de una farmacéutica — normalmente yo, a veces mi colega Elise que se unió en 2023.</p>
+
+  <p>No es escalable. Ese es el punto.</p>
+</article>
+
+<!-- TIMELINE -->
+<section class="timeline">
+  <div class="timeline-wrap">
+    <h3>La versión larga y <em>sin glamour</em>.</h3>
+    <div class="row">
+      <div class="yr">2011</div>
+      <div><h4>PharmD · Universidad de Utrecht</h4></div>
+      <p>Graduada al tope de su promoción. Tesis sobre diferencias de biodisponibilidad entre formas de magnesio — la investigación que, ocho años después, se convertiría en la Fórmula N° 01.</p>
+    </div>
+    <div class="row">
+      <div class="yr">2012–18</div>
+      <div><h4>Farmacéutica hospitalaria · Erasmus MC</h4></div>
+      <p>Siete años en farmacia de agudos. Dirigió la unidad de compounding IV desde 2015. Vio de primera mano cómo se ve una dosificación basada en evidencia — y por qué los suplementos de consumo casi nunca llegan a ese estándar.</p>
+    </div>
+    <div class="row">
+      <div class="yr">2019</div>
+      <div><h4>Vesper · Fórmula N° 01</h4></div>
+      <p>Alquiló 22 metros cuadrados encima de Bakkerij Van den Berg. Compuso glicinato de magnesio para catorce regulares. El resto del catálogo se construyó queja por queja.</p>
+    </div>
+    <div class="row">
+      <div class="yr">2021</div>
+      <div><h4>Acuerdo de pruebas por lote</h4></div>
+      <p>Cada lote analizado independientemente por Eurofins para identidad, potencia, metales pesados y contaminación microbiana. Resultados publicados en cada página de producto. Siempre. Sin excepciones.</p>
+    </div>
+    <div class="row">
+      <div class="yr">2023</div>
+      <div><h4>Se une la Dra. Elise Bakker</h4></div>
+      <p>Segunda farmacéutica. PharmD Leiden. Especializada en salud femenina. Inició la línea prenatal y reescribió toda nuestra sección de ciclo menstrual.</p>
+    </div>
+    <div class="row">
+      <div class="yr">2026</div>
+      <div><h4>82 fórmulas · 11,400 clientes</h4></div>
+      <p>Seguimos en pequeños lotes. Seguimos en Rotterdam. Seguimos respondiendo como farmacéuticos. Sin intención de cambiar nada de eso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="creds">
+  <div class="creds-grid">
+    <div class="c">
+      <div class="k">Credencial · 01</div>
+      <h5>PharmD · Utrecht · 2011</h5>
+      <p>Programa doctoral de farmacia de seis años. Certificada por la Koninklijke Nederlandse Maatschappij ter bevordering der Pharmacie.</p>
+    </div>
+    <div class="c">
+      <div class="k">Credencial · 02</div>
+      <h5>Certificación en compounding</h5>
+      <p>Farmacéutica certificada en compounding estéril y no estéril. Todas las fórmulas desarrolladas bajo condiciones cGMP en nuestras instalaciones de Rotterdam.</p>
+    </div>
+    <div class="c">
+      <div class="k">Credencial · 03</div>
+      <h5>Sin consejo asesor de la industria</h5>
+      <p>La Dra. Janssen no forma parte de ningún consejo asesor de la industria de suplementos y no acepta pagos ni incentivos por selección de ingredientes. Nunca.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="principles">
+  <div class="principles-wrap">
+    <div class="eyebrow">Tres reglas · No negociables</div>
+    <h3>Las tres reglas que no hemos roto <em>ni una vez</em> en seis años.</h3>
+    <div class="principles-grid">
+      <div class="p">
+        <div class="n">01</div>
+        <h4>Dosis clínica o nada.</h4>
+        <p>Si el estudio se hizo a 400mg, el frasco lleva 400mg. No 200 con una nota al pie sobre "mezcla propietaria".</p>
+      </div>
+      <div class="p">
+        <div class="n">02</div>
+        <h4>La forma que funciona.</h4>
+        <p>Glicinato, no óxido. Metilfolato, no ácido fólico. Aceite de pescado en triglicérido, no éster etílico. Estos detalles son todo el juego.</p>
+      </div>
+      <div class="p">
+        <div class="n">03</div>
+        <h4>Una farmacéutica responde cada email.</h4>
+        <p>Normalmente yo. A veces Elise. Nunca un chatbot, nunca un "asesor de bienestar", nunca un script. Si preguntas, recibes una respuesta de alguien que lee estudios para vivir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LETTER -->
+<section class="letter">
+  <blockquote>"Si no se lo daría a mi <em>madre</em>, no va al estante."</blockquote>
+  <div class="sig">— Marthe</div>
+  <div class="meta">Dr. Marthe Janssen · PharmD · Fundadora</div>
+</section>
+
+<!-- CTA -->
+<section class="cta" data-screen-label="03 CTA">
+  <div class="eyebrow">Empieza por algún lado</div>
+  <h2>Habla con la <em>farmacéutica</em>, o recorre el estante.</h2>
+  <div class="group">
+    <a class="primary" href="Quiz.html">Hacer el quiz de 2 min →</a>
+    <a class="ghost" href="Catalog.html">Ver las 82 fórmulas</a>
+  </div>
+</section>
+
+<footer>
+  <div class="top">
+    <div class="b">Vesper<sup style="font-family:var(--mono);font-size:9px;vertical-align:top;letter-spacing:.2em;opacity:.55;font-style:normal">/MMXXVI</sup></div>
+    <nav>
+      <a href="Catalog.html">Tienda</a>
+      <a href="Quiz.html">Quiz</a>
+      <a href="Journal.html">Diario</a>
+      <a href="../Founder.html">English</a>
+    </nav>
+  </div>
+  <div class="bot">
+    <span>© 2026 Vesper Botanicals · Witte de Withstraat 47, Rotterdam</span>
+    <span>Formulado por la Dra. Marthe Janssen, PharmD</span>
+  </div>
+</footer>
+
+</body>
+</html>
