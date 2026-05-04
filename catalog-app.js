@@ -27,14 +27,14 @@
     formulas:'fórmulas', oneTime:'Única vez', subscribe:'Suscribirse −15%',
     addToCart:'Añadir al carrito →', subAdded:'Suscripción añadida', addedCart:'Añadido al carrito',
     nothing:'Nada aún — elige una fórmula.', remove:'Quitar', subTxt:'Suscripción', onceTxt:'Única vez',
-    suppFacts:'Información nutricional', servingSize:'Porción · según indicado',
+    suppFacts:'Información nutricional', servingPrefix:'Porción ·', asIndicated:'según indicado', servingSize:'Porción · según indicado',
     ingredient:'Ingrediente', amount:'Cantidad', dv:'% VD',
     open:'Abrir →', formulaLbl:'Fórmula', close:'Cerrar', nothingSearch:'Nada coincide — prueba otra palabra.'
   } : {
     formulas:'formulas', oneTime:'One-time', subscribe:'Subscribe −15%',
     addToCart:'Add to cart →', subAdded:'Subscription added', addedCart:'Added to cart',
     nothing:'Nothing here yet — choose a formula.', remove:'Remove', subTxt:'Subscribe', onceTxt:'One-time',
-    suppFacts:'Supplement facts', servingSize:'Serving size · as indicated',
+    suppFacts:'Supplement facts', servingPrefix:'Serving size ·', asIndicated:'as indicated', servingSize:'Serving size · as indicated',
     ingredient:'Ingredient', amount:'Amount', dv:'% DV',
     open:'Open →', formulaLbl:'Formula', close:'Close', nothingSearch:'No formulas match — try a different word.'
   };
@@ -245,7 +245,7 @@
         <div class="benefits">${benefits}</div>
         <div class="facts">
           <div class="t">${T.suppFacts}</div>
-          <div class="serving">${T.servingSize}</div>
+          <div class="serving">${T.servingPrefix} ${p.serving || T.asIndicated}</div>
           <div class="head"><span>${T.ingredient}</span><span>${T.amount}</span><span>${T.dv}</span></div>
           ${facts}
         </div>
