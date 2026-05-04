@@ -1,4 +1,5 @@
 // Spanish translations — merged by catalog-app.js when lang="es"
+// QA-aligned 2026-05-04 against Global Nutraceutics formulations
 window.VESPER_PRODUCTS_ES = {
   "daily-01": {
     "name": "Vesper Daily N° 01",
@@ -87,6 +88,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Magnesio"
+      ],
+      [
+        "Vitamina A (67% as beta-carotene / 33% as palmitate)"
+      ],
+      [
+        "Vitamina C (ascorbic acid)"
+      ],
+      [
+        "Espirulina Algae"
+      ],
+      [
+        "42 Fruit & Vegetable Proprietary Blend Consisting of Blueberry, Arándano rojo, Grape Seed, Strawberry, Raspberry, Pomegranate, Bilberry, Alfalfa, Carrot, Beet, Broccoli, Acai, Chokeberry, Apple, Apple Pectin, Maqui Berry, Grape Skin, Black Cherry, Tomato, Barley, Celery, Chlorella, Black Currant, Artichoke, Mango, Pineapple, Spirulina, Dandelion, Wheat Grass, Green Tea, Milk Thistle, Eleutherococcus senticosus, Ashitaba, Bing Cherry, Elderberry, Goji Berry, Grapefruit, Mangosteen, Spinach, Tart Cherry, Papaya, and Asian Pear."
       ]
     ]
   },
@@ -129,6 +142,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Selenio"
+      ],
+      [
+        "Vitamina A (67% as beta-carotene / 33% palmitate)"
+      ],
+      [
+        "Calcio (carbonate / dicalcium phosphate / citrate / amino acid chelate / hydroxyapatite / gluconate / lactate / orotate / succinate / and alpha ketoglutarate)"
+      ],
+      [
+        "Vitamina C (ascorbic acid)"
+      ],
+      [
+        "Espirulina Algae"
       ]
     ]
   },
@@ -171,6 +196,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Piridoxal B₆"
+      ],
+      [
+        "Vitamina C (as ascorbic acid)"
+      ],
+      [
+        "Vitamina E (as dl-Alpha tocopheryl acetate)"
+      ],
+      [
+        "Niacina (as niacinamide)"
+      ],
+      [
+        "Zinc (as zinc citrate)"
       ]
     ]
   },
@@ -273,6 +310,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "B₁₂"
+      ],
+      [
+        "Vitamina B-1 (thiamine mononitrate)"
+      ],
+      [
+        "Vitamina B-2 (riboflavin)"
+      ],
+      [
+        "Vitamina B-6 (pyridoxine HCl)"
+      ],
+      [
+        "Colina Bitartrate"
       ]
     ]
   },
@@ -306,6 +355,9 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Bioflavonoides"
+      ],
+      [
+        "Calcio (as calcium ascorbate)"
       ]
     ]
   },
@@ -477,6 +529,12 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Vitamina D₃"
+      ],
+      [
+        "Fósforo (dicalcium phosphate)"
+      ],
+      [
+        "Boro (from amino acid chelate)"
       ]
     ]
   },
@@ -876,6 +934,15 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Cordyceps"
+      ],
+      [
+        "Chaga Mushroom 4:1 Extract (fruitng body)"
+      ],
+      [
+        "Maitake Mushroom 4:1 Extract (fruitng body)"
+      ],
+      [
+        "Shitake Mushroom 4:1 Extract (fruitng body)"
       ]
     ]
   },
@@ -996,6 +1063,15 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Pasiflora"
+      ],
+      [
+        "GABA (gamma-Aminobutyric Acid)"
+      ],
+      [
+        "Phellodendron Root Powder"
+      ],
+      [
+        "5-HTP (5-Hydroxytryptophan)"
       ]
     ]
   },
@@ -1227,6 +1303,12 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Vitamina D₃"
+      ],
+      [
+        "Magnesio (as magnesium oxide)"
+      ],
+      [
+        "Selenio (as L-selenomethionine)"
       ]
     ]
   },
@@ -1323,6 +1405,9 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Papaína"
+      ],
+      [
+        "Pancreatin (4X)"
       ]
     ]
   },
@@ -1359,6 +1444,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Jengibre"
+      ],
+      [
+        "Cáscara sagrada Sagrada Bark (10% Extract)"
+      ],
+      [
+        "Sen Leaf (20% Extract)"
+      ],
+      [
+        "Flaxseed Powder"
+      ],
+      [
+        "Aloe vera Gel (Powder / 200:1 Concentrate)"
       ]
     ]
   },
@@ -1419,6 +1516,15 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Jengibre"
+      ],
+      [
+        "Sen Leaf Powder"
+      ],
+      [
+        "Cáscara sagrada Sagrada Bark Powder"
+      ],
+      [
+        "Cayena Pepper Powder (40,000 HU/G)"
       ]
     ]
   },
@@ -1458,6 +1564,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Boswellia"
+      ],
+      [
+        "New Zealand Green Lipped Sea Mussel"
+      ],
+      [
+        "Vitamina A (acetate)"
+      ],
+      [
+        "Alfalfa Powder"
+      ],
+      [
+        "L-Histidine"
       ]
     ]
   },
@@ -1554,6 +1672,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Boro"
+      ],
+      [
+        "L-Lysine HCl"
+      ],
+      [
+        "Potasio (gluconate)"
+      ],
+      [
+        "Vitamina C (ascorbic acid)"
+      ],
+      [
+        "Ipriflavone"
       ]
     ]
   },
@@ -1587,6 +1717,9 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "DHA"
+      ],
+      [
+        "Aceite de pescado (typically providing 400mg of EPA and 300mg of DHA)"
       ]
     ]
   },
@@ -1707,6 +1840,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "CoQ10"
+      ],
+      [
+        "Hoja de olivo (18% extract)"
+      ],
+      [
+        "Vitamina C (ascorbic acid)"
+      ],
+      [
+        "Buchu Leaf (4:1 concentrate)"
+      ],
+      [
+        "Uva Ursi Leaf (4:1 concentrate)"
       ]
     ]
   },
@@ -1800,6 +1945,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Sílice"
+      ],
+      [
+        "Vitamina C (ascorbic acid)"
+      ],
+      [
+        "OptiMSM® (methylsulfonylmethane)"
+      ],
+      [
+        "Hydrolyzed Colágeno Type 1 & 3 (bovine)"
+      ],
+      [
+        "L-Methionine"
       ]
     ]
   },
@@ -1860,6 +2017,15 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Vitamina C"
+      ],
+      [
+        "Fitoceramidas Daily Complex Consisting of: Wheat Germ Oil and Phytoceramides (from Wheat Extract)"
+      ],
+      [
+        "Ácido alfa-lipoico"
+      ],
+      [
+        "Vitamina B-12 (cyanocobalamin)"
       ]
     ]
   },
@@ -1956,6 +2122,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Cromo"
+      ],
+      [
+        "Proprietary Blend Consisting of Kelp Powder, Spirulina Algae Powder, L-Phenylalanine, L-Tyrosine, L-Methionine, Bromelina, Psyllium Husk Powder, Uva Ursi Leaf Powder, Juniper Berry Powder, Buchu Leaf Powder, Cloves Stem Powder, Allspice, Cinnamon Bark Powder, Cranberry Fruit Powder & Grapefruit Fruit Powder."
+      ],
+      [
+        "Colina Bitartrate"
+      ],
+      [
+        "Inositol"
+      ],
+      [
+        "Garcinia Cambogia (50% HCA)"
       ]
     ]
   },
@@ -2022,6 +2200,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Vitamina D₃"
+      ],
+      [
+        "Maca Powder (tuber)"
+      ],
+      [
+        "Horny Goat Weed Extract (Epimedium sagittatum) (aerial plant) (providing 10% icariins)"
+      ],
+      [
+        "Panax ginseng Root (10% extract)"
+      ],
+      [
+        "Cafeína Anhydrous"
       ]
     ]
   },
@@ -2058,6 +2248,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Zinc"
+      ],
+      [
+        "Plant Sterol Complex (40% Beta-sitosterol)"
+      ],
+      [
+        "Proprietary Blend Consisting of: Quercetin Dihydrate, Juniper Berry Powder, Uva Ursi Leaf Powder, Buchu Leaf Powder, L-Glutamic Acid, L-Alanine, L-Glycine, Calcio D-Glucarate, Pumpkin Seed Powder, Burdock Root Powder, Cayenne Pepper Fruit Powder, Goldenseal Root Powder, Gravel Root Powder , Marshmallow Root Powder and Parsley Leaf Powder. (Eupatorium purpureum)"
+      ],
+      [
+        "Red Raspberry (fruit powder)"
+      ],
+      [
+        "Graviola Leaf Powder (Annona muricata)"
       ]
     ]
   },
@@ -2151,6 +2353,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Onagra"
+      ],
+      [
+        "Sage (2.5% extract) (leaf)"
+      ],
+      [
+        "Black Cohosh (2.5% extract) (root)"
+      ],
+      [
+        "Licorice (1% extract) (root)"
+      ],
+      [
+        "Chasteberry (0.5% extract) (fruit)"
       ]
     ]
   },
@@ -2184,6 +2398,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Azúcar"
+      ],
+      [
+        "Calcio"
+      ],
+      [
+        "Choleserol"
+      ],
+      [
+        "Dietary Fiber"
+      ],
+      [
+        "Saturated Fat"
       ]
     ]
   },
@@ -2217,6 +2443,18 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Hierro"
+      ],
+      [
+        "Calcio"
+      ],
+      [
+        "Dietary Fiber"
+      ],
+      [
+        "Saturated Fat"
+      ],
+      [
+        "Trans Fat"
       ]
     ]
   },
@@ -2313,6 +2551,15 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Remolacha"
+      ],
+      [
+        "A-AKG (arginine alpha-ketoglutarate)"
+      ],
+      [
+        "OKG (ornithine alpha-ketoglutarate)"
+      ],
+      [
+        "GKG (glutamine alpha-ketoglutarate)"
       ]
     ]
   },
@@ -2373,6 +2620,15 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Folato"
+      ],
+      [
+        "Vitamina B-6 (as pyridoxine hydrochloride)"
+      ],
+      [
+        "Yodo (as potassium iodide)"
+      ],
+      [
+        "Vitamina B-12 (as cyanocobalamin)"
       ]
     ]
   },
@@ -2547,38 +2803,4 @@ window.VESPER_PRODUCTS_ES = {
       ]
     ]
   }
-};
-window.VESPER_CAT_ES = {
-  "essentials": "Esenciales",
-  "vitamins": "Vitaminas",
-  "minerals": "Minerales",
-  "herbs": "Hierbas",
-  "adaptogens": "Adaptógenos",
-  "sleep": "Sueño",
-  "energy": "Energía",
-  "immune": "Inmune",
-  "digestive": "Digestivo",
-  "joint": "Articulaciones",
-  "heart": "Corazón",
-  "beauty": "Belleza",
-  "weight": "Peso",
-  "mens": "Hombre",
-  "womens": "Mujer",
-  "sport": "Deporte",
-  "gummies": "Gomitas",
-  "kids": "Niños"
-};
-window.VESPER_FORM_ES = {
-  "capsule": "cápsula",
-  "softgel": "cáp. blanda",
-  "tablet": "tableta",
-  "powder": "polvo",
-  "gummy": "gomita",
-  "sublingual": "sublingual",
-  "packet": "sobre"
-};
-window.VESPER_TAG_ES = {
-  "best-seller": "Más vendido",
-  "flagship": "Principal",
-  "new": "Nuevo"
 };
