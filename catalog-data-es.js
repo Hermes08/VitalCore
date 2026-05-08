@@ -2415,7 +2415,7 @@ window.VESPER_PRODUCTS_ES = {
   },
   "vegan-protein": {
     "name": "Proteína Vegana — Chocolate",
-    "blurb": "Arveja, calabaza, girasol — 22 g de proteína vegetal, perfil aminoácido completo, cacao rico.",
+    "blurb": "Arveja, calabaza, girasol — 20 g de proteína vegetal, perfil aminoácido completo, cacao rico.",
     "benefits": [
       [
         "Para",
@@ -2427,7 +2427,7 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Proteína",
-        "22 g"
+        "20 g"
       ],
       [
         "Origen",
@@ -2520,15 +2520,15 @@ window.VESPER_PRODUCTS_ES = {
   },
   "pre-workout": {
     "name": "Nitro Pump",
-    "blurb": "L-citrulina, beta-alanina, cafeína, remolacha — un pre limpio y balanceado sin bajón.",
+    "blurb": "Arginina, beta-alanina, cafeína, remolacha — un pre limpio y balanceado sin bajón.",
     "benefits": [
       [
         "Para",
         "Entreno, pump"
       ],
       [
-        "Mezclar",
-        "1 scoop 30min antes"
+        "Tomar",
+        "3 tabletas 30min antes"
       ],
       [
         "Cafeína",
@@ -2541,7 +2541,7 @@ window.VESPER_PRODUCTS_ES = {
     ],
     "facts": [
       [
-        "L-citrulina"
+        "L-Arginine HCl"
       ],
       [
         "Beta-alanina"
@@ -2553,19 +2553,19 @@ window.VESPER_PRODUCTS_ES = {
         "Remolacha"
       ],
       [
-        "A-AKG (arginine alpha-ketoglutarate)"
+        "A-AKG (arginina alfa-cetoglutarato)"
       ],
       [
-        "OKG (ornithine alpha-ketoglutarate)"
+        "OKG (ornitina alfa-cetoglutarato)"
       ],
       [
-        "GKG (glutamine alpha-ketoglutarate)"
+        "GKG (glutamina alfa-cetoglutarato)"
       ]
     ]
   },
   "ashwa-gummies": {
     "name": "Gomitas Ashwagandha",
-    "blurb": "Una gomita calmante de baya con ashwagandha KSM-66 — el adaptógeno en forma suave.",
+    "blurb": "Raíz de ashwagandha con vitamina D y zinc — soporte diario al estrés e inmunidad en gomita de baya.",
     "benefits": [
       [
         "Para",
@@ -2580,13 +2580,19 @@ window.VESPER_PRODUCTS_ES = {
         "Bayas mixtas"
       ],
       [
-        "Forma",
-        "KSM-66"
+        "Mezcla",
+        "Ashwagandha + Vit D + Zinc"
       ]
     ],
     "facts": [
       [
-        "Ashwagandha (KSM-66)"
+        "Vitamina D (como colecalciferol)"
+      ],
+      [
+        "Zinc (como citrato de zinc)"
+      ],
+      [
+        "Extracto Raíz Ashwagandha 30:1"
       ]
     ]
   },
@@ -2613,22 +2619,25 @@ window.VESPER_PRODUCTS_ES = {
     ],
     "facts": [
       [
-        "Vinagre de manzana"
+        "Vinagre de Manzana en Polvo"
       ],
       [
-        "B₁₂"
+        "Granada (fruto)"
       ],
       [
-        "Folato"
+        "Remolacha (Beta vulgaris)"
       ],
       [
-        "Vitamina B-6 (as pyridoxine hydrochloride)"
+        "Vitamina B-6 (como clorhidrato de piridoxina)"
       ],
       [
-        "Yodo (as potassium iodide)"
+        "Folato (como ácido fólico)"
       ],
       [
-        "Vitamina B-12 (as cyanocobalamin)"
+        "Vitamina B-12 (como cianocobalamina)"
+      ],
+      [
+        "Yodo (como yoduro de potasio)"
       ]
     ]
   },
@@ -2715,7 +2724,7 @@ window.VESPER_PRODUCTS_ES = {
   },
   "kids-melatonin": {
     "name": "Melatonina Niños 1 mg",
-    "blurb": "Una dosis baja apropiada a edad — para soporte ocasional de sueño, con manzanilla.",
+    "blurb": "Una dosis baja apropiada a edad — para soporte suave y ocasional de sueño en niños 4+.",
     "benefits": [
       [
         "Para",
@@ -2737,9 +2746,6 @@ window.VESPER_PRODUCTS_ES = {
     "facts": [
       [
         "Melatonina"
-      ],
-      [
-        "Manzanilla"
       ]
     ]
   },
@@ -2772,7 +2778,7 @@ window.VESPER_PRODUCTS_ES = {
   },
   "kids-lutein": {
     "name": "Gomitas Luteína Niños",
-    "blurb": "Soporte ocular para la edad de pantallas — luteína, zeaxantina, vitamina A, en gomita amigable.",
+    "blurb": "Soporte ocular para la edad de pantallas — luteína y zeaxantina (Lutemax® 2020) en gomita amigable.",
     "benefits": [
       [
         "Para",
@@ -2784,7 +2790,7 @@ window.VESPER_PRODUCTS_ES = {
       ],
       [
         "Con",
-        "Luteína, zeaxantina"
+        "Luteína + Zeaxantina"
       ],
       [
         "Sabor",
@@ -2793,13 +2799,10 @@ window.VESPER_PRODUCTS_ES = {
     ],
     "facts": [
       [
-        "Luteína"
+        "Luteína (Lutemax® 2020)"
       ],
       [
-        "Zeaxantina"
-      ],
-      [
-        "Vitamina A"
+        "Zeaxantina (Lutemax® 2020)"
       ]
     ]
   }
