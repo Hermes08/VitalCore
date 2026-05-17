@@ -1,0 +1,20 @@
+{
+  "_comment": "OPTIONAL: copy this to .claude/settings.local.json to pre-allow the tools the Four Systems SEO skills use. Without this, Claude Code will prompt for permission on each tool. Anything outside this allowlist still prompts. Tighten or loosen as you like.",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash(./seo/coordinator.sh:*)",
+      "Bash(python3 seo/scripts/*)",
+      "Bash(open seo/output/*)",
+      "Bash(git status)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(launchctl list:*)",
+      "WebFetch",
+      "mcp__dfs-mcp__*",
+      "mcp__gsc__*"
+    ]
+  }
+}
