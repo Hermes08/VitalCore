@@ -1,4 +1,4 @@
-/* Vesper unified navbar
+/* PuraVigor unified navbar
    Drop-in: <script src="nav-unified.js" defer></script> (or "../nav-unified.js" from /es/)
    The script:
    - Detects language from <html lang="..."> (en|es)
@@ -97,7 +97,7 @@
   <span class="hide-mob">${L.ann2}</span>
 </div>
 <nav class="v-top" data-screen-label="Nav">
-  <a class="v-brand" href="${P.home}">Vesper<sup>/MMXXVI</sup></a>
+  <a class="v-brand" href="${P.home}">PuraVigor<sup>/MMXXVI</sup></a>
   <div class="v-links">
     <a href="${P.shop}"${active('shop')}>${L.shop}</a>
     <a href="${P.quiz}"${active('quiz')}>${L.quiz}</a>
