@@ -1,0 +1,13 @@
+# robots.txt for Vesper / puravigor.com
+# Vesper Supplements — clinically-dosed supplements
+# Last updated: 2026-05-18
+
+User-agent: *
+Allow: /
+
+# Block legacy + admin paths if any  
+Disallow: /Articles/$
+Disallow: /es/articulos/$
+
+# Sitemap
+Sitemap: https://puravigor.com/sitemap.xml
