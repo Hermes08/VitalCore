@@ -1,5 +1,5 @@
-# robots.txt for Vesper / puravigor.com
-# Vesper Supplements — clinically-dosed supplements
+# robots.txt for PuraVigor / puravigor.com
+# PuraVigor Supplements — clinically-dosed supplements
 # Last updated: 2026-05-18
 
 User-agent: *

@@ -1,4 +1,4 @@
-# Vesper — Deployment Guide
+# PuraVigor — Deployment Guide
 
 SEO-driven supplement storefront. 82 products, bilingual (EN/ES), static HTML.
 
@@ -26,7 +26,7 @@ Deploy **this folder as-is**. It is a static site — no build step, no server r
 | `catalog-data.js`, `catalog-app.js` | Catalog runtime |
 | `vesper-shared.css` | Shared styles |
 
-Nothing else should exist in the deployed output. Legacy files (`Hub.html`, `Shop.html`, `Quiz.html`, `Founder.html`, `Vesper Apothecary.html`, `vesper-3d.js`, `vesper-ui.js`, `nav-partial.html`, `UX.md`, `qa/`, `uploads/`, `ios-frame.jsx`) have been removed — if your deploy shows them, you are deploying from a stale snapshot.
+Nothing else should exist in the deployed output. Legacy files (`Hub.html`, `Shop.html`, `Quiz.html`, `Founder.html`, `PuraVigor Apothecary.html`, `vesper-3d.js`, `vesper-ui.js`, `nav-partial.html`, `UX.md`, `qa/`, `uploads/`, `ios-frame.jsx`) have been removed — if your deploy shows them, you are deploying from a stale snapshot.
 
 ## SEO wiring
 
