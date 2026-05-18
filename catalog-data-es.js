@@ -2,7 +2,7 @@
 // QA-aligned 2026-05-04 against Global Nutraceutics formulations
 window.VESPER_PRODUCTS_ES = {
   "daily-01": {
-    "name": "Vesper Daily N° 01",
+    "name": "PuraVigor Daily N° 01",
     "blurb": "La base de la casa — doce esenciales en dos cápsulas silenciosas, tomadas cada mañana a la misma hora.",
     "benefits": [
       [
