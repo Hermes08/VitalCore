@@ -1,0 +1,4 @@
+# Root → Home (server-side 301, no meta refresh)
+/                /Home.html               301!
+# Catch-all for legacy /index.html
+/index.html      /Home.html               301!
