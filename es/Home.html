@@ -44,7 +44,7 @@
   button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
   img{max-width:100%;display:block}
 
-  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0 0.03  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     opacity:.2;mix-blend-mode:multiply}
 
@@ -345,11 +345,25 @@
   @media(max-width:520px){.tweaks-panel{right:12px;left:12px;bottom:12px;width:auto}}
 </style>
 <script src="../nav-unified.js" defer></script>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="PuraVigor"/>
+<meta property="og:image" content="https://puravigor.com/og.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://puravigor.com/og.jpg"/>
+
+<style id="skip-link-style">
+  .skip-link{position:absolute;top:-40px;left:8px;background:#1a120b;color:#efe6d7;padding:8px 14px;z-index:9999;text-decoration:none;font-family:var(--mono,monospace);font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:top .2s}
+  .skip-link:focus{top:8px;outline:2px solid #b4501e}
+</style>
 </head>
 <body data-page="home">
+<a class="skip-link" href="#main">Ir al contenido</a>
 
 <div class="ann">
-  <span><em>◉</em> Lote N° 031 · 488 botellas disponibles</span>
+  <span><em>◉</em> Lote N° 031 · Lote limitado · edición apothecary disponibles</span>
   <span class="sep">·</span>
   <span class="hide-mob">Envío gratis desde $40</span>
   <span class="sep">·</span>
