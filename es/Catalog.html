@@ -42,6 +42,7 @@
   .hero .lead{font-family:var(--serif);font-size:19px;line-height:1.55;max-width:54ch;margin-top:28px;color:var(--ink-2)}
   .hero .meta-row{display:flex;gap:36px;margin-top:40px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
   .hero .meta-row span strong{color:var(--ink);font-weight:400}
+  .hero dl.meta-row{margin:0;list-style:none}.hero dl.meta-row>div{display:inline-flex;flex-direction:column;gap:4px}.hero dl.meta-row dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}.hero dl.meta-row dd{margin:0;color:var(--ink)}.hero dl.meta-row dd strong{font-weight:400;font-style:italic;font-size:18px;font-family:var(--serif)}
 
   /* Filters — PROMINENT search + dropdowns */
   .controls{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding:18px 36px;display:grid;grid-template-columns:1fr auto auto auto;gap:16px;align-items:center}
@@ -473,12 +474,12 @@
   <div class="eyebrow"><span class="tick"></span><span>EL CATÁLOGO — 82 FÓRMULAS DE ORIGEN ÚNICO</span></div>
   <h1>Cada <em>molécula</em><br/>en su propio estante.</h1>
   <p class="lead">Un catálogo completo de la casa, organizado como debe ser: alfabéticamente, honestamente, cada frasco con los estudios dentro. Explora por necesidad, o elige tu capítulo abajo.</p>
-  <div class="meta-row">
-    <span><strong>82</strong> fórmulas</span>
-    <span><strong>16</strong> categorías</span>
+  <dl class="meta-row" role="list">
+    <div><dt>fórmulas</dt><dd><strong>82</strong></dd></div>
+    <div><dt>categorías</dt><dd><strong>16</strong></dd></div>
     <span>Verificado USP · cada lote</span>
     <span>Formulado en Rotterdam · Enviado desde Miami</span>
-  </div>
+  </dl>
 </header>
 
 <div class="controls">

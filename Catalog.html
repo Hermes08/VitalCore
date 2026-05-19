@@ -42,6 +42,7 @@
   .hero .lead{font-family:var(--serif);font-size:19px;line-height:1.55;max-width:54ch;margin-top:28px;color:var(--ink-2)}
   .hero .meta-row{display:flex;gap:36px;margin-top:40px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
   .hero .meta-row span strong{color:var(--ink);font-weight:400}
+  .hero dl.meta-row{margin:0;list-style:none}.hero dl.meta-row>div{display:inline-flex;flex-direction:column;gap:4px}.hero dl.meta-row dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}.hero dl.meta-row dd{margin:0;color:var(--ink)}.hero dl.meta-row dd strong{font-weight:400;font-style:italic;font-size:18px;font-family:var(--serif)}
 
   /* Filters — PROMINENT search + dropdowns */
   .controls{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding:18px 36px;display:grid;grid-template-columns:1fr auto auto auto;gap:16px;align-items:center}
@@ -470,7 +471,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <nav class="top">
-  <div class="brand"><a href="Home.html">PuraVigor<sup>/01</sup></a></div>
+  <div class="brand"><a href="Home.html">PuraVigor<sup>/MMXXVI</sup></a></div>
   <div class="links">
     <a href="Home.html">Home</a>
     <a href="Catalog.html" class="active">Apothecary</a>
@@ -487,12 +488,12 @@
   <div class="eyebrow"><span class="tick"></span><span>THE APOTHECARY — 82 SINGLE‑ORIGIN FORMULAS</span></div>
   <h1>Every <em>molecule</em><br/>on its own shelf.</h1>
   <p class="lead">A complete house catalogue, organised as it ought to be: alphabetically, honestly, each bottle with the studies folded inside. Browse by need, or choose your chapter below.</p>
-  <div class="meta-row">
-    <span><strong>82</strong> formulas</span>
-    <span><strong>16</strong> categories</span>
+  <dl class="meta-row" role="list">
+    <div><dt>formulas</dt><dd><strong>82</strong></dd></div>
+    <div><dt>categories</dt><dd><strong>16</strong></dd></div>
     <span>USP verified · every batch</span>
     <span>Formulated in Rotterdam · Shipped from Miami</span>
-  </div>
+  </dl>
 </header>
 
 <div class="controls">
