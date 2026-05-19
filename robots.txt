@@ -11,3 +11,6 @@ Disallow: /es/articulos/$
 
 # Sitemap
 Sitemap: https://puravigor.com/sitemap.xml
+
+# Private SEO operations hub (Basic Auth protected)
+Disallow: /_seo-internal/

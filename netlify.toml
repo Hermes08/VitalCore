@@ -1,0 +1,4 @@
+# Edge function: protects /_seo-internal/* with HTTP Basic Auth
+[[edge_functions]]
+  function = "seo-auth"
+  path = "/_seo-internal/*"
