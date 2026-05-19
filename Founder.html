@@ -32,7 +32,7 @@
   body{overflow-x:hidden}
   a{color:inherit}
   ::selection{background:var(--accent);color:var(--bg)}
-  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0 0.03  0 0 0 .3 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     opacity:.2;mix-blend-mode:multiply}
 
@@ -156,8 +156,22 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Dr. Marthe Janssen","jobTitle":"Founder, Head Pharmacist","alumniOf":{"@type":"CollegeOrUniversity","name":"Utrecht University"},"worksFor":{"@type":"Organization","name":"PuraVigor","url":"https://puravigor.com/"},"knowsAbout":["clinical pharmacy","supplement formulation","third-party testing","Ayurvedic adaptogens","clinical dosing"],"description":"Dr. Marthe Janssen is a pharmacist (PharmD, Utrecht 2011) and founder of PuraVigor. After twelve years in clinical pharmacy in Rotterdam, she launched PuraVigor to publish per-ingredient dose math instead of hiding behind proprietary blends.","sameAs":["https://instagram.com/puravigor","https://twitter.com/puravigor"]}
 </script>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="PuraVigor"/>
+<meta property="og:image" content="https://puravigor.com/og.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://puravigor.com/og.jpg"/>
+
+<style id="skip-link-style">
+  .skip-link{position:absolute;top:-40px;left:8px;background:#1a120b;color:#efe6d7;padding:8px 14px;z-index:9999;text-decoration:none;font-family:var(--mono,monospace);font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:top .2s}
+  .skip-link:focus{top:8px;outline:2px solid #b4501e}
+</style>
 </head>
 <body data-page="founder">
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- HERO -->
 <section class="hero" data-screen-label="01 Hero">
