@@ -2,14 +2,9 @@
 .mcp.json
 .claude/settings.local.json
 
-# Generated SEO artifacts (regenerated each run)
-seo/output/
-seo/reports/
-
-# Private SEO strategy data — do NOT publish (Netlify auto-deploys this repo)
-# Reveals keyword bank, content queue, competitor strategy, pricing, wins.
-seo/context/
-seo/state/
+# Entire seo/ namespace is a SEPARATE private git repo (Hermes08/puravigor-seo).
+# Do not commit any of it to this public storefront repo.
+seo/
 
 # macOS
 .DS_Store
