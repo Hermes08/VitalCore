@@ -265,8 +265,8 @@
 <section class="reassure">
   <div class="reassure-grid">
     <div><h4>Recomendaciones honestas.</h4><p>Nuestra farmacéutica te dirá cuando una cafeína o una charla con tu médico es mejor respuesta que un suplemento.</p></div>
-    <div><h4>Ajustado a ti.</h4><p>Tus respuestas moldean el stack — estómagos sensibles reciben formas suaves, quienes odian los polvos reciben gomitas y líquidos, todos reciben dosis clínicas.</p></div>
-    <div><h4>Nada es final.</h4><p>Responde a tu primer pedido y la farmacéutica reajusta el stack. Pasa a diario. Sin costo.</p></div>
+    <div><h4>Ajustado a ti.</h4><p>Tus respuestas moldean la combinación — estómagos sensibles reciben formas suaves, quienes odian los polvos reciben gomitas y líquidos, todos reciben dosis clínicas.</p></div>
+    <div><h4>Nada es final.</h4><p>Responde a tu primer pedido y la farmacéutica reajusta la combinación. Pasa a diario. Sin costo.</p></div>
   </div>
 </section>
 
@@ -323,7 +323,7 @@ const QUESTIONS = [
     opts:[
       {v:'1-2',       t:'1–2',                    s:'Minimalista'},
       {v:'3-5',       t:'3–5',                    s:'Una rutina pequeña'},
-      {v:'6+',        t:'6 o más',                s:'Stack completo bienvenido'},
+      {v:'6+',        t:'6 o más',                s:'Combinación completa bienvenido'},
     ]},
   { id:'form', title:'¿Qué <em>formato</em> prefieres?', hint:'Priorizamos este formato donde sea posible.', cols:3,
     opts:[
@@ -615,12 +615,12 @@ function showResult(){
   const ids = picks.map(p=>p.id);
   $('bundle').innerHTML = `
     <div>
-      <h3>Llévate el <em>stack completo</em>, 15% menos.</h3>
+      <h3>Llévate el <em>combinación completo</em>, 15% menos.</h3>
       <p>Suscríbete y enviamos la rutina completa. Cancela cuando quieras. Llega en 3–5 días hábiles.</p>
     </div>
     <div class="cta">
       <div class="p"><s>$${total}</s> $${bundlePrice}</div>
-      <button class="go" onclick='window.__quizAddBundle(${JSON.stringify(ids)})'>Suscribirme al stack →</button>
+      <button class="go" onclick='window.__quizAddBundle(${JSON.stringify(ids)})'>Suscribirme al paquete →</button>
     </div>
   `;
 
@@ -636,7 +636,7 @@ $('restartBtn').addEventListener('click', ()=>{
   window.scrollTo({top:0, behavior:'smooth'});
 });
 
-if(document.readyState === 'loading'){
+if(document.readyState === 'fase de carga'){
   document.addEventListener('DOMContentLoaded', updateCartPill);
 } else {
   updateCartPill();
