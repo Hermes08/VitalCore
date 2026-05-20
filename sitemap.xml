@@ -106,9 +106,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/ashwagandha-gummy</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/ashwagandha-gummy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/ashwagandha-gomita.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/ashwagandha-gummy"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/ashwagandha-ksm-66</loc>
@@ -121,9 +124,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/ashwagandha-side-effects</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/ashwagandha-side-effects"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/efectos-secundarios-ashwagandha.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/ashwagandha-side-effects"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/b-complex-vitamin</loc>
@@ -235,9 +241,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/choline-supplement</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/choline-supplement"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/colina-suplemento.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/choline-supplement"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/chromium-gtf</loc>
@@ -322,9 +331,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/creatine-hcl-or-monohydrate</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/creatine-hcl-or-monohydrate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/creatina-hcl-o-monohidrato.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/creatine-hcl-or-monohydrate"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/creatine-monohydrate</loc>
@@ -337,9 +349,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/creatine-monohydrate-powder</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/creatine-monohydrate-powder"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/creatina-monohidrato-en-polvo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/creatine-monohydrate-powder"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/daily-multivitamin</loc>
@@ -478,9 +493,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/inositol-supplement</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/inositol-supplement"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/inositol-suplemento.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/inositol-supplement"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/iron-bisglycinate</loc>
@@ -574,15 +592,21 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/magnesium-citrate</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/magnesium-citrate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/citrato-de-magnesio.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/magnesium-citrate"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/magnesium-citrate-vs-glycinate</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/magnesium-citrate-vs-glycinate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/magnesio-citrato-vs-glicinato.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/magnesium-citrate-vs-glycinate"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/magnesium-glycinate</loc>
@@ -595,15 +619,21 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/magnesium-l-threonate</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/magnesium-l-threonate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/magnesio-l-treonato.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/magnesium-l-threonate"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/magnesium-taurate</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/magnesium-taurate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/magnesio-taurato.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/magnesium-taurate"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/melatonin-gummies</loc>
@@ -697,9 +727,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/nitric-oxide-supplement</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/nitric-oxide-supplement"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/oxido-nitrico-suplemento.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/nitric-oxide-supplement"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/olive-leaf-extract</loc>
@@ -739,9 +772,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/potassium-supplement</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/potassium-supplement"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/potasio-suplemento.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/potassium-supplement"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/pre-workout-supplement</loc>
@@ -925,9 +961,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/vitamin-d2</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/vitamin-d2"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/vitamina-d2-vs-d3.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/vitamin-d2"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/vitamin-d3-5000-iu</loc>
@@ -949,9 +988,12 @@
   </url>
   <url>
     <loc>https://puravigor.com/articles/vitamin-d3-supplements</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/vitamin-d3-supplements"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/vitamina-d3-suplementos.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/vitamin-d3-supplements"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/vitamin-e-400-iu</loc>
@@ -1042,6 +1084,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/cranberry-supplement"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/arandano-suplemento.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/cranberry-supplement"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/es/articulos/ashwagandha-gomita.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/ashwagandha-gummy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/ashwagandha-gomita.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/ashwagandha-gummy"/>
   </url>
   <url>
     <loc>https://puravigor.com/es/articulos/ashwagandha-ksm-66.html</loc>
@@ -1179,6 +1230,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/milk-thistle"/>
   </url>
   <url>
+    <loc>https://puravigor.com/es/articulos/citrato-de-magnesio.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/magnesium-citrate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/citrato-de-magnesio.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/magnesium-citrate"/>
+  </url>
+  <url>
     <loc>https://puravigor.com/es/articulos/cla-suplemento.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -1186,6 +1246,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/cla-supplement"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/cla-suplemento.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/cla-supplement"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/es/articulos/colina-suplemento.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/choline-supplement"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/colina-suplemento.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/choline-supplement"/>
   </url>
   <url>
     <loc>https://puravigor.com/es/articulos/complejo-b.html</loc>
@@ -1233,6 +1302,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/cordyceps-supplement"/>
   </url>
   <url>
+    <loc>https://puravigor.com/es/articulos/creatina-hcl-o-monohidrato.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/creatine-hcl-or-monohydrate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/creatina-hcl-o-monohidrato.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/creatine-hcl-or-monohydrate"/>
+  </url>
+  <url>
     <loc>https://puravigor.com/es/articulos/creatina-monohidrato.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -1240,6 +1318,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/creatine-monohydrate"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/creatina-monohidrato.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/creatine-monohydrate"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/es/articulos/creatina-monohidrato-en-polvo.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/creatine-monohydrate-powder"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/creatina-monohidrato-en-polvo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/creatine-monohydrate-powder"/>
   </url>
   <url>
     <loc>https://puravigor.com/es/articulos/cromo-gtf.html</loc>
@@ -1267,6 +1354,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/dim-supplement"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/dim-suplemento.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/dim-supplement"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/es/articulos/efectos-secundarios-ashwagandha.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/ashwagandha-side-effects"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/efectos-secundarios-ashwagandha.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/ashwagandha-side-effects"/>
   </url>
   <url>
     <loc>https://puravigor.com/es/articulos/enzimas-digestivas.html</loc>
@@ -1404,6 +1500,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/iron-bisglycinate"/>
   </url>
   <url>
+    <loc>https://puravigor.com/es/articulos/inositol-suplemento.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/inositol-supplement"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/inositol-suplemento.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/inositol-supplement"/>
+  </url>
+  <url>
     <loc>https://puravigor.com/es/articulos/l-teanina-200-mg.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -1449,6 +1554,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/maca-root-supplement"/>
   </url>
   <url>
+    <loc>https://puravigor.com/es/articulos/magnesio-citrato-vs-glicinato.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/magnesium-citrate-vs-glycinate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/magnesio-citrato-vs-glicinato.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/magnesium-citrate-vs-glycinate"/>
+  </url>
+  <url>
     <loc>https://puravigor.com/es/articulos/magnesio-glicinato.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -1456,6 +1570,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/magnesium-glycinate"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/magnesio-glicinato.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/magnesium-glycinate"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/es/articulos/magnesio-l-treonato.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/magnesium-l-threonate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/magnesio-l-treonato.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/magnesium-l-threonate"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/es/articulos/magnesio-taurato.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/magnesium-taurate"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/magnesio-taurato.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/magnesium-taurate"/>
   </url>
   <url>
     <loc>https://puravigor.com/es/articulos/melatonina-para-ninos.html</loc>
@@ -1557,6 +1689,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/kids-omega-3"/>
   </url>
   <url>
+    <loc>https://puravigor.com/es/articulos/oxido-nitrico-suplemento.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/nitric-oxide-supplement"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/oxido-nitrico-suplemento.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/nitric-oxide-supplement"/>
+  </url>
+  <url>
     <loc>https://puravigor.com/es/articulos/picolinato-de-cromo.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -1564,6 +1705,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/chromium-picolinate"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/picolinato-de-cromo.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/chromium-picolinate"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/es/articulos/potasio-suplemento.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/potassium-supplement"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/potasio-suplemento.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/potassium-supplement"/>
   </url>
   <url>
     <loc>https://puravigor.com/es/articulos/potasio-yodo-suplemento.html</loc>
@@ -1809,6 +1959,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/vitamin-c-1000-mg"/>
   </url>
   <url>
+    <loc>https://puravigor.com/es/articulos/vitamina-d2-vs-d3.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/vitamin-d2"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/vitamina-d2-vs-d3.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/vitamin-d2"/>
+  </url>
+  <url>
     <loc>https://puravigor.com/es/articulos/vitamina-d3-5000-ui.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -1825,6 +1984,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/vitamin-d3-k2-gummies"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/vitamina-d3-k2-gomitas.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/vitamin-d3-k2-gummies"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/es/articulos/vitamina-d3-suplementos.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/vitamin-d3-supplements"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/vitamina-d3-suplementos.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/vitamin-d3-supplements"/>
   </url>
   <url>
     <loc>https://puravigor.com/es/articulos/vitamina-e-400-ui.html</loc>
