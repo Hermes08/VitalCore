@@ -69,6 +69,14 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/acetyl-l-carnitine"/>
   </url>
   <url>
+    <loc>https://puravigor.com/articles/anti-inflammatory-supplements</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/anti-inflammatory-supplements"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/anti-inflammatory-supplements"/>
+  </url>
+  <url>
     <loc>https://puravigor.com/articles/apple-cider-vinegar-benefits</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -141,6 +149,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/berberine-500-mg"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/berberina-500-mg.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/berberine-500-mg"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/articles/berberine-benefits</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/berberine-benefits"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/berberine-benefits"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/biotin-10000-mcg</loc>
@@ -790,6 +806,14 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/saw-palmetto"/>
   </url>
   <url>
+    <loc>https://puravigor.com/articles/sea-moss-benefits</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/sea-moss-benefits"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/sea-moss-benefits"/>
+  </url>
+  <url>
     <loc>https://puravigor.com/articles/selenium-200-mcg</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -925,6 +949,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/vitamin-e-400-iu"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://puravigor.com/es/articulos/vitamina-e-400-ui.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/vitamin-e-400-iu"/>
+  </url>
+  <url>
+    <loc>https://puravigor.com/articles/whey-protein-isolate</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://puravigor.com/articles/whey-protein-isolate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://puravigor.com/articles/whey-protein-isolate"/>
   </url>
   <url>
     <loc>https://puravigor.com/articles/whey-protein-powder</loc>
