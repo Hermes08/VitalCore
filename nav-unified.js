@@ -11,30 +11,41 @@
   const lang = (document.documentElement.lang || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
   const page = (document.body.getAttribute('data-page') || '').toLowerCase();
   const isES = lang === 'es';
-  const base = isES ? '' : ''; // links are relative to current dir
-
-  // Paths — from EN root and from /es/
+  // Absolute paths only — Netlify rewrites /home → /Home.html, /catalog → /Catalog.html, etc.
+  // This guarantees the navbar works from ANY URL depth (including /articles/<slug>
+  // and /es/articulos/<slug>.html), not just from root-level pages. (Bug fix 2026-05-22.)
   const P = isES ? {
-    home:'Home.html', shop:'Catalog.html', quiz:'Quiz.html', journal:'Journal.html', founder:'Founder.html',
-    toEN:'../Home.html', toES:'Home.html'
+    home:'/es/home', shop:'/es/catalog', quiz:'/es/quiz', journal:'/es/journal', founder:'/es/founder',
   } : {
-    home:'Home.html', shop:'Catalog.html', quiz:'Quiz.html', journal:'Journal.html', founder:'Founder.html',
-    toEN:'Home.html', toES:'es/Home.html'
+    home:'/home', shop:'/catalog', quiz:'/quiz', journal:'/journal', founder:'/founder',
   };
   // page-specific ES/EN equivalents for the toggle to land on the same page
   const pageMap = {
-    home:   {en:'Home.html',    es:'Home.html'},
-    shop:   {en:'Catalog.html', es:'Catalog.html'},
-    quiz:   {en:'Quiz.html',    es:'Quiz.html'},
-    journal:{en:'Journal.html', es:'Journal.html'},
-    founder:{en:'Founder.html', es:'Founder.html'},
+    home:   {en:'/home',    es:'/es/home'},
+    shop:   {en:'/catalog', es:'/es/catalog'},
+    quiz:   {en:'/quiz',    es:'/es/quiz'},
+    journal:{en:'/journal', es:'/es/journal'},
+    founder:{en:'/founder', es:'/es/founder'},
   };
-  let toEN = 'Home.html', toES = 'es/Home.html';
+  let toEN = '/home', toES = '/es/home';
   if(pageMap[page]){
-    if(isES){ toEN = '../' + pageMap[page].en; toES = pageMap[page].es; }
-    else    { toES = 'es/' + pageMap[page].es; toEN = pageMap[page].en; }
-  } else {
-    if(isES){ toEN = '../Home.html'; toES = 'Home.html'; }
+    toEN = pageMap[page].en;
+    toES = pageMap[page].es;
+  }
+  // Article-level override: if the page has hreflang alternates, use those so
+  // the EN↔ES toggle lands on the SAME article in the other language.
+  const enAlt = document.querySelector('link[rel="alternate"][hreflang="en"]');
+  const esAlt = document.querySelector('link[rel="alternate"][hreflang="es"]');
+  if(enAlt && esAlt){
+    try {
+      const enUrl = new URL(enAlt.href);
+      const esUrl = new URL(esAlt.href);
+      // Only override if these point to /articles/ or /es/articulos/
+      if(enUrl.pathname.startsWith('/articles/') || esUrl.pathname.startsWith('/es/articulos/')){
+        toEN = enUrl.pathname;
+        toES = esUrl.pathname;
+      }
+    } catch(e){ /* fall back to pageMap defaults */ }
   }
 
   const L = isES ? {
