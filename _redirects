@@ -2,3 +2,7 @@
 /                /Home.html               301!
 # Catch-all for legacy /index.html
 /index.html      /Home.html               301!
+
+# Legal pages — pretty URL serves the .html file (rewrite, 200)
+/legal/fda       /legal/fda.html          200
+/es/legal/fda    /es/legal/fda.html       200
