@@ -6,3 +6,19 @@
 # Legal pages — pretty URL serves the .html file (rewrite, 200)
 /legal/fda       /legal/fda.html          200
 /es/legal/fda    /es/legal/fda.html       200
+
+# Article .html versions → clean URLs (301 — consolidates indexation signals)
+# EN articles canonical = no .html. ES articles canonical = with .html (different convention).
+/articles/:slug.html              /articles/:slug              301!
+
+# Root pages — .html versions redirect to clean URLs (301)
+/Home.html                        /home                        301!
+/Catalog.html                     /catalog                     301!
+/Quiz.html                        /quiz                        301!
+/Journal.html                     /journal                     301!
+/Founder.html                     /founder                     301!
+/es/Home.html                     /es/home                     301!
+/es/Catalog.html                  /es/catalog                  301!
+/es/Quiz.html                     /es/quiz                     301!
+/es/Journal.html                  /es/journal                  301!
+/es/Founder.html                  /es/founder                  301!
