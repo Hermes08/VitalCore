@@ -9,7 +9,8 @@
 
 # Article .html versions → clean URLs (301 — consolidates indexation signals)
 # EN articles canonical = no .html. ES articles canonical = with .html (different convention).
-/articles/:slug.html              /articles/:slug              301!
+# Splat-based pattern: matches /articles/<anything>.html and rewrites to /articles/<anything>
+/articles/*.html                  /articles/:splat             301!
 
 # Root pages — .html versions redirect to clean URLs (301)
 /Home.html                        /home                        301!
