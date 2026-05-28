@@ -119,3 +119,18 @@ footer.f a:hover{color:var(--accent)}footer.f .c{text-align:center}footer.f .r{t
 .mob-cta .n span{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:2px}
 .mob-cta a{background:var(--accent);color:var(--bg);padding:12px 18px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
 @media(max-width:1000px){.mob-cta{display:flex}main.wrap{padding-bottom:74px}}
+
+/* ===== Molecular hero motif (replaces orb/cap3d/vis-orb spheres) ===== */
+.vis-mol{width:min(80%,340px);height:auto;aspect-ratio:1;overflow:visible;display:block}
+.vis-mol .mol-orbit{fill:none;stroke:var(--c3,#6a5644);stroke-width:1;opacity:.30}
+.vis-mol .mol-orbit-dash{stroke-dasharray:3 8;opacity:.45}
+.vis-mol .mol-bonds line,.vis-mol .mol-bonds polygon{fill:none;stroke:var(--c2,#8a5f3e);stroke-width:2;opacity:.55;stroke-linejoin:round}
+.vis-mol .mol-nodes circle{fill:var(--c1,#c9a87a);stroke:var(--c3,#6a5644);stroke-width:1.5}
+.vis-mol .mol-core{fill:var(--c2,#8a5f3e);stroke:var(--c1,#c9a87a);stroke-width:2.5;filter:drop-shadow(0 8px 18px rgba(26,18,11,.28))}
+.vis-mol .mol-core-glow{fill:none;stroke:var(--c1,#c9a87a);stroke-width:1;opacity:.35}
+.vis-mol .mol-electron{fill:var(--accent,#b4501e)}
+.vis-mol .mol-spin-a{transform-origin:120px 120px;animation:molspin 32s linear infinite}
+.vis-mol .mol-spin-b{transform-origin:120px 120px;animation:molspin 48s linear infinite reverse}
+@keyframes molspin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.vis-mol .mol-spin-a,.vis-mol .mol-spin-b{animation:none}}
+@media(max-width:900px){.vis-mol{width:min(64%,260px)}}
