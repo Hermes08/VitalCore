@@ -55,6 +55,19 @@
   .controls .tabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
   .controls .count{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-left:auto}
 
+  /* Editorial intro — server-rendered prose for crawlers + readers */
+  .editorial{padding:56px 36px 48px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--bg) 0%,#f0e6d4 100%)}
+  .editorial .wrap{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px 72px}
+  .editorial .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);grid-column:1/-1;display:flex;align-items:center;gap:14px;margin-bottom:-10px}
+  .editorial .eyebrow::before{content:"";width:32px;height:1px;background:var(--muted)}
+  .editorial h2{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(26px,3.2vw,38px);line-height:1.14;letter-spacing:-.015em;color:var(--ink);margin:0}
+  .editorial h2 em{color:var(--accent);font-style:normal;font-variant:small-caps;letter-spacing:.02em}
+  .editorial p{font-family:var(--serif);font-size:17px;line-height:1.62;color:var(--ink-2);margin:0 0 16px}
+  .editorial p:last-child{margin-bottom:0}
+  .editorial strong{font-weight:500;color:var(--ink)}
+  .editorial .col h3{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+  @media(max-width:760px){.editorial{padding:40px 22px 36px}.editorial .wrap{grid-template-columns:1fr;gap:32px}}
+
   /* Feature row — top 3 articles */
   .feature{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--line)}
   .feat{padding:36px 32px 40px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px;min-height:400px;background:var(--card);transition:background .3s;position:relative;overflow:hidden}
@@ -137,6 +150,22 @@
   </div>
   <span class="count" id="count">82 guías</span>
 </div>
+
+<section class="editorial" aria-label="Sobre el journal">
+  <div class="wrap">
+    <div class="eyebrow">Nota editorial · cómo se escribe este journal</div>
+    <div class="col">
+      <h2>Ochenta y dos guías, <em>una</em> farmacéutica, cero dólares de afiliados.</h2>
+      <p>Cada entrada del PuraVigor Journal es una fórmula del apothecary, redactada por nuestra farmacéutica de planta después de leerse todos los meta-análisis publicados sobre la molécula en los últimos quince años. El formato es fijo: <strong>qué es, qué dice la evidencia en realidad, qué dosis usaron los estudios, cuándo no tomarlo y con qué se combina.</strong> Nada de listas "cinco razones por las que". Nada de "clínicamente comprobado" sin cita. Nada de enlaces de afiliado con nadie — incluidos nosotros.</p>
+      <p>Donde la evidencia es fuerte (magnesio para dormir, creatina para músculo, vitamina D para deficiencia), lo decimos. Donde está mezclada (colágeno para el pelo, ashwagandha para testosterona, musgo marino para cualquier cosa), también lo decimos. El sentido de un journal honesto no es vender el siguiente frasco — es ser la página que todavía puedes mandarle a tu hermana.</p>
+    </div>
+    <div class="col">
+      <h3>Qué vas a encontrar adentro</h3>
+      <p>Filtra por <strong>necesidad</strong> — sueño, energía, mujer, hombre, niños — con los chips de arriba, o busca por nombre de la molécula. Cada guía promedia <strong>3,400 palabras</strong> y cita entre dos y doce estudios revisados por pares (linkeamos DOI, no resúmenes). Las notas de noticias cubren los meta-análisis de la semana en español plano, con el tamaño de efecto real, no la versión de la nota de prensa.</p>
+      <p>Se actualiza trimestralmente conforme aparece nueva evidencia. Si un estudio cambia nuestra recomendación, la guía recibe una nota de revisión fechada al inicio — no una edición silenciosa. Todo el archivo es público, gratis, y seguirá así. El catálogo está <a href="Catalog.html">en el apothecary</a>; la nota de la fundadora sobre por qué lo manejamos así está <a href="Founder.html">aquí</a>.</p>
+    </div>
+  </div>
+</section>
 
 <div class="feature" id="featureRow"></div>
 

@@ -90,6 +90,19 @@
     .cats button{scroll-snap-align:start}
   }
 
+  /* Editorial intro — server-rendered prose for crawlers + readers */
+  .editorial{padding:64px 36px 56px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--bg) 0%,#f0e6d4 100%)}
+  .editorial .wrap{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px 80px}
+  .editorial .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);grid-column:1/-1;display:flex;align-items:center;gap:14px;margin-bottom:-12px}
+  .editorial .eyebrow::before{content:"";width:32px;height:1px;background:var(--muted)}
+  .editorial h2{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(28px,3.4vw,42px);line-height:1.12;letter-spacing:-.015em;color:var(--ink);margin:0}
+  .editorial h2 em{color:var(--accent);font-style:normal;font-variant:small-caps;letter-spacing:.02em}
+  .editorial p{font-family:var(--serif);font-size:17px;line-height:1.62;color:var(--ink-2);margin:0 0 18px}
+  .editorial p:last-child{margin-bottom:0}
+  .editorial strong{font-weight:500;color:var(--ink)}
+  .editorial .col h3{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+  @media(max-width:760px){.editorial{padding:48px 22px 40px}.editorial .wrap{grid-template-columns:1fr;gap:36px}}
+
   /* Product grid */
   .section-label{display:flex;align-items:center;gap:16px;font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin:60px 36px 24px}
   .section-label .n{color:var(--accent)}
@@ -519,6 +532,22 @@
 </div>
 
 <div class="cats" id="cats"></div>
+
+<section class="editorial" aria-label="Sobre la apothecary">
+  <div class="wrap">
+    <div class="eyebrow">Notas de la casa · cómo leer este catálogo</div>
+    <div class="col">
+      <h2>Una <em>molécula</em>, un frasco, un trabajo.</h2>
+      <p>Cada fórmula del apothecary PuraVigor es una <strong>mezcla de activos de origen único</strong> — bisglicinato de magnesio como bisglicinato de magnesio, no como el tercer ingrediente de una "fórmula para dormir". No creemos en las mezclas propietarias. No creemos en los "complejos" que esconden los miligramos del activo detrás de los miligramos de harina de arroz.</p>
+      <p>Cada gramo va en la etiqueta, cada etiqueta tiene ensayo de tercero, y cada ensayo (lote por lote) se publica en <a href="Journal.html">el Journal</a>. El catálogo que estás viendo es la casa entera — 82 fórmulas en 16 categorías, organizadas como las organizaría un apothecary de verdad: alfabéticamente, por lo que hace la molécula, no por lo que el departamento de marketing quiere que haga.</p>
+    </div>
+    <div class="col">
+      <h3>Cómo comprar, honestamente</h3>
+      <p>Si conoces la molécula (magnesio, ashwagandha, creatina, prenatal), usa el buscador de arriba — acepta nombre comercial, nombre genérico y el coloquialismo que usó tu enfermera. Si conoces la <strong>necesidad</strong> (sueño, energía, mujer, hombre, niños), usa los chips de categoría. Si no conoces ninguno, haz <a href="Quiz.html">el quiz de 90 segundos</a> — te devuelve tres fórmulas, no treinta.</p>
+      <p>Los precios van de <strong>$18 a $54</strong>. Todos los frascos salen de Miami en 2–3 días hábiles, envío gratis arriba de $48. La suscripción ahorra 15% sin compromiso mínimo — cancelas desde el panel, sin gimnasia por email. Formulado en Róterdam por una farmacéutica clínica que dirigía la formulación magistral hospitalaria; <a href="Founder.html">la nota de la fundadora explica por qué</a>.</p>
+    </div>
+  </div>
+</section>
 
 <main id="catalog"></main>
 
