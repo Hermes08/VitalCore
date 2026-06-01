@@ -23,3 +23,10 @@
 /es/Quiz.html                     /es/quiz                     301!
 /es/Journal.html                  /es/journal                  301!
 /es/Founder.html                  /es/founder                  301!
+
+# Legacy product-detail URLs (Vesper era) — never existed in PuraVigor.
+# GSC discovered 91 of these (May 2026 crawl); send them to the catalog so
+# link equity consolidates instead of 404'ing.
+# Catalog uses an in-page modal — there are no individual /p/<slug>.html files.
+/p/*                              /catalog                     301!
+/es/p/*                           /es/catalog                  301!
