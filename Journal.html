@@ -55,6 +55,19 @@
   .controls .tabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
   .controls .count{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-left:auto}
 
+  /* Editorial intro — server-rendered prose for crawlers + readers */
+  .editorial{padding:56px 36px 48px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--bg) 0%,#f0e6d4 100%)}
+  .editorial .wrap{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px 72px}
+  .editorial .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);grid-column:1/-1;display:flex;align-items:center;gap:14px;margin-bottom:-10px}
+  .editorial .eyebrow::before{content:"";width:32px;height:1px;background:var(--muted)}
+  .editorial h2{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(26px,3.2vw,38px);line-height:1.14;letter-spacing:-.015em;color:var(--ink);margin:0}
+  .editorial h2 em{color:var(--accent);font-style:normal;font-variant:small-caps;letter-spacing:.02em}
+  .editorial p{font-family:var(--serif);font-size:17px;line-height:1.62;color:var(--ink-2);margin:0 0 16px}
+  .editorial p:last-child{margin-bottom:0}
+  .editorial strong{font-weight:500;color:var(--ink)}
+  .editorial .col h3{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+  @media(max-width:760px){.editorial{padding:40px 22px 36px}.editorial .wrap{grid-template-columns:1fr;gap:32px}}
+
   /* Feature row — top 3 articles */
   .feature{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--line)}
   .feat{padding:36px 32px 40px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px;min-height:400px;background:var(--card);transition:background .3s;position:relative;overflow:hidden}
@@ -160,6 +173,22 @@
   </div>
   <span class="count" id="count">82 guides</span>
 </div>
+
+<section class="editorial" aria-label="About the journal">
+  <div class="wrap">
+    <div class="eyebrow">Editor's note · how this journal is written</div>
+    <div class="col">
+      <h2>Eighty-two guides, <em>one</em> pharmacist, zero affiliate dollars.</h2>
+      <p>Each entry in the PuraVigor Journal is one formula from the apothecary, written up by our in-house pharmacist after she has read every meta-analysis published on the molecule in the last fifteen years. The format is fixed: <strong>what it is, what the evidence actually shows, what dose the studies used, when not to take it, and what it pairs with.</strong> No five-reasons-why listicles. No "clinically proven" without a citation. No affiliate links to anyone — including ourselves.</p>
+      <p>Where the evidence is strong (magnesium for sleep, creatine for muscle, vitamin D for deficiency), we say so. Where it is mixed (collagen for hair, ashwagandha for testosterone, sea moss for anything), we say that too. The point of an honest journal is not to sell the next bottle — it is to be the page you can still send your sister.</p>
+    </div>
+    <div class="col">
+      <h3>What you'll find inside</h3>
+      <p>Filter by <strong>need</strong> — sleep, energy, women's, men's, kids — using the chips above, or search by molecule name. Each guide averages <strong>3,400 words</strong> and cites between two and twelve peer-reviewed studies (we link DOIs, not summaries). News articles cover the same week's meta-analyses, written in plain English with the actual effect size, not the press-release version.</p>
+      <p>Updated quarterly as new evidence lands. If a study changes our recommendation, the guide gets a dated revision note at the top — not a silent edit. The whole archive is searchable, free, and will stay that way. The catalogue is over <a href="Catalog.html">at the apothecary</a>; the founder's note about why we run it this way is <a href="Founder.html">here</a>.</p>
+    </div>
+  </div>
+</section>
 
 <div class="feature" id="featureRow"></div>
 
